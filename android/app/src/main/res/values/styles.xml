@@ -5,5 +5,17 @@
         <!-- Customize your theme here. -->
         <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
     </style>
+    <!-- 
+        Below theme will be used as the native splash screen shown immediately when app is launched, 
+        before any react native stuff
+    -->
+    <style name="Custom.App.SplashScreen" parent="AppTheme">
+    <item name="android:windowBackground">@drawable/splashscreen</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowActionBar">false</item>
+    <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+    <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+    <item name="android:windowContentOverlay">@null</item>
+  </style>
 
 </resources>
