@@ -14,7 +14,7 @@ module.exports = {
         gray4:"#BDBDBD",
       },
       fontFamily: {
-        muli: ['muli', 'sans-serif'],
+        muli: ['Muli', 'sans-serif'],
       },
       fontSize: {
         title: '28',
