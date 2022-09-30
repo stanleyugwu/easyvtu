@@ -1,5 +1,8 @@
 
-module.exports = {
+/**
+ * @type {import("twrnc").TwConfig}
+ */
+const config = {
   theme: {
     extend: {
       colors: {
@@ -22,8 +25,16 @@ module.exports = {
         paragraph: '18',
         caption:'16'
       },
+      screens:{
+        sm: '380px',
+      md: '420px',
+      lg: '680px',
+      }
     },
   },
   plugins: [
+
   ],
 };
+
+module.exports = config;
