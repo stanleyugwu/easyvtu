@@ -29,7 +29,13 @@ const Text = ({
         tw.style(
           'font-muli',
           `text-${type} text-${color}`,
-          type === 'title' && 'leading-[35px]',
+          `leading-[${
+            (type === 'title' || type === 'subTitle')
+              ? '35px'
+              : type === 'paragraph'
+              ? '26.53px'
+              : '23.59px'
+          }]`,
         ),
         style,
       ]}
