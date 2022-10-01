@@ -26,6 +26,7 @@ const SplashScene = ({image, body, title}: SplashSceneProps) => {
         animation={'pulse'}
         easing="ease-out"
         iterationCount="infinite"
+        duration={1500}
         useNativeDriver
         delay={1000}
         source={image}

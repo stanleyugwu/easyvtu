@@ -3,7 +3,7 @@
   <item android:drawable="@drawable/splashscreen_bg"/>
   <item
         android:gravity="center"
-        android:width="170dp"
-        android:height="120dp"
+        android:width="160dp"
+        android:height="110dp"
         android:drawable="@drawable/splashscreen_logo"/>
 </layer-list>

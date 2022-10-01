@@ -74,23 +74,23 @@ const SplashScreen = () => {
 
   return (
     <SafeAreaView>
-      <ScrollView>
-        <View style={tw`flex-row justify-between items-center p-4`}>
-          <StepperDots activeIndex={activeSceneIndex} />
-          {activeSceneIndex != 3 ? (
-            <Text
-              color="primary"
-              onPress={() => {
-                svref.current?.scrollToEnd({animated: true});
-                setActiveSceneIndex(3);
-              }}>
-              SKIP
-            </Text>
-          ) : (
-            <Text />
-          )}
-        </View>
-        <Animatable.View animation={'slideInUp'}>
+      <View style={tw`flex-row justify-between items-center p-4`}>
+        <StepperDots activeIndex={activeSceneIndex} />
+        {activeSceneIndex != 3 ? (
+          <Text
+            color="primary"
+            onPress={() => {
+              svref.current?.scrollToEnd({animated: true});
+              setActiveSceneIndex(3);
+            }}>
+            SKIP
+          </Text>
+        ) : (
+          <Text />
+        )}
+      </View>
+      <ScrollView contentContainerStyle={tw`h-full justify-around`}>
+        <Animatable.View animation={'fadeInUp'} style={tw`justify-between`}>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -114,13 +114,12 @@ const SplashScreen = () => {
               image={scene3Img}
             />
           </ScrollView>
-
-          <Button
-            label={activeSceneIndex < 3 ? 'Next' : 'Get started'}
-            onPress={handleCtaBtnPress}
-            style={tw`mt-8 mx-4`}
-          />
         </Animatable.View>
+        <Button
+          label={activeSceneIndex < 3 ? 'Next' : 'Get started'}
+          onPress={handleCtaBtnPress}
+          style={tw`mx-4 mb-8`}
+        />
       </ScrollView>
     </SafeAreaView>
   );
