@@ -1,7 +1,7 @@
 //import libraries
 import React from 'react';
 import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
-import Text from './Text';
+import Text, { TextProps } from './Text';
 import tw from '../lib/tailwind';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -17,6 +17,10 @@ export interface ButtonProps extends TouchableOpacityProps {
    * Custom array of colors to use for button gradient
    */
   gradient?: (string | number)[];
+  /**
+   * Button label text color
+   */
+  labelColor?: TextProps['color'];
 }
 
 // Button Component
@@ -26,6 +30,7 @@ const Button = ({
   children,
   style,
   gradient,
+  labelColor = "white",
   ...otherProps
 }: ButtonProps) => {
   const primaryGradient = [
@@ -51,7 +56,7 @@ const Button = ({
             ? primaryGradient
             : secondaryGradient
         }>
-        <Text color="white" style={tw`text-center`}>
+        <Text color={labelColor} style={tw`text-center`}>
           {label}
         </Text>
       </LinearGradient>
