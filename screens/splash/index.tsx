@@ -13,13 +13,14 @@ import tw from '../../lib/tailwind';
 import Text from '../../components/Text';
 import Button from '../../components/Button';
 import * as Animatable from 'react-native-animatable';
+import { StackScreen } from '../../navigation/screenParams';
 
 import scene1Img from './images/scene1.png';
 import scene2Img from './images/scene2.png';
 import scene3Img from './images/scene3.png';
 
 type SceneIndex = 1 | 2 | 3;
-const SplashScreen = () => {
+const SplashScreen = ({navigation}:StackScreen<"Splash">) => {
   const svref = useRef<ScrollView>(null);
   const {width: screenWidth} = useWindowDimensions();
   const [activeSceneIndex, setActiveSceneIndex] = useState<SceneIndex>(1);
@@ -68,12 +69,12 @@ const SplashScreen = () => {
       setActiveSceneIndex((activeSceneIndex + 1) as SceneIndex);
     } else {
       // handle get started
-      console.log('READY');
+      navigation.navigate("Landing")
     }
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={tw`flex-1`}>
       <View style={tw`flex-row justify-between items-center p-4`}>
         <StepperDots activeIndex={activeSceneIndex} />
         {activeSceneIndex != 3 ? (
