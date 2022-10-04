@@ -14,17 +14,25 @@ const Landing = ({navigation}: StackScreen<'Landing'>) => {
       backgroundColor="primary"
       contentContainerStyle={tw`h-full justify-center`}>
       <Animatable.View animation={'fadeInUp'} iterationCount={1}>
-        <Text type="subTitle" style={tw`text-gray5`}>
+        <Text type="subTitle" color="gray5">
           Welcome to Easy-Vtu
         </Text>
       </Animatable.View>
-      <Animatable.View animation={'fadeInUp'} iterationCount={1} delay={200}>
-        <Text type="caption" style={tw`text-gray5`}>
+      <Animatable.View
+        animation={'fadeInUp'}
+        iterationCount={1}
+        duration={800}
+        delay={200}>
+        <Text type="caption" color="gray4">
           Login or create an account to get started. You can also enjoy easy
           top-ups without creating an account.{' '}
         </Text>
       </Animatable.View>
-      <Animatable.View animation={'fadeInUp'} iterationCount={1} delay={400}>
+      <Animatable.View
+        animation={'fadeInUp'}
+        duration={800}
+        iterationCount={1}
+        delay={300}>
         <Button
           label="Login"
           gradientType="secondary"
@@ -32,15 +40,23 @@ const Landing = ({navigation}: StackScreen<'Landing'>) => {
           onPress={() => navigation.navigate('SignIn')}
         />
       </Animatable.View>
-      <Animatable.View animation={'fadeInUp'} iterationCount={1} delay={600}>
+      <Animatable.View
+        animation={'fadeInUp'}
+        duration={800}
+        iterationCount={1}
+        delay={400}>
         <Button
           label="Create account"
           gradientType="secondary"
-          style={tw`my-6`}
+          style={tw`my-4 md:my-5`}
           onPress={() => navigation.navigate('SignUp')}
         />
       </Animatable.View>
-      <Animatable.View animation={'fadeInUp'} iterationCount={1} delay={800}>
+      <Animatable.View
+        animation={'fadeInUp'}
+        duration={800}
+        iterationCount={1}
+        delay={500}>
         <Button
           label="Continue without login"
           gradient={[tw.color('white')!, tw.color('white')!]}
