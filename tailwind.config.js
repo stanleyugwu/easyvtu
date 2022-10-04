@@ -1,4 +1,3 @@
-
 const TwColors = {
   primary: '#0F035B',
   secondary: '#F2994A',
@@ -11,11 +10,22 @@ const TwColors = {
   gray4:"#BDBDBD",
 };
 
+/**
+ * We separate font sizes for different screen resoutions
+ * sizes prefixed with `b` will be used for larger screen
+ */
 const TwFontSize = {
-  title: '28',
+  btitle: '28',
+  title: '26',
+
+  bsubTitle: '24',
   subTitle: '24',
-  paragraph: '18',
-  caption:'16'
+
+  bparagraph: '18',
+  paragraph: '16',
+
+  bcaption:'16',
+  caption:'14'
 }
 
 const config = {
