@@ -72,7 +72,7 @@ const SnackBar = ({
 
   return (
     <Animatable.View
-      style={tw`absolute z-50 bottom-0 bg-dark right-0 left-0 p-4`}
+      style={tw`absolute z-40 bottom-0 bg-dark right-0 left-0 p-4`}
       animation="slideInUp"
       duration={300}
       ref={animatableRef}
