@@ -11,7 +11,7 @@ type useAuthReturn = {
  * Checks logged in user by looking for stored login creds.
  * Exports services for signing in and out
  */
-const useAuth = (): useAuthReturn => {
+const useCheckAuth = (): useAuthReturn => {
   const [checkingAuthCreds, setCheckingAuthCred] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -35,4 +35,4 @@ const useAuth = (): useAuthReturn => {
   };
 };
 
-export default useAuth;
+export default useCheckAuth;
