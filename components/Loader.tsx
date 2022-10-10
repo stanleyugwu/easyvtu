@@ -5,7 +5,7 @@ import AnimatedLottieView, {AnimatedLottieViewProps} from 'lottie-react-native';
 import loader from '../assets/json/loader.json';
 import * as Animatable from 'react-native-animatable';
 
-interface LoaderProps extends Omit<AnimatedLottieViewProps, "source"> {
+interface LoaderProps extends Omit<AnimatedLottieViewProps, 'source'> {
   /**
    * Whether loader is visible
    */
@@ -27,8 +27,8 @@ const Loader = ({visible = true, ...otherProps}: LoaderProps) => {
       <AnimatedLottieView
         autoPlay
         renderMode="AUTOMATIC"
-        style={tw`self-center w-[300px] md:w-[350px]`}
-        speed={1.7}
+        style={tw`self-center w-[150px] md:w-[200px]`}
+        speed={3}
         {...otherProps}
         source={loader}
       />
