@@ -39,7 +39,7 @@ const SafeAreaScrollView = ({
           resizeMethod="resize"
         />
       ) : null}
-      <ScrollView style={tw`p-4`} {...otherProps}>
+      <ScrollView contentContainerStyle={tw`p-4`} {...otherProps}>
         {children}
       </ScrollView>
     </SafeAreaView>
