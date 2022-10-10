@@ -1,5 +1,5 @@
 //import libraries
-import React, {useState} from 'react';
+import React from 'react';
 import {TextInput, TextInputProps, View} from 'react-native';
 import Text, {TextProps} from './Text';
 import tw from '../lib/tailwind';
@@ -49,10 +49,17 @@ const InputField = ({
   const _TextInput = (
     <TextInput
       placeholder={placeholder}
-      style={tw`bg-gray5 border flex-1 border-gray4 rounded-[3px] p-3.5 md:p-4 lg:p-5 text-paragraph md:text-bparagraph text-black`}
+      style={tw.style(
+        `bg-gray5 flex-1 rounded-[3px] p-3.5 md:p-4 lg:p-5 text-paragraph md:text-bparagraph text-black`,
+        leftElement
+          ? 'border-l border-gray4'
+          : rightElement
+          ? 'border-r border-gray4'
+          : null,
+      )}
       placeholderTextColor={tw.color('gray')}
       value={value}
-      selectionColor={tw.color("primary")}
+      selectionColor={tw.color('primary')}
       {...otherProps}
     />
   );
@@ -62,7 +69,8 @@ const InputField = ({
       <Text color={labelColor} type="paragraph" style={tw`mb-2`}>
         {label}
       </Text>
-      <View style={tw`flex-row w-full bg-gray5 items-center rounded-[3px]`}>
+      <View
+        style={tw`flex-row w-full bg-gray5 border border-gray4 items-center rounded-[3px]`}>
         {leftElement}
         {_TextInput}
         {rightElement}
