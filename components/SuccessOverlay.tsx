@@ -63,7 +63,7 @@ const SuccessOverlay = ({
   if (hidden) return null;
   return (
     <Animatable.View
-      style={tw`absolute z-50 inset-0 justify-center items-center bg-dark bg-opacity-80`}
+      style={tw`absolute z-50 p-4 inset-0 justify-center items-center bg-dark bg-opacity-80`}
       animation="bounceIn"
       duration={1500}
       // @ts-ignore
@@ -74,6 +74,7 @@ const SuccessOverlay = ({
         renderMode="AUTOMATIC"
         style={tw`self-center w-[200px] md:w-[250px]`}
         source={success}
+        loop={false}
       />
       <Text
         type={successText.length > 35 ? 'paragraph' : 'subTitle'}
