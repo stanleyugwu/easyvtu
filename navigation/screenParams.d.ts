@@ -8,6 +8,7 @@ export type StackParamList = {
   Landing: undefined;
   SignIn: undefined;
   SignUp:undefined;
+  ForgotPassword:undefined;
 };
 
 /**

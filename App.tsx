@@ -10,7 +10,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Text from './components/Text';
 import AuthContext from './contexts/auth';
 
-import type { StackParamList } from './navigation/screenParams';
+import type {StackParamList} from './navigation/screenParams';
 
 import SplashScreen from './screens/splash';
 import Landing from './screens/landing';
@@ -18,13 +18,18 @@ import SignIn from './screens/signIn';
 import useAuth from './hooks/useAuth';
 import useAppStore from './store';
 import SignUp from './screens/signup';
+import ForgotPassword from './screens/forgot_password';
 
 const Home = () => {
-  const auth = useAuth()
+  const auth = useAuth();
   const profile = useAppStore(state => state.profile);
-  
-  return <Text onPress={() => auth.signOut()}>HOME SWEET HOME {profile?.lastname}</Text>;
-}
+
+  return (
+    <Text onPress={() => auth.signOut()}>
+      HOME SWEET HOME {profile?.lastname}
+    </Text>
+  );
+};
 
 /**
  * Create Stack navigator
@@ -48,12 +53,10 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      {
-      /* 
-       * We pass signout and signin services via context so they can be called 
+      {/*
+       * We pass signout and signin services via context so they can be called
        * from any screen without prop drilling them
-       */
-      }
+       */}
       <AuthContext.Provider value={{signIn, signOut}}>
         <SafeAreaProvider>
           {!isLoggedIn ? (
@@ -61,8 +64,12 @@ const App = () => {
               <Stack.Group screenOptions={{headerShown: false}}>
                 <Stack.Screen name="Splash" component={SplashScreen} />
                 <Stack.Screen name="Landing" component={Landing} />
-                <Stack.Screen name="SignIn" component={SignIn} />       
-                <Stack.Screen name="SignUp" component={SignUp} />       
+                <Stack.Screen name="SignIn" component={SignIn} />
+                <Stack.Screen name="SignUp" component={SignUp} />
+                <Stack.Screen
+                  name="ForgotPassword"
+                  component={ForgotPassword}
+                />
               </Stack.Group>
             </Stack.Navigator>
           ) : (
