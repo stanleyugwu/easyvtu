@@ -2,7 +2,6 @@ import React from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import tw from './lib/tailwind';
 import {useDeviceContext} from 'twrnc';
-import SplashScreen from './screens/splash';
 import useCheckAuth from './hooks/useCheckAuth';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -11,12 +10,25 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Text from './components/Text';
 import AuthContext from './contexts/auth';
 
-const Home = () => <Text>HOME SWEET HOME</Text>;
+import type { StackParamList } from './navigation/screenParams';
+
+import SplashScreen from './screens/splash';
+import Landing from './screens/landing';
+import SignIn from './screens/signIn';
+import useAuth from './hooks/useAuth';
+import useAppStore from './store';
+
+const Home = () => {
+  const auth = useAuth()
+  const profile = useAppStore(state => state.profile);
+  
+  return <Text onPress={() => auth.signOut()}>HOME SWEET HOME {profile?.lastname}</Text>;
+}
 
 /**
  * Create Stack navigator
  */
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<StackParamList>();
 
 /**
  * Create BottomTab navigator
@@ -47,6 +59,8 @@ const App = () => {
             <Stack.Navigator>
               <Stack.Group screenOptions={{headerShown: false}}>
                 <Stack.Screen name="Splash" component={SplashScreen} />
+                <Stack.Screen name="Landing" component={Landing} />
+                <Stack.Screen name="SignIn" component={SignIn} />
               </Stack.Group>
             </Stack.Navigator>
           ) : (
