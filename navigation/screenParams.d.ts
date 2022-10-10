@@ -7,8 +7,10 @@ export type StackParamList = {
   Splash: undefined;
   Landing: undefined;
   SignIn: undefined;
-  SignUp:undefined;
-  ForgotPassword:undefined;
+  SignUp: undefined;
+  ForgotPassword: undefined;
+  GuestHome: undefined;
+  BottomTabRegistrar:undefined;
 };
 
 /**
