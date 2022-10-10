@@ -22,6 +22,7 @@ import {signIn} from '../../api/services/auth';
 import storeAccessToken from '../../api/services/storeAccessToken';
 import useAuth from '../../hooks/useAuth';
 import useAppStore from '../../store';
+import AppHeader from '../../components/AppHeader';
 
 export interface SignInInputs {
   email: string;
@@ -91,6 +92,9 @@ const SignIn = ({navigation: {navigate}}: StackScreen<'SignIn'>) => {
         resizeMethod="resize"
         resizeMode="cover"
       />
+      <View style={tw`absolute top-4 left-4`}>
+        <AppHeader />
+      </View>
       <View style={tw`bg-primary rounded-t-[50px] md:rounded-t-[60px]`}>
         <View style={tw`justify-center items-center mb-16 md:mb-20`}>
           <Image
@@ -150,6 +154,12 @@ const SignIn = ({navigation: {navigate}}: StackScreen<'SignIn'>) => {
             onPress={handleLogin}
             style={tw`mb-4`}
           />
+          <Text
+            color="secondary"
+            style={tw`text-center mb-2`}
+            onPress={() => navigate('SignUp')}>
+            Create an account
+          </Text>
         </ScrollView>
       </View>
     </SafeAreaView>
