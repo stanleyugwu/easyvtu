@@ -17,6 +17,7 @@ import Landing from './screens/landing';
 import SignIn from './screens/signIn';
 import useAuth from './hooks/useAuth';
 import useAppStore from './store';
+import SignUp from './screens/signup';
 
 const Home = () => {
   const auth = useAuth()
@@ -60,7 +61,8 @@ const App = () => {
               <Stack.Group screenOptions={{headerShown: false}}>
                 <Stack.Screen name="Splash" component={SplashScreen} />
                 <Stack.Screen name="Landing" component={Landing} />
-                <Stack.Screen name="SignIn" component={SignIn} />
+                <Stack.Screen name="SignIn" component={SignIn} />       
+                <Stack.Screen name="SignUp" component={SignUp} />       
               </Stack.Group>
             </Stack.Navigator>
           ) : (

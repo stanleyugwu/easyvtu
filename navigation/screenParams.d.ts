@@ -7,6 +7,7 @@ export type StackParamList = {
   Splash: undefined;
   Landing: undefined;
   SignIn: undefined;
+  SignUp:undefined;
 };
 
 /**
