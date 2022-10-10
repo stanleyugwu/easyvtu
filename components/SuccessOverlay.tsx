@@ -75,7 +75,10 @@ const SuccessOverlay = ({
         style={tw`self-center w-[200px] md:w-[250px]`}
         source={success}
       />
-      <Text type="subTitle" color="gray5" style={tw`text-center`}>
+      <Text
+        type={successText.length > 35 ? 'paragraph' : 'subTitle'}
+        color="gray5"
+        style={tw`text-center`}>
         {successText}
       </Text>
     </Animatable.View>
