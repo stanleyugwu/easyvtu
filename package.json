@@ -26,7 +26,8 @@
     "react-native-screens": "^3.17.0",
     "react-native-svg": "^13.2.0",
     "twrnc": "^3.4.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "zustand": "^4.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
