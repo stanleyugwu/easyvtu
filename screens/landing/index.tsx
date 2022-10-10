@@ -12,7 +12,7 @@ const Landing = ({navigation}: StackScreen<'Landing'>) => {
   return (
     <SafeAreaScrollView
       backgroundColor="primary"
-      contentContainerStyle={tw`h-full justify-center`}>
+      contentContainerStyle={tw`h-full justify-center p-4`}>
       <Animatable.View animation={'fadeInUp'} iterationCount={1}>
         <Text type="subTitle" color="gray5">
           Welcome to Easy-Vtu
