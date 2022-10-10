@@ -5,9 +5,7 @@ import {useDeviceContext} from 'twrnc';
 import useCheckAuth from './hooks/useCheckAuth';
 
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Text from './components/Text';
 import AuthContext from './contexts/auth';
 
 import type {StackParamList} from './navigation/screenParams';
@@ -15,31 +13,15 @@ import type {StackParamList} from './navigation/screenParams';
 import SplashScreen from './screens/splash';
 import Landing from './screens/landing';
 import SignIn from './screens/signIn';
-import useAuth from './hooks/useAuth';
-import useAppStore from './store';
 import SignUp from './screens/signup';
 import ForgotPassword from './screens/forgot_password';
-
-const Home = () => {
-  const auth = useAuth();
-  const profile = useAppStore(state => state.profile);
-
-  return (
-    <Text onPress={() => auth.signOut()}>
-      HOME SWEET HOME {profile?.lastname}
-    </Text>
-  );
-};
+import GuestHome from './screens/home/guestHome';
+import BottomTabNavigatorRegistrar from './navigation/BottomTabRegistrar';
 
 /**
  * Create Stack navigator
  */
 const Stack = createNativeStackNavigator<StackParamList>();
-
-/**
- * Create BottomTab navigator
- */
-const BottomTab = createBottomTabNavigator();
 
 const App = () => {
   // enable device-context prefixes
@@ -59,9 +41,9 @@ const App = () => {
        */}
       <AuthContext.Provider value={{signIn, signOut}}>
         <SafeAreaProvider>
-          {!isLoggedIn ? (
-            <Stack.Navigator>
-              <Stack.Group screenOptions={{headerShown: false}}>
+          <Stack.Navigator screenOptions={{headerShown: false}}>
+            {!isLoggedIn ? (
+              <Stack.Group>
                 <Stack.Screen name="Splash" component={SplashScreen} />
                 <Stack.Screen name="Landing" component={Landing} />
                 <Stack.Screen name="SignIn" component={SignIn} />
@@ -70,13 +52,15 @@ const App = () => {
                   name="ForgotPassword"
                   component={ForgotPassword}
                 />
+                <Stack.Screen name="GuestHome" component={GuestHome} />
               </Stack.Group>
-            </Stack.Navigator>
-          ) : (
-            <BottomTab.Navigator>
-              <BottomTab.Screen name="Home" component={Home} />
-            </BottomTab.Navigator>
-          )}
+            ) : (
+              <Stack.Screen
+                name="BottomTabRegistrar"
+                component={BottomTabNavigatorRegistrar}
+              />
+            )}
+          </Stack.Navigator>
         </SafeAreaProvider>
       </AuthContext.Provider>
     </NavigationContainer>
