@@ -54,8 +54,7 @@ const SignUp = ({navigation: {navigate}}: StackScreen<'SignUp'>) => {
     signUp(values.username, values.email, values.password, values.phoneNumber)
       .then(res => {
         setProcessing(false);
-        setSuccessMsg('Registeration was successful, login to get started');
-        console.log(res);
+        setSuccessMsg(res.message);
       })
       .catch(error => {
         console.log(error);
