@@ -12,6 +12,7 @@ export type StackParamList = {
   SignUp: undefined;
   ForgotPassword: undefined;
   GuestHome: undefined;
+  MoreOption:undefined;
   BottomTabRegistrar: NavigatorScreenParams<TabParamList>;
 };
 

@@ -18,6 +18,9 @@ import ForgotPassword from './screens/forgot_password';
 import GuestHome from './screens/home/guestHome';
 import BottomTabNavigatorRegistrar from './navigation/BottomTabRegistrar';
 
+// shared screens
+import MoreOption from './screens/more_option';
+
 /**
  * Create Stack navigator
  */
@@ -60,6 +63,7 @@ const App = () => {
                 component={BottomTabNavigatorRegistrar}
               />
             )}
+            <Stack.Screen name="MoreOption" component={MoreOption} />
           </Stack.Navigator>
         </SafeAreaProvider>
       </AuthContext.Provider>
