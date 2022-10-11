@@ -1,5 +1,12 @@
 import create from 'zustand';
 import {SignInResData as Profile} from '../api/services/auth';
+import {persist} from 'zustand/middleware';
+import {MMKVLoader} from 'react-native-mmkv-storage';
+
+// storage instance for persisting app store
+export const storeStorage = new MMKVLoader()
+  .withInstanceID('app_store')
+  .initialize();
 
 type UserProfile = Profile;
 export type AppStore = {
@@ -28,23 +35,34 @@ const keys: (keyof UserProfile)[] = [
   'username',
   'wallet_balance',
 ];
-const useAppStore = create<AppStore>(set => ({
-  profile: undefined,
-  setProfile(profile) {
-    // we don't merge updates with existing profile
-    // because we don't want to mistakenly add an alien
-    // field to profile from profile update payload.
-    // we want to only read and update the valid fields
-    set(state => {
-      const newProfile = keys.reduce<UserProfile>((prev, key) => {
-        return Object.defineProperty(prev, key, {
-          value: profile[key] || prev[key],
-          writable: true,
+const useAppStore = create<AppStore>()(
+  persist(
+    (set, get) => ({
+      profile: undefined,
+      setProfile(profile) {
+        if (!get().profile) return set({profile: profile as UserProfile});
+        // we don't merge updates with existing profile
+        // because we don't want to mistakenly add an alien
+        // field to profile from profile update payload.
+        // we want to only read and update the valid fields
+        set(({profile: prevProfile}) => {
+          const newProfile = {} as UserProfile;
+          keys.forEach(key => {
+            Object.defineProperty(newProfile, key, {
+              value: profile[key] || prevProfile![key],
+              writable: true,
+            });
+          });
+          return {profile: {...prevProfile, ...profile}} as AppStore;
         });
-      }, state.profile || ({} as UserProfile));
-      return {profile: newProfile};
-    });
-  },
-}));
+      },
+    }),
+    {
+      name: '__easyvtu-store__',
+      // @ts-ignore
+      getStorage: () => storeStorage,
+    },
+  ),
+);
 
 export default useAppStore;
