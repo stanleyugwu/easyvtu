@@ -1,6 +1,6 @@
 //import libraries
 import React, {useState} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {View, ViewProps, TouchableOpacity} from 'react-native';
 import Text from './Text';
 import tw from '../lib/tailwind';
 
@@ -42,9 +42,11 @@ const ServiceCard = ({Image, label, serviceScreen}: ServiceCardProps) => {
 
 // ServicesPanel component that renders app services
 // e.g airtime, data, on ui cards
-const ServicesPanel = () => {
+const ServicesPanel = ({style, ...otherProps}: ViewProps) => {
   return (
-    <View style={tw`rounded-lg shadow-md bg-white mt-10`}>
+    <View
+      style={[tw`rounded-lg shadow-md bg-white mt-10`, style]}
+      {...otherProps}>
       <View style={tw`flex-row`}>
         <ServiceCard Image={CallIcon} label="Airtime" serviceScreen="Airtime" />
         <ServiceCard Image={DataIcon} label="Data" serviceScreen="Data" />
