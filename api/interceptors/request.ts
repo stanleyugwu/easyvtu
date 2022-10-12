@@ -8,7 +8,7 @@ import {ErrorResponse} from '../api';
 const beforeRequest = (config: AxiosRequestConfig<any>) => {
   const accessToken = getAccessToken();
   if (accessToken && config.headers) {
-    config.headers['Authorization'] = `Bearer ${accessToken}`; // token from storage wil have `Bearer ` prefix
+    config.headers['Authorization'] = accessToken; // token from storage wil have `Bearer ` prefix
   }
   return config;
 };
