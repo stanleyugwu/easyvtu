@@ -12,13 +12,18 @@ export type StackParamList = {
   SignUp: undefined;
   ForgotPassword: undefined;
   GuestHome: undefined;
-  MoreOption:undefined;
+  MoreOption: undefined;
   BottomTabRegistrar: NavigatorScreenParams<TabParamList>;
 };
 
 // Screens for BottomTab (i.e after logging in)
 export type TabParamList = {
   Home: undefined;
+  Wallet: {
+    // used when navigating to the screen to specify
+    // action to be trigger when screen mounts
+    action?: 'withdraw' | 'deposit';
+  };
 };
 
 /**

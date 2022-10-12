@@ -4,7 +4,6 @@ import {
 } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import tw from '../lib/tailwind';
-import Home from '../screens/home';
 import {TabParamList} from './screenParams';
 import Text from '../components/Text';
 
@@ -20,12 +19,13 @@ import ColoredWalletIcon from '../assets/images/wallet_colored.svg';
 import ProfileIcon from '../assets/images/profile.svg';
 import ColoredProfileIcon from '../assets/images/profile_colored.svg';
 
+import Home from '../screens/home';
+import Wallet from '../screens/wallet';
+
 const History = () => {
   return <Text>HISTORY</Text>;
 };
-const Wallet = () => {
-  return <Text>Wallet</Text>;
-};
+
 const Profile = () => {
   return <Text>Profile</Text>;
 };
