@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import useAppStore from '../store';
 
 type useAuthReturn = {
   checkingAuth: boolean;
@@ -19,13 +20,22 @@ const useCheckAuth = (): useAuthReturn => {
     const storedToken = globalThis.secureStorage.getString('__$auth_token$__');
     if (storedToken) {
       setIsLoggedIn(true);
+      // store globally
+      // @ts-ignore
+      globalThis.$token$ = storedToken;
     }
     setCheckingAuthCred(false);
   }, []);
 
   // just services shorthand for provider
   const signIn = React.useCallback(() => setIsLoggedIn(true), []);
-  const signOut = React.useCallback(() => setIsLoggedIn(false), []);
+  const signOut = React.useCallback(() => {
+    // @ts-ignore
+    globalThis.$token$ = undefined; // remove global token
+    globalThis.secureStorage.removeItem('__$auth_token$__'); // remove persisted token
+    setIsLoggedIn(false); // refresh app
+    useAppStore.setState({profile: undefined}); // clear user state
+  }, []);
 
   return {
     checkingAuth: checkingAuthCreds,
