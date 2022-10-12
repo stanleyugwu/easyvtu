@@ -3,6 +3,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import tw from './lib/tailwind';
 import {useDeviceContext} from 'twrnc';
 import useCheckAuth from './hooks/useCheckAuth';
+import {QueryClientProvider, QueryClient} from 'react-query';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -36,38 +37,45 @@ const App = () => {
   // because nothing is rendered to replace/overlay it
   if (checkingAuth) return null;
 
+  // react-query client
+  const queryClient = new QueryClient();
+
   return (
-    <NavigationContainer>
-      {/*
-       * We pass signout and signin services via context so they can be called
-       * from any screen without prop drilling them
-       */}
-      <AuthContext.Provider value={{signIn, signOut}}>
-        <SafeAreaProvider>
-          <Stack.Navigator screenOptions={{headerShown: false}}>
-            {!isLoggedIn ? (
-              <Stack.Group>
-                <Stack.Screen name="Splash" component={SplashScreen} />
-                <Stack.Screen name="Landing" component={Landing} />
-                <Stack.Screen name="SignIn" component={SignIn} />
-                <Stack.Screen name="SignUp" component={SignUp} />
-                <Stack.Screen
-                  name="ForgotPassword"
-                  component={ForgotPassword}
-                />
-                <Stack.Screen name="GuestHome" component={GuestHome} />
-              </Stack.Group>
-            ) : (
-              <Stack.Screen
-                name="BottomTabRegistrar"
-                component={BottomTabNavigatorRegistrar}
-              />
-            )}
-            <Stack.Screen name="MoreOption" component={MoreOption} />
-          </Stack.Navigator>
-        </SafeAreaProvider>
-      </AuthContext.Provider>
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        {/*
+         * We pass signout and signin services via context so they can be called
+         * from any screen without prop drilling them
+         */}
+        <AuthContext.Provider value={{signIn, signOut}}>
+          <SafeAreaProvider>
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+              {!isLoggedIn ? (
+                <Stack.Group>
+                  <Stack.Screen name="Splash" component={SplashScreen} />
+                  <Stack.Screen name="Landing" component={Landing} />
+                  <Stack.Screen name="SignIn" component={SignIn} />
+                  <Stack.Screen name="SignUp" component={SignUp} />
+                  <Stack.Screen
+                    name="ForgotPassword"
+                    component={ForgotPassword}
+                  />
+                  <Stack.Screen name="GuestHome" component={GuestHome} />
+                </Stack.Group>
+              ) : (
+                <Stack.Group>
+                  <Stack.Screen
+                    name="BottomTabRegistrar"
+                    component={BottomTabNavigatorRegistrar}
+                  />
+                  <Stack.Screen name="MoreOption" component={MoreOption} />
+                </Stack.Group>
+              )}
+            </Stack.Navigator>
+          </SafeAreaProvider>
+        </AuthContext.Provider>
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 };
 
