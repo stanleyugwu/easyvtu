@@ -47,8 +47,9 @@ const SuccessOverlay = ({
       hideTimeout.current = setTimeout(onDismiss, timeout);
     } else {
       hideTimeout.current && clearTimeout(hideTimeout.current);
-      viewRef.current?.bounceOut?.().then(v => v.finished && setHidden(true)) ||
-        setHidden(true);
+      viewRef.current
+        ?.fadeOut?.(500)
+        .then(v => v.finished && setHidden(true)) || setHidden(true);
     }
   }, [visible]);
 
