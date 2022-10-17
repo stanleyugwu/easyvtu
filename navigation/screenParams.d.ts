@@ -24,6 +24,7 @@ export type TabParamList = {
     // action to be trigger when screen mounts
     action?: 'withdraw' | 'deposit';
   };
+  Profile:undefined;
 };
 
 /**

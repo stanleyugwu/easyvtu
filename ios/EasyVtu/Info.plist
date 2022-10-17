@@ -55,5 +55,7 @@
 	<array>
 		<string>Muli.ttf</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Easy Vtu needs access to your photo library to allow you change your profile picture</string>
 </dict>
 </plist>

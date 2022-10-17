@@ -19,15 +19,13 @@ import ColoredWalletIcon from '../assets/images/wallet_colored.svg';
 import ProfileIcon from '../assets/images/profile.svg';
 import ColoredProfileIcon from '../assets/images/profile_colored.svg';
 
+// tab screens
 import Home from '../screens/home';
 import Wallet from '../screens/wallet';
+import Profile from '../screens/profile';
 
 const History = () => {
   return <Text>HISTORY</Text>;
-};
-
-const Profile = () => {
-  return <Text>Profile</Text>;
 };
 
 /**
@@ -82,6 +80,7 @@ const BottomTabNavigatorRegistrar = () => {
           tabBarIcon({focused}) {
             return focused ? <ColoredProfileIcon /> : <ProfileIcon />;
           },
+          unmountOnBlur:true
         }}
       />
     </BottomTab.Navigator>

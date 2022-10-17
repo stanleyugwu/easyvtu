@@ -10,6 +10,7 @@ const TwColors = {
   gray4:"#BDBDBD",
 };
 
+// TODO: reduce and unify font sizes. Also reduce font line-heights
 /**
  * We separate font sizes for different screen resoutions
  * sizes prefixed with `b` will be used for larger screen
