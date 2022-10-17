@@ -13,7 +13,7 @@ import {TabScreen} from '../../navigation/screenParams';
 
 // Home Screen Component
 const Home = ({navigation: {navigate}}: TabScreen<'Home'>) => {
-  const {firstname, image} = useAppStore(state => state.profile!);
+  const {username, image} = useAppStore(state => state.profile!);
 
   const handleAddMoney = () => {
     navigate('Wallet', {
@@ -53,7 +53,7 @@ const Home = ({navigation: {navigate}}: TabScreen<'Home'>) => {
               Good Day
             </Text>
             <Text type="caption" color="gray4">
-              {firstname || 'Stanley'}
+              {username}
             </Text>
           </View>
         </View>
