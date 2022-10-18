@@ -13,7 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import {StackParamList} from '../navigation/screenParams';
 
 interface ServiceCardProps {
-  Image: string;
+  Image: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
   label: string;
   serviceScreen: keyof StackParamList;
 }
@@ -32,7 +32,7 @@ const ServiceCard = ({Image, label, serviceScreen}: ServiceCardProps) => {
       activeOpacity={0.6}
       onPress={handlePress}
       style={tw`justify-center items-center border-r border-b border-gray4 w-1/3 p-6`}>
-      <Image />
+      <Image width={'35'} height={'35'} />
       <Text type="caption" color="gray" style={tw`mt-3 text-center`}>
         {label}
       </Text>

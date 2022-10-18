@@ -36,7 +36,7 @@ const Wallet = ({onAddMoneyBtnPress, onWithdrawMoneyBtnPress}: WalletProps) => {
             <Text type="paragraph" color="black" style={tw.style('text-3xl')}>
               {balanceShown
                 ? `\u20A6${formatAmount(walletBal)}`
-                : '***********'}
+                : '*********'}
             </Text>
           </View>
           <Text
@@ -46,7 +46,7 @@ const Wallet = ({onAddMoneyBtnPress, onWithdrawMoneyBtnPress}: WalletProps) => {
             {balanceShown ? 'HIDE' : 'SHOW'} BALANCE
           </Text>
         </View>
-        <View style={tw`h-32 w-36`}>
+        <View style={tw`h-30 w-34`}>
           <AnimatedLottieView
             autoPlay
             style={[tw`self-center`]}
@@ -56,7 +56,7 @@ const Wallet = ({onAddMoneyBtnPress, onWithdrawMoneyBtnPress}: WalletProps) => {
           />
         </View>
       </View>
-      <View style={tw`flex-row justify-between mt-3`}>
+      <View style={tw`flex-row justify-between mt-2`}>
         <Button
           label="Add money"
           style={tw`flex-0.45`}

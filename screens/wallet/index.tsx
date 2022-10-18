@@ -17,6 +17,7 @@ import RefreshErrorSnackBar from '../../components/SnackBar';
 import * as Animatable from 'react-native-animatable';
 import CloseIcon from 'assets:images/close.svg';
 import formatAmount from '../../utils/formatAmount';
+import SafeAreaScrollView from '../../components/SafeAreaScrollView';
 
 // renders individual item for receipt info overlay
 interface InfoItemProps {
@@ -30,7 +31,7 @@ export const InfoItem = ({label, value}: InfoItemProps) => (
     <Text type="caption" color="gray">
       {label}
     </Text>
-    <Text type="caption" color="black">
+    <Text type="small" color="black">
       {value}
     </Text>
   </View>
@@ -109,7 +110,7 @@ const Wallet = ({
                 .then(v => v.finished && setReceiptModalVisible(false));
             }}
             activeOpacity={0.8}
-            style={tw.style(`bg-white rounded-full p-2.5 shadow-xl w-12 h-12`)}>
+            style={tw.style(`bg-white rounded-full p-2.5 shadow-xl w-11 h-11`)}>
             <CloseIcon width="100%" height="100%" />
           </TouchableOpacity>
           <Text type="title" color="black" style={tw`mt-4`}>
@@ -147,7 +148,7 @@ const Wallet = ({
         timeOut={3000}
       />
       <AppHeader title="Wallet" />
-      <View style={tw`my-4`}>
+      <View style={tw`my-2`}>
         <WalletCard
           onAddMoneyBtnPress={handleAddMoney}
           onWithdrawMoneyBtnPress={handleWithdrawMoney}
@@ -158,7 +159,6 @@ const Wallet = ({
       </Text>
 
       <ScrollView
-        style={tw`flex-1`}
         // we only refresh when there's previously fetched data
         refreshControl={query.data && RefreshControlComponent}>
         {/* LOADER VIEW */}
@@ -179,8 +179,13 @@ const Wallet = ({
           style={tw`mt-6`}
         />
 
-        {query.data
-          ? query.data.data
+        {query.data ? (
+          query.data.data.length === 0 ? (
+            <Text style={tw`text-center mt-6`} color="black">
+              No Wallet History Yet
+            </Text>
+          ) : (
+            query.data.data
               // @ts-ignore
               .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
               .map(transaction => {
@@ -207,7 +212,8 @@ const Wallet = ({
                   />
                 );
               })
-          : null}
+          )
+        ) : null}
       </ScrollView>
       {receiptModalVisible ? <ReceiptModal /> : null}
     </SafeAreaView>

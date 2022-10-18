@@ -40,10 +40,10 @@ const OptionCardButton = ({
       ]}
       {...otherProps}>
       <View style={tw`flex-row items-center justify-center`}>
-        <Image width={'40px'} />
+        <Image width='35' height="35" />
         <View style={tw`ml-3`}>
           <Text color="black">{title}</Text>
-          <Text type="caption" color="gray">
+          <Text type="small" color="gray">
             {subTitle}
           </Text>
         </View>

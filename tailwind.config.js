@@ -6,8 +6,8 @@ const TwColors = {
   gray: '#676767',
   black: '#333333',
   white: '#FFFFFF',
-  gray5:"#E0E0E0",
-  gray4:"#BDBDBD",
+  gray5: '#E0E0E0',
+  gray4: '#BDBDBD',
 };
 
 // TODO: reduce and unify font sizes. Also reduce font line-heights
@@ -16,37 +16,29 @@ const TwColors = {
  * sizes prefixed with `b` will be used for larger screen
  */
 const TwFontSize = {
-  btitle: '28',
   title: '26',
-
-  bsubTitle: '24',
-  subTitle: '24',
-
-  bparagraph: '18',
+  subTitle: '22',
   paragraph: '16',
-
-  bcaption:'16',
-  caption:'14'
-}
+  caption: '14',
+  small: '12',
+};
 
 const config = {
   theme: {
     extend: {
-      colors:TwColors,
+      colors: TwColors,
       fontFamily: {
         muli: ['Muli', 'sans-serif'],
       },
-      fontSize:TwFontSize,
-      screens:{
+      fontSize: TwFontSize,
+      screens: {
         sm: '380px',
-      md: '420px',
-      lg: '680px',
-      }
+        md: '620px',
+        lg: '720px',
+      },
     },
   },
-  plugins: [
-
-  ],
+  plugins: [],
 };
 
 module.exports = config;

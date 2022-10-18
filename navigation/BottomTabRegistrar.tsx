@@ -1,7 +1,5 @@
 //import libraries
-import {
-  createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import tw from '../lib/tailwind';
 import {TabParamList} from './screenParams';
@@ -41,17 +39,28 @@ const BottomTabNavigatorRegistrar = () => {
     <BottomTab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: tw`bg-white h-16`,
+        tabBarStyle: tw`bg-white h-14 md:h-16`,
         tabBarActiveTintColor: tw.color('primary'),
         tabBarInactiveTintColor: tw.color('gray'),
-        tabBarLabelStyle: tw`text-caption`,
+        tabBarLabelStyle: tw`text-caption text-center`,
+        tabBarIconStyle:tw`self-center`
       }}>
       <BottomTab.Screen
         name="Home"
         component={Home}
         options={{
           tabBarIcon({focused}) {
-            return focused ? <ColoredHomeIcon /> : <HomeIcon />;
+            return focused ? (
+              <ColoredHomeIcon
+                width={tw.prefixMatch('md') ? '35' : '30'}
+                height={tw.prefixMatch('md') ? '35' : '30'}
+              />
+            ) : (
+              <HomeIcon
+                width={tw.prefixMatch('md') ? '35' : '30'}
+                height={tw.prefixMatch('md') ? '35' : '30'}
+              />
+            );
           },
         }}
       />
@@ -60,7 +69,17 @@ const BottomTabNavigatorRegistrar = () => {
         component={History}
         options={{
           tabBarIcon({focused}) {
-            return focused ? <ColoredHistoryIcon /> : <HistoryIcon />;
+            return focused ? (
+              <ColoredHistoryIcon
+                width={tw.prefixMatch('md') ? '35' : '30'}
+                height={tw.prefixMatch('md') ? '35' : '30'}
+              />
+            ) : (
+              <HistoryIcon
+                width={tw.prefixMatch('md') ? '35' : '30'}
+                height={tw.prefixMatch('md') ? '35' : '30'}
+              />
+            );
           },
         }}
       />
@@ -69,7 +88,17 @@ const BottomTabNavigatorRegistrar = () => {
         component={Wallet}
         options={{
           tabBarIcon({focused}) {
-            return focused ? <ColoredWalletIcon /> : <WalletIcon />;
+            return focused ? (
+              <ColoredWalletIcon
+                width={tw.prefixMatch('md') ? '35' : '30'}
+                height={tw.prefixMatch('md') ? '35' : '30'}
+              />
+            ) : (
+              <WalletIcon
+                width={tw.prefixMatch('md') ? '35' : '30'}
+                height={tw.prefixMatch('md') ? '35' : '30'}
+              />
+            );
           },
         }}
       />
@@ -78,9 +107,19 @@ const BottomTabNavigatorRegistrar = () => {
         component={Profile}
         options={{
           tabBarIcon({focused}) {
-            return focused ? <ColoredProfileIcon /> : <ProfileIcon />;
+            return focused ? (
+              <ColoredProfileIcon
+                width={tw.prefixMatch('md') ? '35' : '30'}
+                height={tw.prefixMatch('md') ? '35' : '30'}
+              />
+            ) : (
+              <ProfileIcon
+                width={tw.prefixMatch('md') ? '35' : '30'}
+                height={tw.prefixMatch('md') ? '35' : '30'}
+              />
+            );
           },
-          unmountOnBlur:true
+          unmountOnBlur: true,
         }}
       />
     </BottomTab.Navigator>

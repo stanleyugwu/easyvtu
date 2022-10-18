@@ -50,7 +50,7 @@ const InputField = ({
     <TextInput
       placeholder={placeholder}
       style={tw.style(
-        `bg-gray5 flex-1 rounded-[3px] p-3.5 md:p-4 lg:p-5 text-paragraph md:text-bparagraph text-black`,
+        `bg-gray5 flex-1 rounded-[3px] p-3 text-paragraph text-black`,
         leftElement
           ? 'border-l border-gray4'
           : rightElement
@@ -65,7 +65,7 @@ const InputField = ({
   );
 
   return (
-    <View style={tw`my-2 md:my-3`}>
+    <View style={tw`my-2`}>
       <Text color={labelColor} type="paragraph" style={tw`mb-2`}>
         {label}
       </Text>

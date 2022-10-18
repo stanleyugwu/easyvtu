@@ -43,14 +43,18 @@ const TransactionCard = ({
     <TouchableOpacity
       activeOpacity={0.9}
       style={[
-        tw`bg-white rounded-md shadow-sm flex-row items-center justify-between px-4 py-2 my-2`,
+        tw`bg-white rounded-md shadow-sm flex-row items-center justify-between px-4 py-2 my-1`,
         style,
       ]}
       {...otherProps}>
       <View style={tw`flex-row items-center justify-center`}>
-        {transactionType === 'deposit' ? <DepositIcon /> : <WithdrawIcon />}
+        {transactionType === 'deposit' ? (
+          <DepositIcon width="30" height="30" />
+        ) : (
+          <WithdrawIcon width="30" height="30" />
+        )}
         <View style={tw`ml-3`}>
-          <Text color="gray" type="caption">
+          <Text color="gray" type="small">
             {method}
           </Text>
           <Text color="black">

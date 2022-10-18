@@ -8,7 +8,7 @@ import config from '../tailwind.config';
  */
 export interface TextProps extends _TextProps {
   /** Type of the text */
-  type?: 'title' | 'subTitle' | 'paragraph' | 'caption';
+  type?: keyof typeof config['theme']['extend']['fontSize'];
   /** Color of the text */
   color?: keyof typeof config['theme']['extend']['colors'];
 }
@@ -28,13 +28,15 @@ const Text = ({
       style={[
         tw.style(
           'font-muli',
-          `text-${type} md:text-b${type} text-${color}`,
+          `text-${type} text-${color}`,
           `leading-[${
             type === 'title' || type === 'subTitle'
-              ? '35px'
+              ? '30px'
               : type === 'paragraph'
-              ? '26.53px'
-              : '23.59px'
+              ? '23.53px'
+              : type === 'caption'
+              ? '20px'
+              : '18px'
           }]`,
         ),
         style,
