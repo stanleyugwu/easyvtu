@@ -18,6 +18,7 @@ import * as Animatable from 'react-native-animatable';
 import CloseIcon from 'assets:images/close.svg';
 import formatAmount from '../../utils/formatAmount';
 import SafeAreaScrollView from '../../components/SafeAreaScrollView';
+import {ServerErrorObject, SuccessObject} from '../../api/api';
 
 // renders individual item for receipt info overlay
 interface InfoItemProps {
@@ -50,14 +51,18 @@ const Wallet = ({
   route: {params: {action} = {}},
   navigation: {navigate},
 }: TabScreen<'Wallet'>) => {
-  const query = useQuery(
+  const query = useQuery<
+    SuccessObject<WalletTransaction[]>,
+    ServerErrorObject,
+    SuccessObject<WalletTransaction[]>
+  >(
     'wallet_history',
     () => _axios.get<WalletTransaction[]>('/wallet_transactions'),
     {
       refetchOnWindowFocus: 'always',
       onError(err) {
         // show error via snackbar when user refreshed
-        if (refreshingHistory) {
+        if (query.isRefetchError) {
           setRefreshError('Failed to refresh wallet history');
         }
       },
@@ -69,22 +74,19 @@ const Wallet = ({
   const receiptInfo = useRef<ReceiptInfo>();
 
   // refresh control component and states
-  const [refreshingHistory, setRefreshingHistory] = useState(false);
   const [refreshError, setRefreshError] = useState('');
   const RefreshControlComponent = React.useMemo(
     () => (
       <RefreshControl
-        refreshing={refreshingHistory}
+        refreshing={query.isRefetching}
         onRefresh={() => {
-          setRefreshingHistory(true);
-
           // refetch query on refresh and show errors via custom error snackbar
           // instead of unmounting rendered data
-          query.refetch().finally(() => setRefreshingHistory(false));
+          query.refetch();
         }}
       />
     ),
-    [refreshingHistory],
+    [query.isRefetching],
   );
 
   // wallet action callbacks
@@ -164,7 +166,7 @@ const Wallet = ({
         {/* LOADER VIEW */}
         <FlatViewLoader
           // we don't want to unmount rendered data to show loader on refresh
-          visible={query.isLoading && !query.data}
+          visible={query.isLoading}
           style={tw`mt-6`}
           text="Loading history"
         />
@@ -173,8 +175,8 @@ const Wallet = ({
         <FlatViewError
           // we don't want to unmount rendered data to show error on refresh
           // we'll show refresh errors via snackbar
-          visible={query.isError && !query.data}
-          text={(query.error as {message: string})?.message}
+          visible={query.isLoadingError}
+          text={query.error?.message}
           onRetry={query.refetch}
           style={tw`mt-6`}
         />
