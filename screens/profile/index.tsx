@@ -135,7 +135,7 @@ const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
         SuccessRes<Parameters<typeof updateProfile>[0]>,
         FormData
       >('/change_picture', formData, {
-        headers: {'Content-Typ e': 'multipart/form-data'},
+        headers: {'Content-Type': 'multipart/form-data'},
       });
     },
     {
