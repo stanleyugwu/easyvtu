@@ -34,7 +34,7 @@ const SnackBar = ({
   ...otherProps
 }: SnackBarProps) => {
   const textValid = !!text?.trim?.()?.length;
-  const [hidden, setHidden] = React.useState(textValid);
+  const [hidden, setHidden] = React.useState(true);
   const animatableRef = React.useRef(null);
   const hideTimeout = React.useRef<number | undefined>(undefined);
 
