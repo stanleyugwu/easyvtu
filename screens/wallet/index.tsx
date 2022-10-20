@@ -1,6 +1,6 @@
 //import libraries
-import React, {useMemo, useRef, useState} from 'react';
-import {View, ScrollView, RefreshControl, TouchableOpacity} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {View, ScrollView, RefreshControl} from 'react-native';
 import Text from '../../components/Text';
 import tw from '../../lib/tailwind';
 import AppHeader from '../../components/AppHeader';
@@ -12,13 +12,12 @@ import FlatViewError from '../../components/FlatViewError';
 import FlatViewLoader from '../../components/FlatViewLoader';
 import {useQuery} from 'react-query';
 import _axios from '../../api/axios';
-import {WalletTransaction} from './wallet';
+import {ReceiptInfo, WalletTransaction} from './wallet';
 import RefreshErrorSnackBar from '../../components/SnackBar';
-import * as Animatable from 'react-native-animatable';
-import CloseIcon from 'assets:images/close.svg';
 import formatAmount from '../../utils/formatAmount';
-import SafeAreaScrollView from '../../components/SafeAreaScrollView';
 import {ServerErrorObject, SuccessObject} from '../../api/api';
+import TxReceiptOverlay from '../../components/TxReceiptOverlay';
+import {format} from 'timeago.js';
 
 // renders individual item for receipt info overlay
 interface InfoItemProps {
@@ -38,14 +37,6 @@ export const InfoItem = ({label, value}: InfoItemProps) => (
   </View>
 );
 
-type ReceiptInfo = {
-  id: string;
-  amount: number;
-  paymentMethod: string;
-  type: string;
-  status: string;
-  date: string;
-};
 // Wallet Screen Component
 const Wallet = ({
   route: {params: {action} = {}},
@@ -92,54 +83,6 @@ const Wallet = ({
   // wallet action callbacks
   const handleAddMoney = React.useCallback(() => {}, []);
   const handleWithdrawMoney = React.useCallback(() => {}, []);
-
-  // overlay tx receipt modal
-  const ReceiptModal = useMemo(
-    () => () => {
-      const info = receiptInfo.current!;
-      const viewRef = useRef<Animatable.View>(null);
-      return (
-        <Animatable.View
-          animation={'slideInUp'}
-          duration={500}
-          // @ts-ignore
-          ref={viewRef}
-          style={tw`p-4 absolute inset-0 bg-gray5`}>
-          <TouchableOpacity
-            onPress={() => {
-              viewRef.current
-                ?.fadeOutDownBig?.(500)
-                .then(v => v.finished && setReceiptModalVisible(false));
-            }}
-            activeOpacity={0.8}
-            style={tw.style(`bg-white rounded-full p-2.5 shadow-xl w-11 h-11`)}>
-            <CloseIcon width="100%" height="100%" />
-          </TouchableOpacity>
-          <Text type="title" color="black" style={tw`mt-4`}>
-            {info.type === 'Deposit' ? 'Wallet Deposit' : 'Wallet Withdrawal'}
-          </Text>
-          <Text type="caption" color="gray">
-            Below is a receipt with the details of the wallet
-            {info.type === 'Deposit' ? ' top-up' : ' withdrawal'} transaction
-          </Text>
-
-          <View style={tw`rounded-md bg-white shadow-md p-4 mt-8`}>
-            <InfoItem label="Status:" value={info.status} />
-            <InfoItem
-              label={`Amount ${
-                info.type === 'Deposit' ? 'Deposited:' : 'Withdrawn:'
-              }`}
-              value={`\u20A6${formatAmount(info.amount)}`}
-            />
-            <InfoItem label="Payment Method:" value={info.paymentMethod} />
-            <InfoItem label="Transaction ID:" value={info.id} />
-            <InfoItem label="Date:" value={new Date(info.date).toUTCString()} />
-          </View>
-        </Animatable.View>
-      );
-    },
-    [receiptInfo.current],
-  );
 
   return (
     <SafeAreaView style={tw`p-4 bg-gray5 h-full`}>
@@ -198,12 +141,12 @@ const Wallet = ({
                     method={transaction.payment_method}
                     onPress={() => {
                       receiptInfo.current = {
-                        id: transaction.trans_no,
-                        amount: transaction.amount,
-                        paymentMethod: transaction.payment_method,
-                        type: transaction.type,
-                        status: transaction.status,
-                        date: transaction.created_at,
+                        'Transaction ID': transaction.trans_no,
+                        Amount: `\u20A6${formatAmount(transaction.amount)}`,
+                        'Payment Method': transaction.payment_method,
+                        Type: transaction.type,
+                        Status: transaction.status,
+                        Date: format(new Date(transaction.created_at)),
                       };
                       setReceiptModalVisible(true);
                     }}
@@ -217,7 +160,25 @@ const Wallet = ({
           )
         ) : null}
       </ScrollView>
-      {receiptModalVisible ? <ReceiptModal /> : null}
+      <TxReceiptOverlay
+        receiptData={receiptInfo.current!}
+        onClose={() => setReceiptModalVisible(false)}
+        title={
+          receiptInfo.current
+            ? receiptInfo.current.Type === 'Deposit'
+              ? 'Wallet Deposit'
+              : 'Wallet Withdrawal'
+            : ''
+        }
+        subTitle={`Below is a receipt with the details of the wallet ${
+          receiptInfo.current
+            ? receiptInfo.current.Type === 'Deposit'
+              ? ' top-up'
+              : ' withdrawal'
+            : ''
+        } transaction`}
+        visible={receiptModalVisible}
+      />
     </SafeAreaView>
   );
 };

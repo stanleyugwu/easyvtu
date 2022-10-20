@@ -12,3 +12,12 @@ export type WalletTransaction = {
   created_at: string;
   updated_at: string;
 };
+
+export type ReceiptInfo = {
+  "Transaction ID": string;
+  "Amount": string;
+  "Payment Method": string;
+  "Type": string;
+  "Status": string;
+  "Date": string;
+};
