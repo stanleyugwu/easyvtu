@@ -25,6 +25,7 @@ export type TabParamList = {
     action?: 'withdraw' | 'deposit';
   };
   Profile:undefined;
+  History:undefined;
 };
 
 /**

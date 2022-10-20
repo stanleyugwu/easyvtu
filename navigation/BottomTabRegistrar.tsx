@@ -21,10 +21,8 @@ import ColoredProfileIcon from '../assets/images/profile_colored.svg';
 import Home from '../screens/home';
 import Wallet from '../screens/wallet';
 import Profile from '../screens/profile';
+import History from '../screens/history';
 
-const History = () => {
-  return <Text>HISTORY</Text>;
-};
 
 /**
  * Create BottomTab navigator
