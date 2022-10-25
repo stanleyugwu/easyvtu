@@ -14,27 +14,18 @@ type useAuthReturn = {
  */
 const useCheckAuth = (): useAuthReturn => {
   const [checkingAuthCreds, setCheckingAuthCred] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn = useAppStore(state => state.isLoggedIn);
+  const [signIn, signOut] = useAppStore(state => [state.signIn, state.signOut]);
 
   useEffect(() => {
     const storedToken = globalThis.secureStorage.getString('__$auth_token$__');
     if (storedToken) {
-      setIsLoggedIn(true);
-      // store globally
+      signIn();
+      // store token globally
       // @ts-ignore
       globalThis.$token$ = storedToken;
     }
     setCheckingAuthCred(false);
-  }, []);
-
-  // just services shorthand for provider
-  const signIn = React.useCallback(() => setIsLoggedIn(true), []);
-  const signOut = React.useCallback(() => {
-    // @ts-ignore
-    globalThis.$token$ = undefined; // remove global token
-    globalThis.secureStorage.removeItem('__$auth_token$__'); // remove persisted token
-    setIsLoggedIn(false); // refresh app
-    useAppStore.setState({profile: undefined}); // clear user state
   }, []);
 
   return {

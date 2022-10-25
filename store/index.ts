@@ -12,6 +12,9 @@ type UserProfile = Profile;
 export type AppStore = {
   profile?: UserProfile;
   setProfile(profile: Partial<UserProfile>): void;
+  isLoggedIn: boolean;
+  signOut(): void;
+  signIn(): void;
 };
 
 const keys: (keyof UserProfile)[] = [
@@ -55,6 +58,16 @@ const useAppStore = create<AppStore>()(
           });
           return {profile: {...prevProfile, ...profile}} as AppStore;
         });
+      },
+      isLoggedIn: false,
+      signIn() {
+        set({isLoggedIn: true});
+      },
+      signOut() {
+        // @ts-ignore
+        globalThis.$token$ = undefined; // remove global token
+        globalThis.secureStorage.removeItem('__$auth_token$__'); // remove persisted token
+        set({isLoggedIn: false, profile: undefined}); // refresh app and clear profile
       },
     }),
     {
