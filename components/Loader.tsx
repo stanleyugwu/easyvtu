@@ -20,7 +20,7 @@ const Loader = ({visible = true, ...otherProps}: LoaderProps) => {
     <Animatable.View
       animation={'zoomIn'}
       useNativeDriver
-      duration={500}
+      duration={300}
       style={tw.style(`absolute z-50 inset-0 justify-center items-center`, {
         backgroundColor: tw.color('dark') + 'dd',
       })}>
