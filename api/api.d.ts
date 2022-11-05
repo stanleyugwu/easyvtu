@@ -34,9 +34,9 @@ export type SuccessRes<Data = any> = Promise<SuccessObject<Data>>;
  */
 export interface _AxiosInstance extends AxiosInstance {
   post: <
-    ResData = Record<string,any>,
-    Res = SuccessRes<ResData>,
     ReqBody = Record<string, string>,
+    ResData = Record<string, any>,
+    Res = SuccessRes<ResData>,
   >(
     url: string,
     data?: ReqBody,
@@ -44,7 +44,7 @@ export interface _AxiosInstance extends AxiosInstance {
   ) => Res;
 
   get: <
-    ResData = Record<string,any>,
+    ResData = Record<string, any>,
     Res = SuccessRes<ResData>,
     ReqBody = Record<string, string>,
   >(
