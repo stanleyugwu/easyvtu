@@ -14,6 +14,7 @@ export type StackParamList = {
   GuestHome: undefined;
   MoreOption: undefined;
   BottomTabRegistrar: NavigatorScreenParams<TabParamList>;
+  Airtime: undefined;
 };
 
 // Screens for BottomTab (i.e after logging in)

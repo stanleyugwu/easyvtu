@@ -21,6 +21,7 @@ import BottomTabNavigatorRegistrar from './navigation/BottomTabRegistrar';
 
 // shared screens
 import MoreOption from './screens/more_option';
+import Airtime from './screens/airtime';
 
 /**
  * Create Stack navigator
@@ -71,6 +72,10 @@ const App = () => {
                   <Stack.Screen name="MoreOption" component={MoreOption} />
                 </Stack.Group>
               )}
+              <Stack.Screen
+                name="Airtime"
+                component={Airtime}
+              />
             </Stack.Navigator>
           </SafeAreaProvider>
         </AuthContext.Provider>
