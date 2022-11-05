@@ -46,7 +46,7 @@ const Button = ({
       style={[tw`rounded-md`, style]}
       {...otherProps}>
       <LinearGradient
-        style={tw`p-3.5 rounded-md`}
+        style={tw`p-4 rounded-md`}
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}
         colors={
