@@ -112,9 +112,9 @@ const History = () => {
     <>
       <SafeAreaView style={tw`p-4 bg-gray5 h-full`}>
         <AppHeader title={'Purchase History'} />
-        <View style={tw`flex-row bg-white rounded-lg p-4 mt-4`}>
+        <View style={tw`flex-row bg-white items-center rounded-lg p-4 mt-4`}>
           <View>
-            <ChartCircle width={'140'} height="140" />
+            <ChartCircle width={tw.prefixMatch("sm") ? '140' : '120'} height={tw.prefixMatch("sm") ? '140' : '120'} />
             {query.data?.data ? (
               <View
                 style={tw.style(
@@ -144,20 +144,20 @@ const History = () => {
 
           {query.data?.data ? (
             <View style={tw`justify-center flex-1 pl-6`}>
-              <Text color="gray" style={tw`my-0.5`}>
+              <Text color="gray" style={tw`my-0.5`} type={tw.prefixMatch("sm") ? "paragraph" : "caption"}>
                 Airtime: {calculatePercentage(query.data.data, 'airtime')}
               </Text>
-              <Text color="gray" style={tw`my-0.5`}>
+              <Text color="gray" style={tw`my-0.5`} type={tw.prefixMatch("sm") ? "paragraph" : "caption"}>
                 Data Bundle: {calculatePercentage(query.data.data, 'data')}
               </Text>
-              <Text color="gray" style={tw`my-0.5`}>
-                Cable Subscription: {calculatePercentage(query.data.data, 'tv')}
+              <Text color="gray" style={tw`my-0.5`} type={tw.prefixMatch("sm") ? "paragraph" : "caption"}>
+                Cable Tv: {calculatePercentage(query.data.data, 'tv')}
               </Text>
-              <Text color="gray" style={tw`my-0.5`}>
+              <Text color="gray" style={tw`my-0.5`} type={tw.prefixMatch("sm") ? "paragraph" : "caption"}>
                 Electricity:{' '}
                 {calculatePercentage(query.data.data, 'electricity')}
               </Text>
-              <Text color="gray" style={tw`my-0.5`}>
+              <Text color="gray" style={tw`my-0.5`} type={tw.prefixMatch("sm") ? "paragraph" : "caption"}>
                 Result Checking:{' '}
                 {calculatePercentage(query.data.data, 'result')}
               </Text>
