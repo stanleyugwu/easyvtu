@@ -6,6 +6,7 @@ import {
   ServerErrorObject,
   SuccessObject,
 } from '../api';
+import useAppStore from '../../store';
 
 /**
  * Any status codes that falls outside the range of 2xx cause this function to trigger
@@ -49,6 +50,18 @@ export const errorResponse = (
   >;
 
   const errorObj = error.response?.data?.errors;
+
+  // interceptor logic to auto sign-out user when server error
+  // response has 'Unauthenticated' string in its message
+  // FIXME: request for more standard reponse structure for un-authenticated user
+  if (
+    error.response?.data?.message
+      ?.toLowerCase?.()
+      .includes?.('unauthenticated.')
+  ) {
+    useAppStore.getState().signOut();
+  }
+
   return Promise.reject({
     message: errorObj
       ? extractSingleError(errorObj)
@@ -65,15 +78,18 @@ export const successResponse = (
   res: AxiosResponse<SuccessObject, RawServerErrorMessage>,
 ): SuccessObject => {
   // destructure response data
-  const {data,...othersMinusData} = res.data;
+  const {data, ...othersMinusData} = res.data;
   // return relevant response data from server
   return {
     status: true,
     message: res.data?.message || 'Request Successful',
     // due to difference btw server response structure for login and other routes
-    // when the route is `login`, we want to put all the fields (`access_token`, `expiresIn`) 
+    // when the route is `login`, we want to put all the fields (`access_token`, `expiresIn`)
     // which are not inside the response `data` field into the `data` field of our custom
     // response to normalise response structure.
-    data: res?.config?.url === '/login' ? {...othersMinusData,...res.data.data} : res.data?.data,
+    data:
+      res?.config?.url === '/login'
+        ? {...othersMinusData, ...res.data.data}
+        : res.data?.data,
   };
 };

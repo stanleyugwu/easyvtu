@@ -31,7 +31,7 @@ const ServiceCard = ({Image, label, serviceScreen}: ServiceCardProps) => {
     <TouchableOpacity
       activeOpacity={0.6}
       onPress={handlePress}
-      style={tw`justify-center items-center border-r border-b border-gray4 w-1/3 p-6`}>
+      style={tw`justify-center items-center border-r border-b border-gray4 w-1/3 p-4 sm:p-6`}>
       <Image width={'35'} height={'35'} />
       <Text type="caption" color="gray" style={tw`mt-3 text-center`}>
         {label}

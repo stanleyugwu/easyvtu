@@ -1,5 +1,6 @@
 import _axios from '../axios';
 
+export type SignInReqBody = Record<'email' | 'password', string>;
 export type SignInResData = {
   id: number;
   unique_id: string;
@@ -27,6 +28,7 @@ export type SignInResData = {
  */
 const signIn = (email: string, password: string) => {
   return _axios.post<
+    SignInReqBody,
     SignInResData & {
       access_token: string;
       token_type: 'bearer';
@@ -35,6 +37,10 @@ const signIn = (email: string, password: string) => {
   >('/login', {email, password});
 };
 
+export type SignUpReqBody = Record<
+  'username' | 'email' | 'password' | 'phone' | 'password_confirmation',
+  string
+>;
 export type SignUpResData = {
   username: string;
   email: string;
@@ -53,7 +59,7 @@ const signUp = async (
   password: string,
   phone: string,
 ) => {
-  return _axios.post<SignUpResData>('/register', {
+  return _axios.post<SignUpReqBody, SignUpResData>('/register', {
     username,
     email,
     password,

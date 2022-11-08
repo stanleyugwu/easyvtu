@@ -90,10 +90,9 @@ const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
     'update_profile',
     () =>
       _axios.post<
+        UpdateProfileDetailsBody,
         // TODO: move request return type to type variable
-        Parameters<typeof updateProfile>[0],
-        SuccessRes<Parameters<typeof updateProfile>[0]>,
-        UpdateProfileDetailsBody
+        Parameters<typeof updateProfile>[0]
       >('/update_profile', {
         email: getValues('email'),
         phone: getValues('phoneNumber'),
@@ -130,13 +129,13 @@ const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
         uri: uploadedImage?.uri,
       });
 
-      return _axios.post<
-        Parameters<typeof updateProfile>[0],
-        SuccessRes<Parameters<typeof updateProfile>[0]>,
-        FormData
-      >('/change_picture', formData, {
-        headers: {'Content-Type': 'multipart/form-data'},
-      });
+      return _axios.post<FormData, Parameters<typeof updateProfile>[0]>(
+        '/change_picture',
+        formData,
+        {
+          headers: {'Content-Type': 'multipart/form-data'},
+        },
+      );
     },
     {
       onError(err: ServerErrorObject) {

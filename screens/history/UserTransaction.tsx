@@ -67,7 +67,7 @@ const UserTransaction = ({
           <Text color="gray" type="small">
             {longServiceName[serviceType]}
           </Text>
-          <Text color="black">{phone}</Text>
+          <Text color="black" type='caption'>{phone}</Text>
           <View style={tw`flex-row items-center`}>
             <Text type="caption" color="gray">
               {payment_method}
