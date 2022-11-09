@@ -1,0 +1,76 @@
+name: App Build (Android & iOS)
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - main
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout to the pull request head branch
+        uses: actions/checkout@v2
+
+      - name: Cache node_modules directory for next run
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm
+
+      - name: Cache CocoaPods libraries for next run
+        uses: actions/cache@v2
+        with:
+          path: ~/Library/Caches/CocoaPods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods
+
+      - name: Cache ~/.cocoapods
+        uses: actions/cache@v2
+        with:
+          path: ~/.cocoapods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods
+
+      - name: Install app Node.js dependencies
+        run: npm install
+
+      - name: Install iOS pod dependencies
+        run: pod install
+        working-directory: ios
+
+      - name: Build iOS app
+        run: xcodebuild clean archive -workspace testCiCdReactNative.xcworkspace -scheme testCiCdReactNative -archivePath testCiCdReactNative.xcarchive CODE_SIGNING_ALLOWED=NO | xcpretty
+        working-directory: ios
+
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to the pull request head branch
+        uses: actions/checkout@v2
+
+      # Gradle Cache https://github.com/actions/cache/blob/main/examples.md#java---gradle
+      - name: Cache Gradle files
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle
+
+      - name: Install app Node.js dependencies
+        run: npm install
+
+      - name: Add 'executable' permission for gradlew script
+        run: chmod +x ./gradlew
+        working-directory: android
+
+      - name: Build android app (.aab & .apk)
+        run: ./gradlew bundleRelease assembleRelease
+        working-directory: android
