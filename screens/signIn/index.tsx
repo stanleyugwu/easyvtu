@@ -99,20 +99,21 @@ const SignIn = ({navigation: {navigate}}: StackScreen<'SignIn'>) => {
         <View style={tw`justify-center items-center mb-16 md:mb-20`}>
           <Image
             source={wavingBird}
-            style={tw`md:w-36 w-30 md:h-36 h-30 absolute`}
+            style={tw`md:w-32 w-28 md:h-32 h-28 absolute`}
           />
         </View>
 
-        <ScrollView style={tw`p-4`} keyboardShouldPersistTaps="handled">
+        <ScrollView style={tw`p-4 pt-0`} keyboardShouldPersistTaps="handled">
           <Text type="subTitle" color="gray5" style={tw`text-center`}>
             Glad to have you back!
           </Text>
-          <Text type="caption" color="gray4" style={tw`text-center mb-8`}>
+          <Text type="caption" color="gray4" style={tw`text-center mb-6`}>
             Fill in your login details to continue
           </Text>
           <InputField
             label="E-mail address"
             placeholder="Enter e-mail address"
+            textContentType='emailAddress'
             labelColor="gray5"
             onChangeText={text => setValue('email', text)}
             {...register('email')}

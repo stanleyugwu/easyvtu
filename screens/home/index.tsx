@@ -11,10 +11,14 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Wallet from '../../components/Wallet';
 import {TabScreen} from '../../navigation/screenParams';
 import constants from '../../utils/constants';
+import {SignInResData} from '../../api/services/auth';
 
 // Home Screen Component
 const Home = ({navigation: {navigate}}: TabScreen<'Home'>) => {
-  const {username, image} = useAppStore(state => state.profile!);
+  const {username, image} = useAppStore(
+    state => state.profile || ({} as SignInResData),
+  );
+  if (!username && !image) return null;
 
   const handleAddMoney = () => {
     navigate('Wallet', {

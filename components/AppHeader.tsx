@@ -18,7 +18,7 @@ const AppHeader = ({subTitle, title}: AppHeaderProps) => {
     <View style={tw`p-1`}>
       <BackButton onPress={goBack} />
       {title ? (
-        <Text type="title" color="black" style={tw`mt-6`}>
+        <Text type="title" color="black" style={tw`mt-4`}>
           {title}
         </Text>
       ) : null}

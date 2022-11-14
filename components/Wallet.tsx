@@ -33,7 +33,7 @@ const Wallet = ({onAddMoneyBtnPress, onWithdrawMoneyBtnPress}: WalletProps) => {
             <Text type="paragraph" color="black">
               Account Balance
             </Text>
-            <Text type="paragraph" color="black" style={tw.style('text-3xl')}>
+            <Text type="paragraph" color="black" style={tw.style('text-2xl')}>
               {balanceShown
                 ? `\u20A6${formatAmount(walletBal)}`
                 : '*********'}
@@ -46,7 +46,7 @@ const Wallet = ({onAddMoneyBtnPress, onWithdrawMoneyBtnPress}: WalletProps) => {
             {balanceShown ? 'HIDE' : 'SHOW'} BALANCE
           </Text>
         </View>
-        <View style={tw`h-30 w-34`}>
+        <View style={tw`h-28 w-32`}>
           <AnimatedLottieView
             autoPlay
             style={[tw`self-center`]}

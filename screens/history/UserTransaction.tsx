@@ -64,16 +64,16 @@ const UserTransaction = ({
           <CableIcon width="30" height="30" />
         )}
         <View style={tw`ml-3`}>
-          <Text color="gray" type="small">
+          <Text color="gray" type="caption">
             {longServiceName[serviceType]}
           </Text>
-          <Text color="black" type='caption'>{phone}</Text>
+          <Text color="black">{phone}</Text>
           <View style={tw`flex-row items-center`}>
-            <Text type="caption" color="gray">
+            <Text type="small" color="gray">
               {payment_method}
             </Text>
             <Text> - </Text>
-            <Text type="caption" color="gray">
+            <Text type="small" color="gray">
               {format(new Date(created_at))}
             </Text>
           </View>

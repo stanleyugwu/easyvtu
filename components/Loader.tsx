@@ -27,7 +27,7 @@ const Loader = ({visible = true, ...otherProps}: LoaderProps) => {
       <AnimatedLottieView
         autoPlay
         renderMode="AUTOMATIC"
-        style={tw`self-center w-[150px] md:w-[200px]`}
+        style={tw`self-center w-[130px] md:w-[180px]`}
         speed={3}
         {...otherProps}
         source={loader}

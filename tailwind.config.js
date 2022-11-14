@@ -6,8 +6,8 @@ const TwColors = {
   gray: '#676767',
   black: '#333333',
   white: '#FFFFFF',
-  gray5: '#E0E0E0',
-  gray4: '#BDBDBD',
+  gray5: '#f1f1f1',
+  gray4: '#dfdfdf',
 };
 
 // TODO: reduce and unify font sizes. Also reduce font line-heights
@@ -16,11 +16,11 @@ const TwColors = {
  * sizes prefixed with `b` will be used for larger screen
  */
 const TwFontSize = {
-  title: '26',
-  subTitle: '22',
-  paragraph: '16',
-  caption: '14',
-  small: '12',
+  title: '24',
+  subTitle: '20',
+  paragraph: '14',
+  caption: '12',
+  small: '10',
 };
 
 const config = {

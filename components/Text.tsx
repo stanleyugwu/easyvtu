@@ -31,12 +31,12 @@ const Text = ({
           `text-${type} text-${color}`,
           `leading-[${
             type === 'title' || type === 'subTitle'
-              ? '30px'
+              ? '27px'
               : type === 'paragraph'
-              ? '23.53px'
+              ? '20.53px'
               : type === 'caption'
-              ? '20px'
-              : '18px'
+              ? '17px'
+              : '15px'
           }]`,
         ),
         style,

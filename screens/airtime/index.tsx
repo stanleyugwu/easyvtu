@@ -289,7 +289,7 @@ const Airtime = () => {
           title="Buy Airtime"
           subTitle="Purchase airtime for yourself and your loved ones in a twinkle"
         />
-        <View style={tw`my-4`}>
+        <View style={tw`my-2`}>
           <InputField
             label="Phone Number"
             placeholder="Receipient phone number"
@@ -305,7 +305,7 @@ const Airtime = () => {
             value={formValues[1]}
             onChangeText={value => setValue('phoneNumber', value)}
           />
-          <View style={tw`mt-6 mb-4`}>
+          <View style={tw`my-3`}>
             <CarrierSelector selected={formValues[2] as Carrier} />
           </View>
           <InputField

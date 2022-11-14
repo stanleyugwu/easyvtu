@@ -58,7 +58,7 @@ export const InfoItem = ({label, value}: InfoItemProps) => (
     <Text type="caption" color="gray">
       {label}
     </Text>
-    <Text type="small" color="black">
+    <Text type="caption" color="black">
       {value}
     </Text>
   </View>

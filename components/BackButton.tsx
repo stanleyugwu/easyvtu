@@ -9,8 +9,8 @@ type BackButtonProps = TouchableOpacityProps;
 // BackButton Component
 const BackButton = (props: BackButtonProps) => {
   const dimension = tw.prefixMatch('md')
-    ? {width: 50, height: 50}
-    : {width: 45, height: 45};
+    ? {width: 48, height: 48}
+    : {width: 42, height: 42};
   return (
     <TouchableOpacity
       activeOpacity={0.8}

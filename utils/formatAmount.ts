@@ -5,6 +5,8 @@
  * amt === `2,000`
  */
 const formatAmount = (amount: number | string) =>
-  amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  amount?.toString
+    ? amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    : amount;
 
 export default formatAmount;
