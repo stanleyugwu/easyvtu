@@ -14,10 +14,10 @@ const Landing = ({navigation}: StackScreen<'Landing'>) => {
       backgroundColor="primary"
       contentContainerStyle={tw`h-full justify-center p-4`}>
       <Animatable.View animation={'fadeInUp'} iterationCount={1}>
-        <Text type="subTitle" color="gray5">
+        <Text type="subTitle" style={tw`text-center`} color="gray5">
           Welcome to Easy-Vtu
         </Text>
-        <Text type="caption" color="gray4">
+        <Text type="caption" style={tw`text-center`} color="gray4">
           Login or create an account to get started. You can also enjoy easy
           top-ups without creating an account.{' '}
         </Text>

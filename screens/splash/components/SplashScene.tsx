@@ -38,7 +38,7 @@ const SplashScene = ({image, body, title}: SplashSceneProps) => {
       <Text type="subTitle" style={tw`text-center mt-4`}>
         {title}
       </Text>
-      <Text type="caption" style={tw`text-center`}>
+      <Text style={tw`text-center text-gray`}>
         {body}
       </Text>
     </View>

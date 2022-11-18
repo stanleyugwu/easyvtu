@@ -49,18 +49,18 @@ const TransactionCard = ({
       {...otherProps}>
       <View style={tw`flex-row items-center justify-center`}>
         {transactionType === 'deposit' ? (
-          <DepositIcon width="30" height="30" />
+          <DepositIcon width="25" height="25" />
         ) : (
-          <WithdrawIcon width="30" height="30" />
+          <WithdrawIcon width="25" height="25" />
         )}
         <View style={tw`ml-3`}>
-          <Text color="gray" type="small">
+          <Text color="gray" type="caption">
             {method}
           </Text>
           <Text color="black">
             {transactionType === 'deposit' ? 'Deposit' : 'withdrawal'}
           </Text>
-          <Text type="caption" color="gray">
+          <Text type="small" color="gray">
             {format(new Date(date))}
           </Text>
         </View>

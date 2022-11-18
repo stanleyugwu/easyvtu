@@ -20,7 +20,7 @@ import ClosedEyeIcon from '../../assets/images/closed_eye.svg';
 import Loader from '../../components/Loader';
 import {signUp} from '../../api/services/auth';
 import SuccessOverlay from '../../components/SuccessOverlay';
-import {StackParamList, StackScreen} from '../../navigation/screenParams';
+import {StackScreen} from '../../navigation/screenParams';
 
 export type SignUpInputs = {
   username: string;
@@ -82,7 +82,7 @@ const SignUp = ({navigation: {navigate}}: StackScreen<'SignUp'>) => {
         keyboardShouldPersistTaps="always">
         <AppHeader />
         {/* @ts-ignore */}
-        <AppIcon style={tw`mt-6`} />
+        <AppIcon style={tw`mt-4`} />
         <Text type="subTitle" color="black">
           Get started with Easy-Vtu
         </Text>
@@ -147,7 +147,7 @@ const SignUp = ({navigation: {navigate}}: StackScreen<'SignUp'>) => {
           />
           <Button
             label="Create account"
-            style={tw`mt-10`}
+            style={tw`mt-6`}
             onPress={handleSignup}
           />
         </View>

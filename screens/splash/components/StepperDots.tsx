@@ -19,20 +19,20 @@ const StepperDots = ({activeIndex = 1}: StepperDotsProps) => {
     <View style={tw`flex-row`}>
       <View
         style={tw.style(
-          `w-[10px] h-[10px] rounded-full`,
-          activeIndex === 1 ? 'bg-secondary' : 'bg-gray5',
+          `w-[8px] h-[8px] rounded-full border-gray border`,
+          activeIndex === 1 ? 'bg-secondary border-secondary' : 'bg-gray5',
         )}
       />
       <View
         style={tw.style(
-          `w-[10px] h-[10px] rounded-full mx-1`,
-          activeIndex === 2 ? 'bg-secondary' : 'bg-gray5',
+          `w-[8px] h-[8px] rounded-full border-gray border mx-1`,
+          activeIndex === 2 ? 'bg-secondary border-secondary' : 'bg-gray5',
         )}
       />
       <View
         style={tw.style(
-          `w-[10px] h-[10px] rounded-full`,
-          activeIndex === 3 ? 'bg-secondary' : 'bg-gray5',
+          `w-[8px] h-[8px] rounded-full border-gray border`,
+          activeIndex === 3 ? 'bg-secondary border-secondary' : 'bg-gray5',
         )}
       />
     </View>

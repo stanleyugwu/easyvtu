@@ -43,7 +43,7 @@ const OptionCardButton = ({
         <Image width='35' height="35" />
         <View style={tw`ml-3`}>
           <Text color="black">{title}</Text>
-          <Text type="small" color="gray">
+          <Text type="caption" color="gray">
             {subTitle}
           </Text>
         </View>
