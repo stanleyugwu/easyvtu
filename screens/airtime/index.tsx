@@ -1,11 +1,10 @@
 //import libraries
-import React, {useEffect, useId, useMemo, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {View} from 'react-native';
 import tw from '../../lib/tailwind';
 import SafeAreaScrollView from '../../components/SafeAreaScrollView';
 import AppHeader from '../../components/AppHeader';
 import InputField from '../../components/InputField';
-import CarrierSelector from '../../components/CarrierSelector';
 import {useForm, useWatch} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import AirtimeSchema from './airtime.schema';
@@ -14,29 +13,20 @@ import {Carrier, IncompleteTopUp} from './airtime.d';
 import Button from '../../components/Button';
 import SnackBar from '../../components/SnackBar';
 import getFirstError from '../../utils/getFirstError';
-import detectCarrierFromPhoneNumber from '../../utils/detectCarrierFromPhoneNumber';
-import detectUserPhoneNumbers from '../../utils/detectUserPhoneNumbers';
 import Text from '../../components/Text';
 import useAppStore from '../../store';
 import formatAmount from '../../utils/formatAmount';
-import BottomSheet, {BOTTOMSHEETHEIGHT} from '../../components/BottomSheet';
-import PaymentMethodButton, {
-  PAYMENT_METHODS,
-} from '../../components/PaymentMethodButton';
 import Loader from '../../components/Loader';
 import airtimeTopUp from '../../api/services/topUpAirtime';
 import SuccessOverlay from '../../components/SuccessOverlay';
-import PayWithFlutterwave from 'flutterwave-react-native';
 import {RedirectParams} from 'flutterwave-react-native/dist/PayWithFlutterwave';
-import {FlutterwaveInitOptions} from 'flutterwave-react-native/dist/FlutterwaveInit';
 import FlutterwaveInitError from 'flutterwave-react-native/dist/utils/FlutterwaveInitError';
-import constants from '../../utils/constants';
-import ContactSelector from '../../components/ContactSelector';
+import CarrierAndPhoneNumberField from '../../components/CarrierAndPhoneNumberField';
+import PaymentBottomSheet from '../../components/PaymentBottomSheet';
 
 // Airtime Screen Component
 const Airtime = () => {
   const balance = useAppStore(state => state.profile?.wallet_balance);
-  const profile = useAppStore(state => state.profile);
   const updateProfile = useAppStore(state => state.setProfile);
 
   /**
@@ -112,7 +102,7 @@ const Airtime = () => {
   /**
    * In order to handle faulty transactions, or edge case where user completes
    * payment but hits network error when app is about to top-up his/her account,
-   * this ref will cache details of an incomplete top-up so when user has ctable
+   * this ref will cache details of an incomplete top-up so when user has stable
    * connection, the top-up will be completed.
    */
   const incompleteTopUpCache = useRef<IncompleteTopUp | undefined>(undefined);
@@ -125,18 +115,6 @@ const Airtime = () => {
   const cachedFormValues = useRef<InferType<typeof AirtimeSchema> | undefined>(
     undefined,
   );
-
-  // facilitates detecting user's phone number
-  const detectNumber = React.useCallback(async () => {
-    try {
-      const selectedNumber = await detectUserPhoneNumbers();
-      if (selectedNumber && selectedNumber.length > 0)
-        setValue('phoneNumber', selectedNumber);
-    } catch (error) {
-      // nothing should be thrown here, but just incase something
-      // is thrown, let's swallow it
-    }
-  }, [setValue]);
 
   // Handles wallet payment
   const handleWalletPaymentMethod = async () => {
@@ -179,38 +157,6 @@ const Airtime = () => {
   /**
    * FLUTTERWAVE STUFFS
    */
-  // tx_ref id gen
-  const id = useId();
-
-  // flutterwave options
-  const flutterwaveOptions = useMemo<
-    Omit<FlutterwaveInitOptions, 'redirect_url'>
-  >(
-    () => ({
-      ...constants.INCOMPLETE_STATIC_FLUTTERWAVE_PAYMENT_OPTIONS,
-      amount: formValues[0],
-      tx_ref: `${formValues[0]}-airtime-top-up-${Date.now() + id}`,
-      customer:
-        profile?.email && profile?.username
-          ? {
-              // TODO: resolve email to use for guest user
-              email: profile.email,
-              name: profile.username,
-            }
-          : constants.INCOMPLETE_STATIC_FLUTTERWAVE_PAYMENT_OPTIONS.customer,
-      customizations: {
-        description: `#${formValues[0]} airtime top-up transaction`,
-        title: 'EasyVtu Airtime Top-up Payment',
-      },
-    }),
-    [
-      formValues[0],
-      requestError,
-      successMsg,
-      profile?.email,
-      profile?.username,
-    ],
-  );
 
   // Handles redirection after flutterwave payment
   const handleFlutterwaveRedirect = React.useCallback(
@@ -263,25 +209,6 @@ const Airtime = () => {
     setRequestError('Error initialising payment. Try again');
   };
 
-  /**
-   * This effect handles detecting mobile number from user's phone
-   * for self top-up on mount.
-   */
-  useEffect(() => {
-    detectNumber();
-  }, []);
-
-  /**
-   * monitors update to phone number field and
-   * performs auto-carrier detection
-   */
-  useEffect(() => {
-    const detectedCarrier = detectCarrierFromPhoneNumber(
-      getValues('phoneNumber'),
-    );
-    if (detectedCarrier) setValue('carrier', detectedCarrier);
-  }, [getValues('phoneNumber')]);
-
   return (
     <>
       <SafeAreaScrollView backgroundColor="white">
@@ -289,25 +216,13 @@ const Airtime = () => {
           title="Buy Airtime"
           subTitle="Purchase airtime for yourself and your loved ones in a twinkle"
         />
-        <View style={tw`my-2`}>
-          <InputField
-            label="Phone Number"
-            placeholder="Receipient phone number"
-            rightElement={
-              <ContactSelector
-                onSelect={selectedNumber =>
-                  setValue('phoneNumber', selectedNumber)
-                }
-              />
-            }
-            keyboardType="number-pad"
-            textContentType="telephoneNumber"
-            value={formValues[1]}
-            onChangeText={value => setValue('phoneNumber', value)}
+        <View style={tw`my-4`}>
+          <CarrierAndPhoneNumberField
+            onPhoneChange={numberAndCarrier => {
+              setValue('phoneNumber', numberAndCarrier[0]);
+              numberAndCarrier[1] && setValue('carrier', numberAndCarrier[1]);
+            }}
           />
-          <View style={tw`my-3`}>
-            <CarrierSelector selected={formValues[2] as Carrier} />
-          </View>
           <InputField
             label="Amount"
             placeholder="Artime amount"
@@ -342,38 +257,19 @@ const Airtime = () => {
             : undefined
         }
       />
-      <BottomSheet
-        title="Choose payment method"
+      <PaymentBottomSheet
         visible={paymentSheetVisible}
-        height={BOTTOMSHEETHEIGHT.HALF}
-        onDismiss={() => setPaymentSheetVisible(false)}>
-        {balance !== undefined && (
-          <PaymentMethodButton
-            method={PAYMENT_METHODS.WALLET}
-            onPress={handleWalletPaymentMethod}
-          />
-        )}
-        <PayWithFlutterwave
-          onRedirect={handleFlutterwaveRedirect}
-          options={flutterwaveOptions}
-          currency={'NGN'}
-          customButton={props => (
-            <PaymentMethodButton
-              method={PAYMENT_METHODS.FLUTTERWAVE}
-              onPress={() => {
-                // early termination
-                if (props.disabled) return;
-
-                // lets cache form values to be used for top-up completion after payment
-                cachedFormValues.current = getValues();
-                props.onPress();
-              }}
-              label={'Pay with Flutterwave'}
-            />
-          )}
-          onInitializeError={handleFlutterwaveInitError}
-        />
-      </BottomSheet>
+        onDismiss={() => setPaymentSheetVisible(false)}
+        amount={formValues[0]}
+        handleFlutterwaveRedirect={handleFlutterwaveRedirect}
+        service="airtime"
+        handleFlutterwaveInitError={handleFlutterwaveInitError}
+        onFlutterwaveInit={() => {
+          // lets cache form values to be used for top-up completion after payment
+          cachedFormValues.current = getValues();
+        }}
+        handleWalletPayment={handleWalletPaymentMethod}
+      />
       <Loader visible={loaderVisible} />
       <SuccessOverlay
         visible={!!successMsg}
