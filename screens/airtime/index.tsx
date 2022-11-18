@@ -23,6 +23,7 @@ import {RedirectParams} from 'flutterwave-react-native/dist/PayWithFlutterwave';
 import FlutterwaveInitError from 'flutterwave-react-native/dist/utils/FlutterwaveInitError';
 import CarrierAndPhoneNumberField from '../../components/CarrierAndPhoneNumberField';
 import PaymentBottomSheet from '../../components/PaymentBottomSheet';
+import WalletBalance from '../../components/WalletBalance';
 
 // Airtime Screen Component
 const Airtime = () => {
@@ -230,13 +231,7 @@ const Airtime = () => {
             keyboardType="number-pad"
             onChangeText={value => setValue('amount', +value)}
           />
-          {balance && (
-            <Text
-              type="caption"
-              style={tw`border-dashed self-start px-2 border-[1.2px] border-primary`}
-              children={`Bal: \u20A6${formatAmount(balance)}`}
-            />
-          )}
+          <WalletBalance />
           <Button
             label="Buy Airtime"
             onPress={handleBuyAirtime}

@@ -10,7 +10,6 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import useAppStore from '../../store';
 import formatAmount from '../../utils/formatAmount';
 import Button from '../../components/Button';
-import AngleDownIcon from 'assets:images/angle_down.svg';
 import DataSchema from './data.schema';
 import CarrierAndPhoneNumberField from '../../components/CarrierAndPhoneNumberField';
 import SnackBar from '../../components/SnackBar';
@@ -30,6 +29,8 @@ import dataTopUp from '../../api/services/dataTopUp';
 import SuccessOverlay from '../../components/SuccessOverlay';
 import {RedirectParams} from 'flutterwave-react-native/dist/PayWithFlutterwave';
 import {DataTopUpFormValues} from './data';
+import DropMenuFieldButton from '../../components/DropMenuFieldButton';
+import WalletBalance from '../../components/WalletBalance';
 
 // MobileData Screen Component
 const MobileData = (route: StackScreen<'Data'>) => {
@@ -280,23 +281,12 @@ const MobileData = (route: StackScreen<'Data'>) => {
             <Text type="paragraph" color="black" style={tw`mb-2`}>
               Data Plan
             </Text>
-            <TouchableOpacity
+            <DropMenuFieldButton
               onPress={handleSelectDataPlan}
-              activeOpacity={0.9}
-              style={tw`py-4 px-3 flex-row justify-between bg-gray5 border border-gray4 items-center rounded-[3px]`}>
-              <Text type="caption" color="gray">
-                {selectedPlanName}
-              </Text>
-              <AngleDownIcon />
-            </TouchableOpacity>
-          </View>
-          {balance && (
-            <Text
-              type="caption"
-              style={tw`border-dashed self-start px-2 border-[1.2px] border-primary`}
-              children={`Bal: \u20A6${formatAmount(balance)}`}
+              label={selectedPlanName}
             />
-          )}
+          </View>
+          <WalletBalance />
           <Button label="Buy Data" style={tw`my-6`} onPress={handleBuyData} />
         </View>
       </SafeAreaScrollView>
