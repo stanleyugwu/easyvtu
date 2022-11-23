@@ -8,7 +8,6 @@ import AppHeader from '../../components/AppHeader';
 import {useForm, useWatch} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import useAppStore from '../../store';
-import formatAmount from '../../utils/formatAmount';
 import Button from '../../components/Button';
 import DataSchema from './data.schema';
 import CarrierAndPhoneNumberField from '../../components/CarrierAndPhoneNumberField';
@@ -272,8 +271,11 @@ const MobileData = (route: StackScreen<'Data'>) => {
               setValue('phoneNumber', numberAndCarrier[0]);
               if (numberAndCarrier[1]) {
                 setValue('carrier', numberAndCarrier[1]);
-                formValues.carrier !== numberAndCarrier[1] &&
+                if(formValues.carrier !== numberAndCarrier[1]){
                   setSelectedPlanName('Select a data plan');
+                  // @ts-ignore
+                  setValue("planId", undefined);
+                }
               }
             }}
           />

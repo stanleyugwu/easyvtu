@@ -1,0 +1,622 @@
+[33mcommit 6443d617dadc8eef86730392fcac83e577497512[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m)[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Nov 23 12:29:00 2022 +0100
+
+    chore: separate api utils from services
+
+[33mcommit 900f3a3c8db951f041989cb14d78d405e03dfe84[m[33m ([m[1;31mgithub/develop[m[33m)[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Nov 23 12:25:32 2022 +0100
+
+    feat: create electricity top-up screen
+
+[33mcommit 12a2d79284ca722320e2f137dff41129937950d8[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Nov 23 12:22:51 2022 +0100
+
+    fix: reset `planId` form value to undefined after carrier changes
+
+[33mcommit f4ec9ba0dc6d31293c038a311c3cd2f71e539845[m[33m ([m[1;31mgithub/patch[m[33m, [m[1;32mpatch[m[33m)[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Fri Nov 18 14:50:58 2022 +0100
+
+    feat(ci/cd): add support for manually triggering workflow
+
+[33mcommit 647b691e22ed36f88d7b6728c0307fe3f1c7bbfd[m
+Merge: 54a914d bc0bb91
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Fri Nov 18 14:42:06 2022 +0100
+
+    Merge branch 'develop' of https://github.com/stanleyugwu/easyvtu into develop
+
+[33mcommit 54a914dbbc1e21875937298e1e69c58641b7caa3[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Fri Nov 18 14:10:42 2022 +0100
+
+    refactor: extract the `Text` component for displaying wallet balance into a separate re-usable component and update airtime and data screens to reflect the changes
+
+[33mcommit bc0bb918a60e3e3eab8d3bb63bc9ba4c127e4de3[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Fri Nov 18 14:10:42 2022 +0100
+
+    refactor: extract the `Text` component for displaying wallet balance into a separate re-usable component and update airtime and data screens to reflect the changes
+
+[33mcommit 1587d0bd5ad3ac3e94f14d9cb2d8f2b885d701af[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Fri Nov 18 05:56:57 2022 +0100
+
+    feat:
+    - create data top-up screen
+    - create wrapper component for carrier and phone number form fields and integrate it into airtime screen
+    -  create payment bottom sheet component and integrate it into airtime screen
+    - create app's typescript global definition file
+
+[33mcommit bb025d553bfaccaf18f5c6fc2e8d2239d51c6a57[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Nov 14 17:03:34 2022 +0100
+
+    improvement: reduce app element sizes to minimise space consumption
+
+[33mcommit c98b2a1d385d7c3f2667e803131cbb0755680f45[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Nov 9 21:24:43 2022 +0100
+
+    fix: install forked version of `react-native-device-number` to prevent build errors
+    
+    original package set `compileSdkVersion` fallback to 16 which causes error on app compile. The forked version makes the necessary changes which reolves the issue
+
+[33mcommit a2fea411b653b981281b752974380ec5406af46d[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Nov 9 21:14:02 2022 +0100
+
+    feat(CI/CD): create CI/CD action workflow that will compile app for android and iOS when pull request is opened
+
+[33mcommit 18056840074a43c7885ce115a5503bdfe1def71b[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Sat Nov 5 17:31:16 2022 +0100
+
+    improvement: increase button padding
+
+[33mcommit b229843ae2ce8a6612e5e242c9e80e68176ac9b8[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Sat Nov 5 17:30:21 2022 +0100
+
+    feat: create airtim screen and all of its necessary dependent and re-usable components, utility functions, helpers, constants, configuration, and assets
+
+[33mcommit 0b847a455d0239313ab915dfdfbd2c3fb11f18a5[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Sat Nov 5 16:56:01 2022 +0100
+
+    fix: change `axios` post function type definition and adjust exisiting requests to match definition
+
+[33mcommit d7f1c2311cbd12f5bb5b5f8a144601a2e112f0f9[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Sat Nov 5 16:41:35 2022 +0100
+
+    improvement: add responsive text sizing and remove animation for text in landing screen
+
+[33mcommit 2e7aa06665aac3711e431cfee7deb952efd9166c[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Nov 3 13:34:23 2022 +0100
+
+    perf: reduce animation duration
+
+[33mcommit 58820ef58240dbc4f69f2a639c8f3ac703a414f3[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Nov 3 13:34:01 2022 +0100
+
+    improvement: add `onPress` prop to `svg` typescript definition to allow `onPress` prop when redering svg as component
+
+[33mcommit 546b770659480c5717186017a44be586a149750a[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Nov 3 12:21:56 2022 +0100
+
+    feat: create re-usable `BottomSheet` component
+
+[33mcommit 1e54962c1f2f0e92b8a937b86a0f7d091fc443d6[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Tue Oct 25 22:44:18 2022 +0100
+
+    feat: create response inteceptor logic to automatically sign out user when server responds with unauthentiated message.
+    
+    Also move app auth functions and state up to store as there's need to access the state and function outside react component
+
+[33mcommit 9d7593369c1e97afb619db4409d4dcc721a1af11[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Tue Oct 25 17:14:07 2022 +0100
+
+    fix: fix broken git object by recreating file
+
+[33mcommit 2eb05018c5f18eb2b5b27a249a874972fb46a45d[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Oct 20 19:03:35 2022 +0100
+
+    improvement: make service panel padding responsive
+
+[33mcommit e6aafc66765729669d35b1501c9ccb5dd9a5e5bc[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Oct 20 01:10:57 2022 +0100
+
+    feat: create history screen
+
+[33mcommit e160ff0d20ac9a11bad69ae2b44ff967e638b31b[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Oct 20 01:09:28 2022 +0100
+
+    feat: create re-usable transaction receipt overlay component and swap it out with hard-coded receipt modal in wallet screen
+
+[33mcommit e93ae10fb0c3a00299aae0724c113870b1e81dc2[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Oct 20 01:07:34 2022 +0100
+
+    perf: remove component default visibility state to prevent flickers on mount
+
+[33mcommit 8402d9b95b1bfefff4ca4676fcac98e496272825[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Oct 19 09:18:40 2022 +0100
+
+    perf: remove redundant logics in query refetch process
+
+[33mcommit 0901325a77aa0a8e6858ebf48d3d1f1500f6a41e[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Oct 19 08:42:56 2022 +0100
+
+    fix: remove empty space from request header content type
+
+[33mcommit ed0326c3db00982a05ae7fa6c8d5d826c3ba9e88[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Tue Oct 18 13:20:13 2022 +0100
+
+    improvement: uniformise and adjust font sizes and spacing
+
+[33mcommit 6942459263a53618c9965e5ff40a1399156d2190[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 17 17:39:05 2022 +0100
+
+    feat: create profile and edit profile screens
+
+[33mcommit d25b6846cb7d696542e3dc0584a02b093ebe8d9d[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 17 15:44:52 2022 +0100
+
+    perf: change overlay exit animation
+
+[33mcommit 51988e7e3e87145fc31b0625390b3c130b04f8bf[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 17 15:08:06 2022 +0100
+
+    improvment: modify home screen profile details to show username instead of firstname as firstname might not be used
+
+[33mcommit b13578bdd34f9fe28d47d3edbdbcfd8d060d973b[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Oct 13 14:14:43 2022 +0100
+
+    feat: extract back button from `AppHeader` component and make it a standalone component
+
+[33mcommit 77993b0132c1fdab11e63f25720bb9c1cd141b51[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Oct 13 13:17:19 2022 +0100
+
+    feat: create receipt modal overlay component
+    
+    create a transaction receipt overlay modal to live in wallet screen instead of being a separate screen
+    
+    the receipt modal will appear as overlay when a wallet tx is pressed
+
+[33mcommit 6214de7d96d0eb2aece02ad02142ba93f584000c[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Oct 12 17:00:05 2022 +0100
+
+    feat: create wallet screen component
+
+[33mcommit 767ba76a4f07645d01a0d5a819615127a3183052[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Oct 12 16:58:56 2022 +0100
+
+    feat: create transaction button component for rendering pressable wallet tx history
+
+[33mcommit e864bd99843092403c91d36cdb31496ee0bc1895[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Oct 12 15:25:24 2022 +0100
+
+    fix: remove `Bearer` prefix from request interceptor as server-returned token has the prefix
+
+[33mcommit abad878875e824d7b41594f5eb5247f8f6a42660[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Oct 12 14:24:59 2022 +0100
+
+    improvement: create proper signout functionality and make hook store persisted auth token globally
+
+[33mcommit a400654339a3a218b3200f1b037f18c9c9f724f2[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Oct 12 14:23:07 2022 +0100
+
+    feat: integrate react-query
+
+[33mcommit 8e30199873fb8945bdc72afa4e5a3330b438412b[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Oct 12 14:20:24 2022 +0100
+
+    feat: create flat view error and loader components
+
+[33mcommit 7f34eb7adfc15fe71d3d7e96d93eb0ae4b82710f[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Tue Oct 11 21:42:49 2022 +0100
+
+    feat: create more option screen and associated option button component
+
+[33mcommit 2e48b351c858b4e76819322d819ab5a32c916291[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Tue Oct 11 20:42:52 2022 +0100
+
+    feat: create metro custom resolver for `assets:` and `components:` import aliases
+
+[33mcommit 19d9ebefaf0ca94439309798fb0bfc871b61c517[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Tue Oct 11 20:32:54 2022 +0100
+
+    improvement: change typescript module declaration default export type for .svg file to react component type for rich intellisense
+
+[33mcommit 9fcea25dd5fc4798b59c209cdf449196275cf687[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Tue Oct 11 18:19:17 2022 +0100
+
+    feat: create home screen component
+
+[33mcommit 69aaea949ea7aea2a6d388d5d2295dbb0c92f861[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Tue Oct 11 18:05:46 2022 +0100
+
+    improvement: add support for custom-styling component
+
+[33mcommit 5bf681b9b440e2a74c5922c63fa3e13640149421[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Tue Oct 11 18:05:02 2022 +0100
+
+    feat: setup bottom tab navigation and it's tab bar
+
+[33mcommit 7a4d96e45713301557d8bf3d3a11461c07217454[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Tue Oct 11 18:00:51 2022 +0100
+
+    feat: create wallet component, add persistence layer to store and create utility function for formatting money value
+
+[33mcommit e67b9f15bafa8c992844dd2d51ea71f89d117396[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 23:18:05 2022 +0100
+
+    improvement: add logic to persist user token
+
+[33mcommit a33b1797ab41bb8f6d3f86b9c8987ca07f6e2a3b[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 23:00:26 2022 +0100
+
+    feat: re-arrange screens navigator, seperate bottom tab navigator and create bottom tab screen param list
+
+[33mcommit 10edb2549a73e034103d2fc0d811cdab790c6ee7[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 22:43:29 2022 +0100
+
+    feat: create guest home screen
+
+[33mcommit 9a189d6381bc0de08ffdf094d7222866e76177fa[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 22:40:54 2022 +0100
+
+    feat: create re-usable service panel component that renders app services as cards
+
+[33mcommit a0a4aebb6c8555d9a5a1377467ac4738cfd3e9d8[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 20:44:55 2022 +0100
+
+    feat: create forgot-password screen
+
+[33mcommit a5aafe99da4dfcee18eef49a10672b26ed5930b3[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 20:43:12 2022 +0100
+
+    improvement: remove animation loop and add padding
+
+[33mcommit d36189caf9f053e92e569b4c8bbaab6bc4436295[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 20:02:35 2022 +0100
+
+    fix: change success message from custom text to server response text
+
+[33mcommit bf4067e7c2cbe4741bdb513a586595f78ab9affa[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 20:01:38 2022 +0100
+
+    feat: add auto font-size adjustment to success overlay text
+    
+    Add logic to adjust font-size of `successText` prop in success overlay based on the amoun of text
+
+[33mcommit 264ff8ccfe584e24d6d94ad6d921ddac3e9c8308[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 19:53:41 2022 +0100
+
+    improvement: add center alignment to success overlay component text
+
+[33mcommit e959655d33828128c631fc7830c0d5bbbc1ded10[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 19:38:26 2022 +0100
+
+    feat: create signup screen
+
+[33mcommit 7eff16f5f1c12f928cf0c2988fee0b35bdc0867e[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 19:37:27 2022 +0100
+
+    improvement: add cross-platform box shadow to back button
+
+[33mcommit 5a86d66e2582d13daf6f99883bdb62db1d903e18[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 19:30:26 2022 +0100
+
+    improvement: change loader component animation
+
+[33mcommit 07e18caa77f399c2e3acfe8226a3a312a825c19e[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 19:29:34 2022 +0100
+
+    feat: create success overlay component
+
+[33mcommit 9a0ebf4ccff744bf715da4cf6e8eedfd2887e67e[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 19:17:01 2022 +0100
+
+    improvement: add create account button and back button in sign in screen
+
+[33mcommit af82a21c4e47dd1be39f90bdf01dead654a5eec4[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 18:53:30 2022 +0100
+
+    improvement: change loader animation
+
+[33mcommit 05ee4bddfa4d915ef68773ae4c5c8345ac4963c9[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 14:52:03 2022 +0100
+
+    fix: add padding style to safe area view wrapper for landing screen
+
+[33mcommit 723df955f450aedd27cc7c19619ad78722c7ba12[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 04:16:30 2022 +0100
+
+    fix: add logic for determining where to add which side of the text input to add border to, based on whether there's element to the left or right of it
+
+[33mcommit 061c9e38e1d94f05b9e7c92bb7c560c33e648698[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 03:58:28 2022 +0100
+
+    fix: move padding style from scrollview style to it's container style
+    
+    Adding padding styles to scrollview via `style` prop will cause clipped views. styles for content should be in contentContainerStyle prop
+
+[33mcommit 4098561e00b8b7248502384c11b70247a8c82fb0[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 02:25:33 2022 +0100
+
+    feat: create and register sign in screen
+
+[33mcommit 9319f197eee45a7cb73ec5b729fe0183b00c9457[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 10 02:22:46 2022 +0100
+
+    feat: setup app store with zustand
+
+[33mcommit 0d8a0ac7ad8d42fad30143d64a8cbfce1037c5b6[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Sun Oct 9 23:14:25 2022 +0100
+
+    feat: create signin and signup authentication services
+
+[33mcommit ce0faf572c4ae4e292396e21700770204a00aa1d[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Sun Oct 9 23:13:28 2022 +0100
+
+    feat: create api declaration file, create utilities for storing/retrieveing auth tokens, create utility for extracting error
+
+[33mcommit 05c2591c71a17d10ac4582f7490625b4a880b114[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Sun Oct 9 23:11:14 2022 +0100
+
+    fix: change hook name
+
+[33mcommit 8371e2a8ecc380fa0157411b69109ff37708bf39[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Sun Oct 9 23:07:27 2022 +0100
+
+    feat: setup axios and create request and response interceptors
+    
+    install axios for requests and react-hook-form for form validation. Create request and response interceptors for axios
+
+[33mcommit e63656c7345477b794db9eb0fefd4586e0a5e641[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Oct 6 18:19:41 2022 +0100
+
+    fix: reduce component z-index to be smaller than `Loader` component's z-index
+
+[33mcommit bca87aa8c26187b9cabac50520ac1fdaa99608ec[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Oct 5 18:22:55 2022 +0100
+
+    feat: create dismissable snackbar component
+
+[33mcommit 3cfedae9e32b31c48f492523bc8fa85678b47ad3[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Oct 5 18:21:32 2022 +0100
+
+    feat: create utility function to extract first error message from error object
+
+[33mcommit efd92ed5656531506c47105778f13d2512241cb6[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Wed Oct 5 03:07:19 2022 +0100
+
+    feat: create re-usable full-screen animative loader component
+
+[33mcommit 09481abeb35fba3360a3a775142a6530b2c39def[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Tue Oct 4 13:20:01 2022 +0100
+
+    build: add transformation config to support rendering svg images
+
+[33mcommit b754e6679d1827e2ca74a20c578100d664d95f80[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Tue Oct 4 13:07:56 2022 +0100
+
+    feat: build re-usable text input component
+
+[33mcommit 2134d3277df676005a21b0f99eaad30e03f4252c[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Tue Oct 4 11:37:27 2022 +0100
+
+    perf: optimise landing screen animation for speed
+
+[33mcommit c87d69efe2a572e8ef5bec7d3c28fc6396acf5dd[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Tue Oct 4 11:34:53 2022 +0100
+
+    feat: make app font sizing dynamic for larger resolution screens
+
+[33mcommit 7172f3df192dbb45b967ab203f7ee462c6fcd126[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 3 14:44:10 2022 +0100
+
+    feat: build app landing screen
+    
+    The landing screen has login, signup, and continue-as-guest action buttons
+
+[33mcommit 7d8529a63c0f3678d915b313f7bcb729ef92a7c5[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 3 14:17:46 2022 +0100
+
+    feat: create generic scrollview and safe area view component
+
+[33mcommit a0ba826ccef80ef770be61460ec4438d8171f14f[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 3 13:20:15 2022 +0100
+
+    improvement: ad support for setting button label text color
+
+[33mcommit 94c93f753e9fdbefa01b0382d5bc12e4b2b887b1[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 3 01:30:39 2022 +0100
+
+    feat: implement authentication checks in navigation
+
+[33mcommit 29226e2c5b43db14b5c0393a9946c0a2442cba7e[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 3 01:29:03 2022 +0100
+
+    feat: build hooks and context for handling authentication
+
+[33mcommit 6ac4a8e3d8457cb6f2e51de6a3cb2961d7fd357f[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Mon Oct 3 01:28:24 2022 +0100
+
+    feat: setup secure storage package
+
+[33mcommit fdff5ba22f19cf5e6b555eacacc9c8511ae056b0[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Sat Oct 1 15:41:47 2022 +0100
+
+    feat: integrate navigation and build splash screen
+
+[33mcommit 8a054df74b377f49090b6cd8a66b7a1f41851cc6[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Sat Oct 1 01:03:20 2022 +0100
+
+    feat: install animation package and build out splashscreen
+
+[33mcommit 4546c027992f6e1955e40e3e04a0065bd92b083c[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Sat Oct 1 00:19:40 2022 +0100
+
+    feat: create custom Button component and install linear-gradient package
+
+[33mcommit 0c081a984b331c9ec94119a1afeacf340d28c559[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Fri Sep 30 23:39:04 2022 +0100
+
+    improvement: extract colors and fonts theme to exportable variables
+
+[33mcommit 42e48991d064bff6a388b901775e398f1450141b[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Fri Sep 30 23:11:16 2022 +0100
+
+    feat: add declaration file containing declarations for es media files imports
+
+[33mcommit 6480ff5acdaab97fd5b2f0321e4566cf009137bc[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Fri Sep 30 22:55:10 2022 +0100
+
+    feat: add custom breakpoints
+
+[33mcommit 3926455c297e62a9528587d31bedfd24d8144358[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Fri Sep 30 16:14:37 2022 +0100
+
+    feat: add line-height for text types
+
+[33mcommit e722d3a206597e0c76dcdaff88dc20f311fafb2c[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Fri Sep 30 14:13:12 2022 +0100
+
+    feat: create custom re-usable Text component
+
+[33mcommit 7cbccd56d64bc6680de1a801776bd7c602101952[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Fri Sep 30 13:36:17 2022 +0100
+
+    feat: register app font
+
+[33mcommit 5a052fe7501bef41b17c31dcb7c5f07b362a2fc7[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Fri Sep 30 02:21:23 2022 +0100
+
+    feat: install and setup tailwind package
+
+[33mcommit 8a7c27e030de854db868ec4faadfa811f1a4d2f8[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Fri Sep 30 01:18:03 2022 +0100
+
+    feat: install package for cross-platform safe area view handling
+
+[33mcommit 05b602f9c563ef4878ba1676821c7180edf2e979[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Sep 29 18:41:37 2022 +0100
+
+    fix: change app name in `app.json`
+
+[33mcommit 8678d4d9b41478aabce35f07d61dc28741067d5a[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Sep 29 18:02:27 2022 +0100
+
+    feat(ios): create native iOS splashscreen
+
+[33mcommit f44b5292abde775b9eb2751a1afef9d0c443ada2[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Sep 29 17:35:34 2022 +0100
+
+    feat(android): create new native splashscreen
+    
+    Create a native android theme to serve as native splashscreen to be shown before react-native kicks off
+
+[33mcommit 4dc02cb068b9dc10b2371af6ac19ff8b81cf6102[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Sep 29 16:57:29 2022 +0100
+
+    feat(adnroid): specify app color resources
+
+[33mcommit 0427ba7ffc83f51d4df755f715d83e61a314a7e0[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Sep 29 16:42:29 2022 +0100
+
+    feat (android): specify permissions in manifest
+
+[33mcommit 915d3d5ae9bb5f7da0e9717996bc1daf9dfe0d04[m
+Author: Stanley Ugwu <stanleyugwu2018@gmail.com>
+Date:   Thu Sep 29 16:35:29 2022 +0100
+
+    feat 💻: initialise project and add android icon

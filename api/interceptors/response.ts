@@ -1,5 +1,5 @@
 import axios, {AxiosError, AxiosResponse} from 'axios';
-import extractSingleError from '../services/extractSingleError';
+import extractSingleError from '../util/extractSingleError';
 import {
   ErrorResponse,
   RawServerErrorMessage,

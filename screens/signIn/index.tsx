@@ -19,7 +19,7 @@ import wavingBird from './images/waving_bird.png';
 import OpenEyeIcon from '../../assets/images/open_eye.svg';
 import ClosedEyeIcon from '../../assets/images/closed_eye.svg';
 import {signIn} from '../../api/services/auth';
-import storeAccessToken from '../../api/services/storeAccessToken';
+import storeAccessToken from '../../api/util/storeAccessToken';
 import useAuth from '../../hooks/useAuth';
 import useAppStore from '../../store';
 import AppHeader from '../../components/AppHeader';

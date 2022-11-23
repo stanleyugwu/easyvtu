@@ -1,5 +1,5 @@
 import {AxiosError, AxiosRequestConfig} from 'axios';
-import getAccessToken from '../services/getAccessToken';
+import getAccessToken from '../util/getAccessToken';
 import {ErrorResponse} from '../api';
 
 /**
