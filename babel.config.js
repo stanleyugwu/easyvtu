@@ -12,5 +12,15 @@ module.exports = {
         verbose: false,
       },
     ],
+    [
+      'module-resolver',
+      {
+        alias: {
+          '~components': './components',
+          '~assets': './assets',
+          '~images': './assets/images',
+        },
+      },
+    ],
   ],
 };
