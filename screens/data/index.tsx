@@ -1,35 +1,35 @@
 //import libraries
 import React, {useRef, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import Text from '../../components/Text';
+import Text from '~components/Text';
 import tw from '../../lib/tailwind';
-import SafeAreaScrollView from '../../components/SafeAreaScrollView';
-import AppHeader from '../../components/AppHeader';
+import SafeAreaScrollView from '~components/SafeAreaScrollView';
+import AppHeader from '~components/AppHeader';
 import {useForm, useWatch} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import useAppStore from '../../store';
-import Button from '../../components/Button';
+import Button from '~components/Button';
 import DataSchema from './data.schema';
-import CarrierAndPhoneNumberField from '../../components/CarrierAndPhoneNumberField';
-import SnackBar from '../../components/SnackBar';
+import CarrierAndPhoneNumberField from '~components/CarrierAndPhoneNumberField';
+import SnackBar from '~components/SnackBar';
 import getFirstError from '../../utils/getFirstError';
-import PaymentBottomSheet from '../../components/PaymentBottomSheet';
+import PaymentBottomSheet from '~components/PaymentBottomSheet';
 import FlutterwaveInitError from 'flutterwave-react-native/dist/utils/FlutterwaveInitError';
 import {useQueries} from 'react-query';
 import _axios from '../../api/axios';
 import getServicePlans from '../../api/services/getServicePlans';
-import BottomSheet, {BOTTOMSHEETHEIGHT} from '../../components/BottomSheet';
+import BottomSheet, {BOTTOMSHEETHEIGHT} from '~components/BottomSheet';
 import {Carrier} from '../airtime/airtime.d';
-import FlatViewLoader from '../../components/FlatViewLoader';
-import FlatViewError from '../../components/FlatViewError';
+import FlatViewLoader from '~components/FlatViewLoader';
+import FlatViewError from '~components/FlatViewError';
 import {StackScreen} from '../../navigation/screenParams';
-import Loader from '../../components/Loader';
+import Loader from '~components/Loader';
 import dataTopUp from '../../api/services/dataTopUp';
-import SuccessOverlay from '../../components/SuccessOverlay';
+import SuccessOverlay from '~components/SuccessOverlay';
 import {RedirectParams} from 'flutterwave-react-native/dist/PayWithFlutterwave';
 import {DataTopUpFormValues} from './data';
-import DropMenuFieldButton from '../../components/DropMenuFieldButton';
-import WalletBalance from '../../components/WalletBalance';
+import DropMenuFieldButton from '~components/DropMenuFieldButton';
+import WalletBalance from '~components/WalletBalance';
 
 // MobileData Screen Component
 const MobileData = (route: StackScreen<'Data'>) => {

@@ -2,7 +2,7 @@
 import React from 'react';
 import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
 import tw from '../lib/tailwind';
-import BackArrow from 'assets:images/back_arrow.svg';
+import BackArrow from '~images/back_arrow.svg';
 
 type BackButtonProps = TouchableOpacityProps;
 

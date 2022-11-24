@@ -1,7 +1,7 @@
 //import libraries
 import React from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
-import Text from '../../components/Text';
+import Text from '~components/Text';
 import tw from '../../lib/tailwind';
 import IMAGEIDS from './providerImageIds';
 

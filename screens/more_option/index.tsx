@@ -2,18 +2,18 @@
 import React from 'react';
 import {Alert} from 'react-native';
 
-import SafeAreaScrollView from '../../components/SafeAreaScrollView';
-import AppHeader from '../../components/AppHeader';
+import SafeAreaScrollView from '~components/SafeAreaScrollView';
+import AppHeader from '~components/AppHeader';
 import OptionCard from './OptionCardButton';
 
 import type {StackParamList, StackScreen} from '../../navigation/screenParams';
 
-import ProfileVerifiedIcon from 'assets:images/profile_verified.svg';
-import HistoryIcon from 'assets:images/history_colored.svg';
-import WalletIcon from 'assets:images/wallet_colored.svg';
-import KeyIcon from 'assets:images/key.svg';
-import ChatIcon from 'assets:images/chat_bubble.svg';
-import LogoutIcon from 'assets:images/logout.svg';
+import ProfileVerifiedIcon from '~images/profile_verified.svg';
+import HistoryIcon from '~images/history_colored.svg';
+import WalletIcon from '~images/wallet_colored.svg';
+import KeyIcon from '~images/key.svg';
+import ChatIcon from '~images/chat_bubble.svg';
+import LogoutIcon from '~images/logout.svg';
 import useAuth from '../../hooks/useAuth';
 
 // MoreOption Screen Component

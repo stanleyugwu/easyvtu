@@ -5,10 +5,10 @@ import tw from '../lib/tailwind';
 import {Carrier} from '../screens/airtime/airtime.d';
 
 // image assets
-import MtnIcon from 'assets:images/mtn_logo.svg';
-import AirtelIcon from 'assets:images/airtel_logo.svg';
-import EtisalatIcon from 'assets:images/etisalat_logo.svg';
-import GloIcon from 'assets:images/glo_logo.svg';
+import MtnIcon from '~images/mtn_logo.svg';
+import AirtelIcon from '~images/airtel_logo.svg';
+import EtisalatIcon from '~images/etisalat_logo.svg';
+import GloIcon from '~images/glo_logo.svg';
 
 interface CarrierSelectorProps {
   /**

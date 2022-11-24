@@ -1,8 +1,8 @@
 //import libraries
 import React from 'react';
-import SafeAreaScrollView from '../../components/SafeAreaScrollView';
-import AppHeader from '../../components/AppHeader';
-import ServicesPanel from '../../components/ServicesPanel';
+import SafeAreaScrollView from '~components/SafeAreaScrollView';
+import AppHeader from '~components/AppHeader';
+import ServicesPanel from '~components/ServicesPanel';
 
 // Guest Home Screen Component
 const GuestHome = () => {

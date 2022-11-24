@@ -1,14 +1,14 @@
 //import libraries
 import React, {useState} from 'react';
 import {Image, ScrollView, View, Keyboard} from 'react-native';
-import Text from '../../components/Text';
+import Text from '~components/Text';
 import tw from '../../lib/tailwind';
-import InputField from '../../components/InputField';
-import Button from '../../components/Button';
+import InputField from '~components/InputField';
+import Button from '~components/Button';
 import {StackScreen} from '../../navigation/screenParams';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import Loader from '../../components/Loader';
-import SnackBar from '../../components/SnackBar';
+import Loader from '~components/Loader';
+import SnackBar from '~components/SnackBar';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import signinSchema from './signIn.schema';
@@ -22,7 +22,7 @@ import {signIn} from '../../api/services/auth';
 import storeAccessToken from '../../api/util/storeAccessToken';
 import useAuth from '../../hooks/useAuth';
 import useAppStore from '../../store';
-import AppHeader from '../../components/AppHeader';
+import AppHeader from '~components/AppHeader';
 
 export interface SignInInputs {
   email: string;

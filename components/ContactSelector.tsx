@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import Text from './Text';
 import tw from '../lib/tailwind';
-import ContactsIcon from 'assets:images/contact.svg';
+import ContactsIcon from '~images/contact.svg';
 import {selectContactPhone} from 'react-native-select-contact';
 import normalisePhoneNumber from '../utils/normalisePhoneNumber';
-import CloseIcon from 'assets:images/close.svg';
+import CloseIcon from '~images/close.svg';
 import Button from './Button';
 
 interface ContactSelectorProps {

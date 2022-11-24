@@ -1,18 +1,18 @@
 //import libraries
 import React from 'react';
 import {View, TouchableOpacity, TouchableOpacityProps} from 'react-native';
-import Text from '../../components/Text';
+import Text from '~components/Text';
 import tw from '../../lib/tailwind';
 import type {service, UserTxHistory} from './history';
 import formatAmount from '../../utils/formatAmount';
 import {format} from 'timeago.js';
 
 // service assets
-import AirtimeIcon from 'assets:images/call_icon.svg';
-import DataIcon from 'assets:images/data_icon.svg';
-import CableIcon from 'assets:images/cable_icon.svg';
-import ResultIcon from 'assets:images/card_icon.svg';
-import ElectricityIcon from 'assets:images/electricity_icon.svg';
+import AirtimeIcon from '~images/call_icon.svg';
+import DataIcon from '~images/data_icon.svg';
+import CableIcon from '~images/cable_icon.svg';
+import ResultIcon from '~images/card_icon.svg';
+import ElectricityIcon from '~images/electricity_icon.svg';
 
 type PropKeys = 'amount' | 'created_at' | 'payment_method' | 'phone';
 interface UserTxHistoryProps extends Pick<UserTxHistory, PropKeys> {

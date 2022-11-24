@@ -2,28 +2,26 @@
 import React, {useRef, useState} from 'react';
 import {View} from 'react-native';
 import tw from '../../lib/tailwind';
-import SafeAreaScrollView from '../../components/SafeAreaScrollView';
-import AppHeader from '../../components/AppHeader';
-import InputField from '../../components/InputField';
+import SafeAreaScrollView from '~components/SafeAreaScrollView';
+import AppHeader from '~components/AppHeader';
+import InputField from '~components/InputField';
 import {useForm, useWatch} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import AirtimeSchema from './airtime.schema';
 import {InferType} from 'yup';
 import {Carrier, IncompleteTopUp} from './airtime.d';
-import Button from '../../components/Button';
-import SnackBar from '../../components/SnackBar';
+import Button from '~components/Button';
+import SnackBar from '~components/SnackBar';
 import getFirstError from '../../utils/getFirstError';
-import Text from '../../components/Text';
 import useAppStore from '../../store';
-import formatAmount from '../../utils/formatAmount';
-import Loader from '../../components/Loader';
+import Loader from '~components/Loader';
 import airtimeTopUp from '../../api/services/topUpAirtime';
-import SuccessOverlay from '../../components/SuccessOverlay';
+import SuccessOverlay from '~components/SuccessOverlay';
 import {RedirectParams} from 'flutterwave-react-native/dist/PayWithFlutterwave';
 import FlutterwaveInitError from 'flutterwave-react-native/dist/utils/FlutterwaveInitError';
-import CarrierAndPhoneNumberField from '../../components/CarrierAndPhoneNumberField';
-import PaymentBottomSheet from '../../components/PaymentBottomSheet';
-import WalletBalance from '../../components/WalletBalance';
+import CarrierAndPhoneNumberField from '~components/CarrierAndPhoneNumberField';
+import PaymentBottomSheet from '~components/PaymentBottomSheet';
+import WalletBalance from '~components/WalletBalance';
 
 // Airtime Screen Component
 const Airtime = () => {

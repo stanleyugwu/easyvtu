@@ -3,13 +3,13 @@ import React from 'react';
 import {TouchableOpacity, TouchableOpacityProps, View} from 'react-native';
 import Text from './Text';
 import tw from '../lib/tailwind';
-import AngleRightIcon from 'assets:images/angle_right.svg';
+import AngleRightIcon from '~images/angle_right.svg';
 
 // payment method icons
-import FlutterWaveIcon from 'assets:images/flutterwave.svg';
-import BankIcon from 'assets:images/bank.svg';
-import BitcoinIcon from 'assets:images/bitcoin.svg';
-import WalletIcon from 'assets:images/wallet_colored.svg';
+import FlutterWaveIcon from '~images/flutterwave.svg';
+import BankIcon from '~images/bank.svg';
+import BitcoinIcon from '~images/bitcoin.svg';
+import WalletIcon from '~images/wallet_colored.svg';
 
 export enum PAYMENT_METHODS {
   FLUTTERWAVE = 'Flutterwave',

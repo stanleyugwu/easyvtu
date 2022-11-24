@@ -1,9 +1,9 @@
 //import libraries
-import React, {useState} from 'react';
+import React from 'react';
 import {View, ViewStyle, TouchableOpacity} from 'react-native';
 import Text from './Text';
 import tw from '../lib/tailwind';
-import CloudOffIcon from 'assets:images/cloud_off.svg';
+import CloudOffIcon from '~images/cloud_off.svg';
 
 interface FlatViewErrorProps {
   /**

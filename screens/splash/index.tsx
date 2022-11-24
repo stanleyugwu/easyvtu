@@ -10,8 +10,8 @@ import {
 import StepperDots from './components/StepperDots';
 import SplashScene from './components/SplashScene';
 import tw from '../../lib/tailwind';
-import Text from '../../components/Text';
-import Button from '../../components/Button';
+import Text from '~components/Text';
+import Button from '~components/Button';
 import * as Animatable from 'react-native-animatable';
 import { StackScreen } from '../../navigation/screenParams';
 

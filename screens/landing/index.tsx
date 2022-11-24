@@ -1,10 +1,10 @@
 //import libraries
 import React from 'react';
-import Text from '../../components/Text';
+import Text from '~components/Text';
 import tw from '../../lib/tailwind';
 import {StackScreen} from '../../navigation/screenParams';
-import Button from '../../components/Button';
-import SafeAreaScrollView from '../../components/SafeAreaScrollView';
+import Button from '~components/Button';
+import SafeAreaScrollView from '~components/SafeAreaScrollView';
 import * as Animatable from 'react-native-animatable';
 
 // Landing screen from where user chooses to sign up or login or use app as guest

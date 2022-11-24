@@ -1,18 +1,18 @@
 //import libraries
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import Text from '../../components/Text';
+import Text from '~components/Text';
 import tw from '../../lib/tailwind';
-import SafeAreaScrollView from '../../components/SafeAreaScrollView';
+import SafeAreaScrollView from '~components/SafeAreaScrollView';
 import {StackScreen} from '../../navigation/screenParams';
-import AppHeader from '../../components/AppHeader';
-import InputField from '../../components/InputField';
-import Button from '../../components/Button';
+import AppHeader from '~components/AppHeader';
+import InputField from '~components/InputField';
+import Button from '~components/Button';
 import _axios from '../../api/axios';
-import SnackBar from '../../components/SnackBar';
-import SuccessOverlay from '../../components/SuccessOverlay';
+import SnackBar from '~components/SnackBar';
+import SuccessOverlay from '~components/SuccessOverlay';
 import useAppStore from '../../store';
-import Loader from '../../components/Loader';
+import Loader from '~components/Loader';
 
 // ForgotPassword Screen Component
 const ForgotPassword = ({

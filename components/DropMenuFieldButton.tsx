@@ -3,7 +3,7 @@ import React from 'react';
 import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
 import Text from './Text';
 import tw from '../lib/tailwind';
-import AngleDownIcon from 'assets:images/angle_down.svg';
+import AngleDownIcon from '~images/angle_down.svg';
 
 interface DropMenuFieldButtonProps extends TouchableOpacityProps {
   /**
