@@ -24,7 +24,11 @@ import MoreOption from './screens/more_option';
 import Airtime from './screens/airtime';
 import MobileData from './screens/data';
 import Electricity from './screens/electricity';
+import Cable from './screens/cable';
 
+// TODO: add autocomplete prop to all text inputs
+// TODO: add autofocus, keyboardAvoidingView and onSubmitediting prop to all forms
+// TODO: install why did you render to monitor avoidable re-renders
 /**
  * Create Stack navigator
  */
@@ -77,6 +81,7 @@ const App = () => {
               <Stack.Screen name="Airtime" component={Airtime} />
               <Stack.Screen name="Data" component={MobileData} />
               <Stack.Screen name="Electricity" component={Electricity} />
+              <Stack.Screen name="Cable" component={Cable} />
             </Stack.Navigator>
           </SafeAreaProvider>
         </AuthContext.Provider>

@@ -17,6 +17,7 @@ export type StackParamList = {
   Airtime: undefined;
   Data: undefined;
   Electricity: undefined;
+  Cable: undefined;
 };
 
 // Screens for BottomTab (i.e after logging in)

@@ -1,12 +1,12 @@
 import {FLUTTERWAVE_MERCHANT_API_KEY} from '@env';
 import {FlutterwaveInitOptions} from 'flutterwave-react-native/dist/FlutterwaveInit';
-
 const constants = Object.freeze({
   SERVER_URL: 'https://easy-vtu.herokuapp.com',
   PHONE_NUMBER_REGEX: /^0(70|80|81|90|91)\d{8,8}$/,
   MINIMUM_AIRTIME_TOPUP_AMOUNT: 100,
+  FAULTY_TX_MSG: `Payment was successful but top-up failed due to weak internet connection. Contact support to resolve the issue`,
   INCOMPLETE_STATIC_FLUTTERWAVE_PAYMENT_OPTIONS: {
-    authorization: FLUTTERWAVE_MERCHANT_API_KEY,
+    authorization:FLUTTERWAVE_MERCHANT_API_KEY,
     currency: 'NGN',
     payment_options: 'card,ussd,banktransfer,account,credit',
     customer: {
