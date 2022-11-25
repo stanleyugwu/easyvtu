@@ -45,3 +45,14 @@ declare module '*.svg' {
   export const src: string;
   export default ReactComponent;
 }
+
+/**
+ * App's environmental variables
+ */
+declare module '@env' {
+  type S = string; // common type for env var values
+
+  // CHORE: When new env var are added in .env file,
+  // export the key as const like below
+  export const FLUTTERWAVE_MERCHANT_API_KEY: S;
+}

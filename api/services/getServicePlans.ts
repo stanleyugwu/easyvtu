@@ -8,7 +8,7 @@ type ServicePlan = {
   fixedPrice: string;
 };
 
-type ServicePlansResData = {
+export type ServicePlansResData = {
   service_name: string;
   variations: ServicePlan[];
 };
