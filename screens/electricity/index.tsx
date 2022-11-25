@@ -26,15 +26,14 @@ import Loader from '~components/Loader';
 import _topUpElectricity from '../../api/services/topUpElectricity';
 import SuccessOverlay from '~components/SuccessOverlay';
 import {RedirectParams} from 'flutterwave-react-native/dist/PayWithFlutterwave';
+import constants from '../../utils/constants';
+import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
 
 type ElectricitySchemaFields = InferType<typeof ElectricitySchema>;
 
 // Electricity Screen Component
 const Electricity = () => {
-  const [profile, updateProfile] = useAppStore(state => [
-    state?.profile,
-    state?.setProfile,
-  ]);
+  const profile = useAppStore(state => state?.profile);
   const [providerMenuVisible, setProviderMenuVisible] = useState(false);
   const [requestError, setRequestError] = useState('');
   const [paymentBottomSheetVisible, setPaymentBottomSheetVisible] =
@@ -66,7 +65,9 @@ const Electricity = () => {
   });
 
   /**
-   * Wrapper for electricity top-up API service
+   * Shareable wrapper for electricity top-up API service.
+   * This wrapper contains common side effects for wallet and flutterwave
+   * payment while allowing for extension via promise.
    */
   const topUpElectricity = React.useCallback(
     async (
@@ -118,9 +119,9 @@ const Electricity = () => {
       // fund is sufficient
       setPaymentBottomSheetVisible(false); // close payment bottom sheet
       setLoaderVisible(true); // show loader overlay
-      topUpElectricity(values).then(res => {
-        updateProfile?.({wallet_balance: `${+balance - values.amount}`}); // update wallet balance
-      });
+      topUpElectricity(values).then(res =>
+        reduceWalletBalanceBy(values.amount),
+      );
     } else {
       // fund insufficient
       setRequestError('Insufficient wallet funds');
@@ -132,10 +133,7 @@ const Electricity = () => {
     (data: RedirectParams) => {
       if (data.status === 'successful') {
         const values = cachedFormValues.current!;
-        topUpElectricity(
-          values,
-          `Payment was successful but top-up failed due to weak internet connection. Contact support to resolve the issue`,
-        );
+        topUpElectricity(values, constants.FAULTY_TX_MSG);
       } else {
         // payment failed
         cachedFormValues.current = null;

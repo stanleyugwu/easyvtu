@@ -13,7 +13,6 @@ import {Carrier, IncompleteTopUp} from './airtime.d';
 import Button from '~components/Button';
 import SnackBar from '~components/SnackBar';
 import getFirstError from '../../utils/getFirstError';
-import useAppStore from '../../store';
 import Loader from '~components/Loader';
 import airtimeTopUp from '../../api/services/topUpAirtime';
 import SuccessOverlay from '~components/SuccessOverlay';
@@ -22,12 +21,11 @@ import FlutterwaveInitError from 'flutterwave-react-native/dist/utils/Flutterwav
 import CarrierAndPhoneNumberField from '~components/CarrierAndPhoneNumberField';
 import PaymentBottomSheet from '~components/PaymentBottomSheet';
 import WalletBalance from '~components/WalletBalance';
+import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
+import balanceIsSufficient from '../../utils/balanceIsSufficient';
 
 // Airtime Screen Component
 const Airtime = () => {
-  const balance = useAppStore(state => state.profile?.wallet_balance);
-  const updateProfile = useAppStore(state => state.setProfile);
-
   /**
    * Form and validation logics and handles
    */
@@ -121,7 +119,7 @@ const Airtime = () => {
     /**
      * assert funds sufficiency
      */
-    if (balance && typeof +balance === 'number' && +balance >= values.amount) {
+    if (balanceIsSufficient(values.amount)) {
       // fund is sufficient
       setPaymentSheetVisible(false); // close payment bottom sheet
       setLoaderVisible(true); // show loader overlay
@@ -129,7 +127,7 @@ const Airtime = () => {
       airtimeTopUp(values.phoneNumber, values.amount, values.carrier as Carrier)
         .then(res => {
           setSuccessMsg(res.message); // show success overlay
-          updateProfile({wallet_balance: `${+balance - values.amount}`}); // update wallet balance
+          reduceWalletBalanceBy(values.amount); // update wallet balance
         })
         .catch(error => {
           // FIXME: resolve invalid request ID error with backend

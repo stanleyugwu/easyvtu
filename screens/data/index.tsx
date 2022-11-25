@@ -7,7 +7,6 @@ import SafeAreaScrollView from '~components/SafeAreaScrollView';
 import AppHeader from '~components/AppHeader';
 import {useForm, useWatch} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
-import useAppStore from '../../store';
 import Button from '~components/Button';
 import DataSchema from './data.schema';
 import CarrierAndPhoneNumberField from '~components/CarrierAndPhoneNumberField';
@@ -30,13 +29,11 @@ import {RedirectParams} from 'flutterwave-react-native/dist/PayWithFlutterwave';
 import {DataTopUpFormValues} from './data';
 import DropMenuFieldButton from '~components/DropMenuFieldButton';
 import WalletBalance from '~components/WalletBalance';
+import balanceIsSufficient from '../../utils/balanceIsSufficient';
+import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
 
 // MobileData Screen Component
 const MobileData = (route: StackScreen<'Data'>) => {
-  const [balance, updateProfile] = useAppStore(state => [
-    state?.profile?.wallet_balance,
-    state.setProfile,
-  ]);
   const [requestError, setRequestError] = useState<string | undefined>(
     undefined,
   );
@@ -206,7 +203,7 @@ const MobileData = (route: StackScreen<'Data'>) => {
     /**
      * assert funds sufficiency
      */
-    if (balance && typeof +balance === 'number' && +balance >= values.amount) {
+    if (balanceIsSufficient(values.amount)) {
       // fund is sufficient
       setPaymentSheetVisible(false); // close payment bottom sheet
       setLoaderVisible(true); // show loader overlay
@@ -219,7 +216,7 @@ const MobileData = (route: StackScreen<'Data'>) => {
       )
         .then(res => {
           setSuccessMsg('Data top-up transaction successful'); // show success overlay
-          updateProfile({wallet_balance: `${+balance - values.amount}`}); // update wallet balance
+          reduceWalletBalanceBy(values.amount); // update wallet balance
         })
         .catch(error => {
           setRequestError(error.message);
