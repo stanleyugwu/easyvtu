@@ -25,6 +25,7 @@ import Airtime from './screens/airtime';
 import MobileData from './screens/data';
 import Electricity from './screens/electricity';
 import Cable from './screens/cable';
+import ChangePassword from './screens/change_password';
 
 // TODO: add autocomplete prop to all text inputs
 // TODO: add autofocus, keyboardAvoidingView and onSubmitediting prop to all forms
@@ -76,6 +77,7 @@ const App = () => {
                     component={BottomTabNavigatorRegistrar}
                   />
                   <Stack.Screen name="MoreOption" component={MoreOption} />
+                  <Stack.Screen name="ChangePassword" component={ChangePassword} />
                 </Stack.Group>
               )}
               <Stack.Screen name="Airtime" component={Airtime} />

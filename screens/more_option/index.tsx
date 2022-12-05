@@ -1,12 +1,16 @@
 //import libraries
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Alert} from 'react-native';
 
 import SafeAreaScrollView from '~components/SafeAreaScrollView';
 import AppHeader from '~components/AppHeader';
 import OptionCard from './OptionCardButton';
+import useAuth from '../../hooks/useAuth';
 
-import type {StackParamList, StackScreen} from '../../navigation/screenParams';
+import type {
+  StackAndTabScreen,
+  StackAndTabParamList,
+} from '../../navigation/screenParams';
 
 import ProfileVerifiedIcon from '~images/profile_verified.svg';
 import HistoryIcon from '~images/history_colored.svg';
@@ -14,16 +18,21 @@ import WalletIcon from '~images/wallet_colored.svg';
 import KeyIcon from '~images/key.svg';
 import ChatIcon from '~images/chat_bubble.svg';
 import LogoutIcon from '~images/logout.svg';
-import useAuth from '../../hooks/useAuth';
+
+// type StackAndTabScreen = (StackScreen> & TabScreen);
 
 // MoreOption Screen Component
-const MoreOption = ({navigation: {navigate}}: StackScreen<'MoreOption'>) => {
+const MoreOption = ({
+  navigation: {navigate},
+}: StackAndTabScreen<'MoreOption'>) => {
   // navigator util shorthand
-  const goto = (screenName: keyof StackParamList) => () => navigate(screenName);
+  const goto = (screenName: keyof StackAndTabParamList) => () =>
+    // @ts-ignore
+    navigate(screenName);
   const auth = useAuth();
 
   // handles logging out
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     Alert.alert(
       'Are you sure to sign out?',
       'All currently stored credentials and state will be lost',
@@ -32,7 +41,7 @@ const MoreOption = ({navigation: {navigate}}: StackScreen<'MoreOption'>) => {
         {text: 'SIGN OUT', style: 'destructive', onPress: _ => auth.signOut()},
       ],
     );
-  };
+  }, []);
 
   return (
     <SafeAreaScrollView>
@@ -47,7 +56,7 @@ const MoreOption = ({navigation: {navigate}}: StackScreen<'MoreOption'>) => {
         image={HistoryIcon}
         title="Transaction History"
         subTitle="View your transaction history"
-        onPress={goto('TransactionHistory')}
+        onPress={goto('History')}
       />
       <OptionCard
         image={WalletIcon}
@@ -59,7 +68,7 @@ const MoreOption = ({navigation: {navigate}}: StackScreen<'MoreOption'>) => {
         image={KeyIcon}
         title="Change Password"
         subTitle="Reset your current password"
-        onPress={goto('ResetPassword')}
+        onPress={goto('ChangePassword')}
       />
       <OptionCard
         image={ChatIcon}

@@ -1,5 +1,8 @@
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {CompositeScreenProps, NavigatorScreenParams} from '@react-navigation/native';
+import {
+  CompositeScreenProps,
+  NavigatorScreenParams,
+} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 /**
@@ -13,6 +16,7 @@ export type StackParamList = {
   ForgotPassword: undefined;
   GuestHome: undefined;
   MoreOption: undefined;
+  ChangePassword: undefined;
   BottomTabRegistrar: NavigatorScreenParams<TabParamList>;
   Airtime: undefined;
   Data: undefined;
@@ -28,8 +32,8 @@ export type TabParamList = {
     // action to be trigger when screen mounts
     action?: 'withdraw' | 'deposit';
   };
-  Profile:undefined;
-  History:undefined;
+  Profile: undefined;
+  History: undefined;
 };
 
 /**
@@ -45,3 +49,10 @@ export type TabScreen<Screen extends keyof TabParamList> = CompositeScreenProps<
   BottomTabScreenProps<TabParamList, Screen>,
   NativeStackScreenProps<StackParamList>
 >;
+
+/**
+ * Combination of Stack and Tab screens
+ */
+type StackAndTabParamList = StackParamList & TabParamList;
+export type StackAndTabScreen<Screen extends keyof StackAndTabParamList> =
+  NativeStackScreenProps<StackAndTabParamList, Screen>;
