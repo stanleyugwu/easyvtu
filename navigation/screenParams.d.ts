@@ -22,6 +22,7 @@ export type StackParamList = {
   Data: undefined;
   Electricity: undefined;
   Cable: undefined;
+  Support: undefined;
 };
 
 // Screens for BottomTab (i.e after logging in)

@@ -15,17 +15,18 @@ import SplashScreen from './screens/splash';
 import Landing from './screens/landing';
 import SignIn from './screens/signIn';
 import SignUp from './screens/signup';
-import ForgotPassword from './screens/forgot_password';
 import GuestHome from './screens/home/guestHome';
 import BottomTabNavigatorRegistrar from './navigation/BottomTabRegistrar';
+import ForgotPassword from './screens/forgot_password';
+import ChangePassword from './screens/change_password';
+import MoreOption from './screens/more_option';
 
 // shared screens
-import MoreOption from './screens/more_option';
 import Airtime from './screens/airtime';
 import MobileData from './screens/data';
 import Electricity from './screens/electricity';
 import Cable from './screens/cable';
-import ChangePassword from './screens/change_password';
+import Support from './screens/support';
 
 // TODO: add autocomplete prop to all text inputs
 // TODO: add autofocus, keyboardAvoidingView and onSubmitediting prop to all forms
@@ -84,6 +85,7 @@ const App = () => {
               <Stack.Screen name="Data" component={MobileData} />
               <Stack.Screen name="Electricity" component={Electricity} />
               <Stack.Screen name="Cable" component={Cable} />
+              <Stack.Screen name="Support" component={Support} />
             </Stack.Navigator>
           </SafeAreaProvider>
         </AuthContext.Provider>
