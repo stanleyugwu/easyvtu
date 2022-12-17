@@ -34,6 +34,7 @@ import tw from '../../lib/tailwind';
 import useAppStore from '../../store';
 import CableSchema from './cable.schema';
 import type {CableFormFields} from './cable.d';
+import requestInAppReview from '../../utils/requestInAppReview';
 
 // FIXME: resolve variation code amount error
 
@@ -277,6 +278,7 @@ const Cable = ({}: StackScreen<'Cable'>) => {
         onDismiss={() => {
           setSuccessMsg(undefined);
           form.reset();
+          requestInAppReview();
         }}
       />
       <PaymentBottomSheet

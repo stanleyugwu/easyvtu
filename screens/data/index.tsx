@@ -31,6 +31,7 @@ import DropMenuFieldButton from '~components/DropMenuFieldButton';
 import WalletBalance from '~components/WalletBalance';
 import balanceIsSufficient from '../../utils/balanceIsSufficient';
 import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
+import requestInAppReview from '../../utils/requestInAppReview';
 
 // MobileData Screen Component
 const MobileData = (route: StackScreen<'Data'>) => {
@@ -358,6 +359,7 @@ const MobileData = (route: StackScreen<'Data'>) => {
         onDismiss={() => {
           setSuccessMsg(undefined);
           reset();
+          requestInAppReview();
         }}
       />
     </>

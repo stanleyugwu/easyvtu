@@ -23,6 +23,7 @@ import PaymentBottomSheet from '~components/PaymentBottomSheet';
 import WalletBalance from '~components/WalletBalance';
 import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
 import balanceIsSufficient from '../../utils/balanceIsSufficient';
+import requestInAppReview from '../../utils/requestInAppReview';
 
 // Airtime Screen Component
 const Airtime = () => {
@@ -149,6 +150,7 @@ const Airtime = () => {
   const handleAfterSuccessfulPayment = React.useCallback(() => {
     setSuccessMsg(undefined);
     reset(); // reset form
+    requestInAppReview();
   }, []);
 
   /**

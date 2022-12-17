@@ -1,4 +1,4 @@
-import {ActivityIndicator, Linking, StatusBar} from 'react-native';
+import {ActivityIndicator, StatusBar} from 'react-native';
 import React, {useInsertionEffect} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import tw from './lib/tailwind';
@@ -30,6 +30,7 @@ import MobileData from './screens/data';
 import Electricity from './screens/electricity';
 import Cable from './screens/cable';
 import Support from './screens/support';
+import requestInAppReview from './utils/requestInAppReview';
 
 // TODO: add autocomplete prop to all text inputs
 // TODO: add autofocus, keyboardAvoidingView and onSubmitediting prop to all forms
@@ -51,6 +52,7 @@ const App = () => {
     // here we set it to match app theme. we're using useInsertionEffect just to speed
     // up the process
     changeNavBarColor(tw.color('primary')!, false, true);
+    console.log(requestInAppReview());
   }, []);
 
   // render nothing when still checking if user is logged in

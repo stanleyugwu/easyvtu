@@ -28,6 +28,7 @@ import SuccessOverlay from '~components/SuccessOverlay';
 import {RedirectParams} from 'flutterwave-react-native/dist/PayWithFlutterwave';
 import constants from '../../utils/constants';
 import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
+import requestInAppReview from '../../utils/requestInAppReview';
 
 type ElectricitySchemaFields = InferType<typeof ElectricitySchema>;
 
@@ -232,6 +233,7 @@ const Electricity = () => {
         onDismiss={() => {
           setSuccessMsg(undefined);
           form.reset();
+          requestInAppReview();
         }}
       />
     </>

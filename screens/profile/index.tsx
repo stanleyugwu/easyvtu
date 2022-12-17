@@ -19,7 +19,7 @@ import constants from '../../utils/constants';
 
 import {useQuery} from 'react-query';
 import _axios from '../../api/axios';
-import {ServerErrorObject, SuccessRes} from '../../api/api';
+import {ServerErrorObject} from '../../api/api';
 
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -29,6 +29,7 @@ import UserIcon from '~images/user.svg';
 import NigeriaFlag from '~images/nigeria_flag.svg';
 
 import type {ProfileUpdateInputs, UpdateProfileDetailsBody} from './profile';
+import requestInAppReview from '../../utils/requestInAppReview';
 
 // TODO: request to make auth token non-expiring
 
@@ -70,8 +71,6 @@ const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
     handleSubmit,
     clearErrors,
     setValue,
-    reset,
-    register,
     control: {_defaultValues: defaultValues},
     getValues,
     formState: {errors},
@@ -109,6 +108,7 @@ const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
       onSuccess(data) {
         setSuccessModalext('Profile updated successfully');
         updateProfile(data.data);
+        requestInAppReview();
       },
       enabled: false,
     },
@@ -148,6 +148,7 @@ const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
       onSuccess(data) {
         setSuccessModalext('Profile updated successfully');
         updateProfile(data.data);
+        requestInAppReview();
       },
       enabled: false,
     },
