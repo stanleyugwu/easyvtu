@@ -1,4 +1,5 @@
-import React, { useInsertionEffect } from 'react';
+import {ActivityIndicator, Linking, StatusBar} from 'react-native';
+import React, {useInsertionEffect} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import tw from './lib/tailwind';
 import {useDeviceContext} from 'twrnc';
@@ -8,9 +9,10 @@ import {QueryClientProvider, QueryClient} from 'react-query';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AuthContext from './contexts/auth';
-import changeNavBarColor from 'react-native-navigation-bar-color'
+import changeNavBarColor from 'react-native-navigation-bar-color';
 
 import type {StackParamList} from './navigation/screenParams';
+import DEEP_LINK_OPTIONS from './navigation/deepLinking';
 
 import SplashScreen from './screens/splash';
 import Landing from './screens/landing';
@@ -28,12 +30,10 @@ import MobileData from './screens/data';
 import Electricity from './screens/electricity';
 import Cable from './screens/cable';
 import Support from './screens/support';
-import { StatusBar } from 'react-native';
 
 // TODO: add autocomplete prop to all text inputs
 // TODO: add autofocus, keyboardAvoidingView and onSubmitediting prop to all forms
 // TODO: install why did you render to monitor avoidable re-renders
-// TODO: setup linking
 // TODO: remove orange cellular icon from splashscreen or redesign it
 
 /**
@@ -50,8 +50,8 @@ const App = () => {
     // on android, nav bar color will be set to white by splashcrenn activity
     // here we set it to match app theme. we're using useInsertionEffect just to speed
     // up the process
-    changeNavBarColor(tw.color("primary")!,false,true)
-  },[]);
+    changeNavBarColor(tw.color('primary')!, false, true);
+  }, []);
 
   // render nothing when still checking if user is logged in
   // in the process of checking auth, the splash screen will still be visible
@@ -63,14 +63,16 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <NavigationContainer>
+      <NavigationContainer
+        linking={DEEP_LINK_OPTIONS}
+        fallback={<ActivityIndicator />}>
         {/*
          * We pass signout and signin services via context so they can be called
          * from any screen without prop drilling them
          */}
         <AuthContext.Provider value={{signIn, signOut}}>
           <SafeAreaProvider>
-            <StatusBar backgroundColor={tw.color("primary")} animated />
+            <StatusBar backgroundColor={tw.color('primary')} animated />
             <Stack.Navigator screenOptions={{headerShown: false}}>
               {!isLoggedIn ? (
                 <Stack.Group>
@@ -91,7 +93,10 @@ const App = () => {
                     component={BottomTabNavigatorRegistrar}
                   />
                   <Stack.Screen name="MoreOption" component={MoreOption} />
-                  <Stack.Screen name="ChangePassword" component={ChangePassword} />
+                  <Stack.Screen
+                    name="ChangePassword"
+                    component={ChangePassword}
+                  />
                 </Stack.Group>
               )}
               <Stack.Screen name="Airtime" component={Airtime} />

@@ -26,10 +26,31 @@
         android:windowSoftInputMode="adjustResize"
         android:theme="@style/Custom.App.SplashScreen"
         android:exported="true">
-        <intent-filter>
+
+        <intent-filter android:autoVerify="true">
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+
+        <!-- DEEP LINKING SUPPORT -->
+        <intent-filter android:label="fast top-up">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <!-- Accepts URIs that begin with "https://www.easyvtu.com/" or "http://www.easyvtu.com/ -->
+            <data android:scheme="http" />
+            <data android:scheme="https" />
+            <data android:host="www.easyvtu.com" />
+        </intent-filter>
+        <intent-filter android:label="fast top-up">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <!-- Accepts URIs that begin with "easyvtu://” -->
+            <data android:scheme="easyvtu" />
+        </intent-filter>
+        <!-- DEEP LINKING SUPPORT ENDS-->
+
       </activity>
     </application>
     <queries>
