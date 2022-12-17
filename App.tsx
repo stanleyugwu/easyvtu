@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useInsertionEffect } from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import tw from './lib/tailwind';
 import {useDeviceContext} from 'twrnc';
@@ -8,6 +8,7 @@ import {QueryClientProvider, QueryClient} from 'react-query';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AuthContext from './contexts/auth';
+import changeNavBarColor from 'react-native-navigation-bar-color'
 
 import type {StackParamList} from './navigation/screenParams';
 
@@ -27,10 +28,14 @@ import MobileData from './screens/data';
 import Electricity from './screens/electricity';
 import Cable from './screens/cable';
 import Support from './screens/support';
+import { StatusBar } from 'react-native';
 
 // TODO: add autocomplete prop to all text inputs
 // TODO: add autofocus, keyboardAvoidingView and onSubmitediting prop to all forms
 // TODO: install why did you render to monitor avoidable re-renders
+// TODO: setup linking
+// TODO: remove orange cellular icon from splashscreen or redesign it
+
 /**
  * Create Stack navigator
  */
@@ -40,6 +45,13 @@ const App = () => {
   // enable device-context prefixes
   useDeviceContext(tw);
   const {checkingAuth, isLoggedIn, signIn, signOut} = useCheckAuth();
+
+  useInsertionEffect(() => {
+    // on android, nav bar color will be set to white by splashcrenn activity
+    // here we set it to match app theme. we're using useInsertionEffect just to speed
+    // up the process
+    changeNavBarColor(tw.color("primary")!,false,true)
+  },[]);
 
   // render nothing when still checking if user is logged in
   // in the process of checking auth, the splash screen will still be visible
@@ -58,6 +70,7 @@ const App = () => {
          */}
         <AuthContext.Provider value={{signIn, signOut}}>
           <SafeAreaProvider>
+            <StatusBar backgroundColor={tw.color("primary")} animated />
             <Stack.Navigator screenOptions={{headerShown: false}}>
               {!isLoggedIn ? (
                 <Stack.Group>
