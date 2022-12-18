@@ -24,9 +24,13 @@ import WalletBalance from '~components/WalletBalance';
 import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
 import balanceIsSufficient from '../../utils/balanceIsSufficient';
 import requestInAppReview from '../../utils/requestInAppReview';
+import useInAppUpdate from '../../hooks/useInAppUpdate';
 
 // Airtime Screen Component
 const Airtime = () => {
+   // in-app update
+   useInAppUpdate();
+
   /**
    * Form and validation logics and handles
    */

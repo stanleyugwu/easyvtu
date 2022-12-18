@@ -1,5 +1,5 @@
 //import libraries
-import React from 'react';
+import React, { useEffect } from 'react';
 import {View, Image, ScrollView, TouchableOpacity} from 'react-native';
 import Text from '~components/Text';
 import tw from '../../lib/tailwind';
@@ -12,12 +12,17 @@ import Wallet from '~components/Wallet';
 import {TabScreen} from '../../navigation/screenParams';
 import constants from '../../utils/constants';
 import {SignInResData} from '../../api/services/auth';
+import useInAppUpdate from '../../hooks/useInAppUpdate';
 
 // Home Screen Component
 const Home = ({navigation: {navigate}}: TabScreen<'Home'>) => {
   const {username, image} = useAppStore(
     state => state.profile || ({} as SignInResData),
   );
+
+  // in-app update
+  useInAppUpdate();
+
   if (!username && !image) return null;
 
   const handleAddMoney = () => {

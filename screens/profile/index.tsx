@@ -30,11 +30,15 @@ import NigeriaFlag from '~images/nigeria_flag.svg';
 
 import type {ProfileUpdateInputs, UpdateProfileDetailsBody} from './profile';
 import requestInAppReview from '../../utils/requestInAppReview';
+import useInAppUpdate from '../../hooks/useInAppUpdate';
 
 // TODO: request to make auth token non-expiring
 
 // Profile Screen Component
 const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
+  // in-app update
+  useInAppUpdate();
+
   const profile = useAppStore(state => state.profile!);
   const [editingProfile, setEditingProfile] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<Asset | undefined>(
