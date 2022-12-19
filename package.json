@@ -28,7 +28,7 @@
     "react-native-in-app-review": "^4.2.1",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-mmkv-storage": "^0.8.0",
-    "react-native-navigation-bar-color": "^2.0.1",
+    "react-native-navigation-bar-color": "github:stanleyugwu/react-native-navigation-bar-color#stanleyugwu-patch-1",
     "react-native-safe-area-context": "^4.4.1",
     "react-native-screens": "^3.17.0",
     "react-native-select-contact": "^1.6.3",
