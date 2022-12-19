@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import tw from '../lib/tailwind';
 import {TabParamList} from './screenParams';
-import Text from '../components/Text';
+import Text from '~components/Text';
 
 import HomeIcon from '../assets/images/home.svg';
 import ColoredHomeIcon from '../assets/images/home_colored.svg';

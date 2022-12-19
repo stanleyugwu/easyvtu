@@ -2,33 +2,34 @@
 import React, {useRef, useState} from 'react';
 import {View} from 'react-native';
 import tw from '../../lib/tailwind';
-import SafeAreaScrollView from '../../components/SafeAreaScrollView';
-import AppHeader from '../../components/AppHeader';
-import InputField from '../../components/InputField';
+import SafeAreaScrollView from '~components/SafeAreaScrollView';
+import AppHeader from '~components/AppHeader';
+import InputField from '~components/InputField';
 import {useForm, useWatch} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import AirtimeSchema from './airtime.schema';
 import {InferType} from 'yup';
 import {Carrier, IncompleteTopUp} from './airtime.d';
-import Button from '../../components/Button';
-import SnackBar from '../../components/SnackBar';
+import Button from '~components/Button';
+import SnackBar from '~components/SnackBar';
 import getFirstError from '../../utils/getFirstError';
-import Text from '../../components/Text';
-import useAppStore from '../../store';
-import formatAmount from '../../utils/formatAmount';
-import Loader from '../../components/Loader';
+import Loader from '~components/Loader';
 import airtimeTopUp from '../../api/services/topUpAirtime';
-import SuccessOverlay from '../../components/SuccessOverlay';
+import SuccessOverlay from '~components/SuccessOverlay';
 import {RedirectParams} from 'flutterwave-react-native/dist/PayWithFlutterwave';
 import FlutterwaveInitError from 'flutterwave-react-native/dist/utils/FlutterwaveInitError';
-import CarrierAndPhoneNumberField from '../../components/CarrierAndPhoneNumberField';
-import PaymentBottomSheet from '../../components/PaymentBottomSheet';
-import WalletBalance from '../../components/WalletBalance';
+import CarrierAndPhoneNumberField from '~components/CarrierAndPhoneNumberField';
+import PaymentBottomSheet from '~components/PaymentBottomSheet';
+import WalletBalance from '~components/WalletBalance';
+import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
+import balanceIsSufficient from '../../utils/balanceIsSufficient';
+import requestInAppReview from '../../utils/requestInAppReview';
+import useInAppUpdate from '../../hooks/useInAppUpdate';
 
 // Airtime Screen Component
 const Airtime = () => {
-  const balance = useAppStore(state => state.profile?.wallet_balance);
-  const updateProfile = useAppStore(state => state.setProfile);
+   // in-app update
+   useInAppUpdate();
 
   /**
    * Form and validation logics and handles
@@ -123,7 +124,7 @@ const Airtime = () => {
     /**
      * assert funds sufficiency
      */
-    if (balance && typeof +balance === 'number' && +balance >= values.amount) {
+    if (balanceIsSufficient(values.amount)) {
       // fund is sufficient
       setPaymentSheetVisible(false); // close payment bottom sheet
       setLoaderVisible(true); // show loader overlay
@@ -131,7 +132,7 @@ const Airtime = () => {
       airtimeTopUp(values.phoneNumber, values.amount, values.carrier as Carrier)
         .then(res => {
           setSuccessMsg(res.message); // show success overlay
-          updateProfile({wallet_balance: `${+balance - values.amount}`}); // update wallet balance
+          reduceWalletBalanceBy(values.amount); // update wallet balance
         })
         .catch(error => {
           // FIXME: resolve invalid request ID error with backend
@@ -153,6 +154,7 @@ const Airtime = () => {
   const handleAfterSuccessfulPayment = React.useCallback(() => {
     setSuccessMsg(undefined);
     reset(); // reset form
+    requestInAppReview();
   }, []);
 
   /**

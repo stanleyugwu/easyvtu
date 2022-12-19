@@ -1,11 +1,15 @@
 //import libraries
-import React from 'react';
-import SafeAreaScrollView from '../../components/SafeAreaScrollView';
-import AppHeader from '../../components/AppHeader';
-import ServicesPanel from '../../components/ServicesPanel';
+import React, { useEffect } from 'react';
+import SafeAreaScrollView from '~components/SafeAreaScrollView';
+import AppHeader from '~components/AppHeader';
+import ServicesPanel from '~components/ServicesPanel';
+import useInAppUpdate from '../../hooks/useInAppUpdate';
 
 // Guest Home Screen Component
 const GuestHome = () => {
+  // in-app update
+  useInAppUpdate();
+
   return (
     <SafeAreaScrollView>
       <AppHeader

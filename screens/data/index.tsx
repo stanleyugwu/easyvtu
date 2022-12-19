@@ -1,42 +1,44 @@
 //import libraries
 import React, {useRef, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import Text from '../../components/Text';
+import Text from '~components/Text';
 import tw from '../../lib/tailwind';
-import SafeAreaScrollView from '../../components/SafeAreaScrollView';
-import AppHeader from '../../components/AppHeader';
+import SafeAreaScrollView from '~components/SafeAreaScrollView';
+import AppHeader from '~components/AppHeader';
 import {useForm, useWatch} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
-import useAppStore from '../../store';
-import Button from '../../components/Button';
+import Button from '~components/Button';
 import DataSchema from './data.schema';
-import CarrierAndPhoneNumberField from '../../components/CarrierAndPhoneNumberField';
-import SnackBar from '../../components/SnackBar';
+import CarrierAndPhoneNumberField from '~components/CarrierAndPhoneNumberField';
+import SnackBar from '~components/SnackBar';
 import getFirstError from '../../utils/getFirstError';
-import PaymentBottomSheet from '../../components/PaymentBottomSheet';
+import PaymentBottomSheet from '~components/PaymentBottomSheet';
 import FlutterwaveInitError from 'flutterwave-react-native/dist/utils/FlutterwaveInitError';
 import {useQueries} from 'react-query';
 import _axios from '../../api/axios';
 import getServicePlans from '../../api/services/getServicePlans';
-import BottomSheet, {BOTTOMSHEETHEIGHT} from '../../components/BottomSheet';
+import BottomSheet, {BOTTOMSHEETHEIGHT} from '~components/BottomSheet';
 import {Carrier} from '../airtime/airtime.d';
-import FlatViewLoader from '../../components/FlatViewLoader';
-import FlatViewError from '../../components/FlatViewError';
+import FlatViewLoader from '~components/FlatViewLoader';
+import FlatViewError from '~components/FlatViewError';
 import {StackScreen} from '../../navigation/screenParams';
-import Loader from '../../components/Loader';
+import Loader from '~components/Loader';
 import dataTopUp from '../../api/services/dataTopUp';
-import SuccessOverlay from '../../components/SuccessOverlay';
+import SuccessOverlay from '~components/SuccessOverlay';
 import {RedirectParams} from 'flutterwave-react-native/dist/PayWithFlutterwave';
 import {DataTopUpFormValues} from './data';
-import DropMenuFieldButton from '../../components/DropMenuFieldButton';
-import WalletBalance from '../../components/WalletBalance';
+import DropMenuFieldButton from '~components/DropMenuFieldButton';
+import WalletBalance from '~components/WalletBalance';
+import balanceIsSufficient from '../../utils/balanceIsSufficient';
+import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
+import requestInAppReview from '../../utils/requestInAppReview';
+import useInAppUpdate from '../../hooks/useInAppUpdate';
 
 // MobileData Screen Component
 const MobileData = (route: StackScreen<'Data'>) => {
-  const [balance, updateProfile] = useAppStore(state => [
-    state?.profile?.wallet_balance,
-    state.setProfile,
-  ]);
+  // in-app update
+  useInAppUpdate();
+  
   const [requestError, setRequestError] = useState<string | undefined>(
     undefined,
   );
@@ -206,7 +208,7 @@ const MobileData = (route: StackScreen<'Data'>) => {
     /**
      * assert funds sufficiency
      */
-    if (balance && typeof +balance === 'number' && +balance >= values.amount) {
+    if (balanceIsSufficient(values.amount)) {
       // fund is sufficient
       setPaymentSheetVisible(false); // close payment bottom sheet
       setLoaderVisible(true); // show loader overlay
@@ -219,7 +221,7 @@ const MobileData = (route: StackScreen<'Data'>) => {
       )
         .then(res => {
           setSuccessMsg('Data top-up transaction successful'); // show success overlay
-          updateProfile({wallet_balance: `${+balance - values.amount}`}); // update wallet balance
+          reduceWalletBalanceBy(values.amount); // update wallet balance
         })
         .catch(error => {
           setRequestError(error.message);
@@ -361,6 +363,7 @@ const MobileData = (route: StackScreen<'Data'>) => {
         onDismiss={() => {
           setSuccessMsg(undefined);
           reset();
+          requestInAppReview();
         }}
       />
     </>

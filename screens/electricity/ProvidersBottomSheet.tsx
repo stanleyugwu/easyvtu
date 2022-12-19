@@ -3,9 +3,9 @@ import React from 'react';
 import {UseQueryResult} from 'react-query';
 import {SuccessObject} from '../../api/api';
 import {ElectricityProviderName} from './providerImageIds';
-import BottomSheet, {BOTTOMSHEETHEIGHT} from '../../components/BottomSheet';
-import FlatViewLoader from '../../components/FlatViewLoader';
-import FlatViewError from '../../components/FlatViewError';
+import BottomSheet, {BOTTOMSHEETHEIGHT} from '~components/BottomSheet';
+import FlatViewLoader from '~components/FlatViewLoader';
+import FlatViewError from '~components/FlatViewError';
 import ElectricityProvider from './ElectricityProvider';
 import tw from '../../lib/tailwind';
 

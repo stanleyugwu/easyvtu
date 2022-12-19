@@ -1,22 +1,22 @@
 //import libraries
 import React, {useRef, useState} from 'react';
 import {View, ScrollView, RefreshControl} from 'react-native';
-import Text from '../../components/Text';
+import Text from '~components/Text';
 import tw from '../../lib/tailwind';
-import AppHeader from '../../components/AppHeader';
-import WalletCard from '../../components/Wallet';
+import AppHeader from '~components/AppHeader';
+import WalletCard from '~components/Wallet';
 import {TabScreen} from '../../navigation/screenParams';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import TransactionCard from './TransactionCard';
-import FlatViewError from '../../components/FlatViewError';
-import FlatViewLoader from '../../components/FlatViewLoader';
+import FlatViewError from '~components/FlatViewError';
+import FlatViewLoader from '~components/FlatViewLoader';
 import {useQuery} from 'react-query';
 import _axios from '../../api/axios';
 import {ReceiptInfo, WalletTransaction} from './wallet';
-import RefreshErrorSnackBar from '../../components/SnackBar';
+import RefreshErrorSnackBar from '~components/SnackBar';
 import formatAmount from '../../utils/formatAmount';
 import {ServerErrorObject, SuccessObject} from '../../api/api';
-import TxReceiptOverlay from '../../components/TxReceiptOverlay';
+import TxReceiptOverlay from '~components/TxReceiptOverlay';
 import {format} from 'timeago.js';
 
 // renders individual item for receipt info overlay

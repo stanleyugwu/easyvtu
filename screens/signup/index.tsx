@@ -1,25 +1,25 @@
 //import libraries
 import React, {useState} from 'react';
-import Text from '../../components/Text';
+import Text from '~components/Text';
 import tw from '../../lib/tailwind';
-import SafeAreaScrollView from '../../components/SafeAreaScrollView';
-import AppHeader from '../../components/AppHeader';
-import InputField from '../../components/InputField';
+import SafeAreaScrollView from '~components/SafeAreaScrollView';
+import AppHeader from '~components/AppHeader';
+import InputField from '~components/InputField';
 import {View, Keyboard} from 'react-native';
-import Button from '../../components/Button';
+import Button from '~components/Button';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import signupSchema from './signup.schema';
-import SnackBar from '../../components/SnackBar';
+import SnackBar from '~components/SnackBar';
 import getFirstError from '../../utils/getFirstError';
 
 import AppIcon from '../../assets/images/app_icon.svg';
 import NigeriaFlag from '../../assets/images/nigeria_flag.svg';
 import OpenEyeIcon from '../../assets/images/open_eye.svg';
 import ClosedEyeIcon from '../../assets/images/closed_eye.svg';
-import Loader from '../../components/Loader';
+import Loader from '~components/Loader';
 import {signUp} from '../../api/services/auth';
-import SuccessOverlay from '../../components/SuccessOverlay';
+import SuccessOverlay from '~components/SuccessOverlay';
 import {StackScreen} from '../../navigation/screenParams';
 
 export type SignUpInputs = {

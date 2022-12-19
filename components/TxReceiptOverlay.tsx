@@ -4,7 +4,7 @@ import {View, TouchableOpacity} from 'react-native';
 import Text from './Text';
 import tw from '../lib/tailwind';
 import * as Animatable from 'react-native-animatable';
-import CloseIcon from 'assets:images/close.svg';
+import CloseIcon from '~images/close.svg';
 
 interface TxReceiptOverlayProps {
   /**

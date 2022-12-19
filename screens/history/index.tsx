@@ -1,21 +1,21 @@
 //import libraries
 import React from 'react';
-import AppHeader from '../../components/AppHeader';
-import Text from '../../components/Text';
+import AppHeader from '~components/AppHeader';
+import Text from '~components/Text';
 import {FlatList, View, RefreshControl} from 'react-native';
 import tw from '../../lib/tailwind';
 import {useQuery} from 'react-query';
 import _axios from '../../api/axios';
-import FlatViewLoader from '../../components/FlatViewLoader';
-import FlatViewError from '../../components/FlatViewError';
+import FlatViewLoader from '~components/FlatViewLoader';
+import FlatViewError from '~components/FlatViewError';
 import {ServerErrorObject, SuccessObject} from '../../api/api';
 import UserTransaction from './UserTransaction';
 import formatAmount from '../../utils/formatAmount';
 import type {service, UserTxHistory, UserTxReceiptInfo} from './history';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import SnackBar from '../../components/SnackBar';
-import ChartCircle from 'assets:images/chart_circle.svg';
-import TxReceiptOverlay from '../../components/TxReceiptOverlay';
+import SnackBar from '~components/SnackBar';
+import ChartCircle from '~images/chart_circle.svg';
+import TxReceiptOverlay from '~components/TxReceiptOverlay';
 import {format} from 'timeago.js';
 
 /**

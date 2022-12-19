@@ -1,14 +1,14 @@
 //import libraries
 import React, {useRef, useState} from 'react';
 import {View} from 'react-native';
-import Text from '../../components/Text';
+import Text from '~components/Text';
 import tw from '../../lib/tailwind';
-import SafeAreaScrollView from '../../components/SafeAreaScrollView';
-import AppHeader from '../../components/AppHeader';
-import InputField from '../../components/InputField';
-import DropMenuFieldButton from '../../components/DropMenuFieldButton';
-import Button from '../../components/Button';
-import WalletBalance from '../../components/WalletBalance';
+import SafeAreaScrollView from '~components/SafeAreaScrollView';
+import AppHeader from '~components/AppHeader';
+import InputField from '~components/InputField';
+import DropMenuFieldButton from '~components/DropMenuFieldButton';
+import Button from '~components/Button';
+import WalletBalance from '~components/WalletBalance';
 import ElectricitySchema from './electricity.schema';
 import {useForm} from 'react-hook-form';
 import {InferType} from 'yup';
@@ -18,23 +18,23 @@ import {useQuery} from 'react-query';
 import _axios from '../../api/axios';
 import {ElectricityProviderName} from './providerImageIds';
 import ElectricityProvidersBottomSheet from './ProvidersBottomSheet';
-import SnackBar from '../../components/SnackBar';
+import SnackBar from '~components/SnackBar';
 import getFirstError from '../../utils/getFirstError';
-import PaymentBottomSheet from '../../components/PaymentBottomSheet';
+import PaymentBottomSheet from '~components/PaymentBottomSheet';
 import FlutterwaveInitError from 'flutterwave-react-native/dist/utils/FlutterwaveInitError';
-import Loader from '../../components/Loader';
+import Loader from '~components/Loader';
 import _topUpElectricity from '../../api/services/topUpElectricity';
-import SuccessOverlay from '../../components/SuccessOverlay';
+import SuccessOverlay from '~components/SuccessOverlay';
 import {RedirectParams} from 'flutterwave-react-native/dist/PayWithFlutterwave';
+import constants from '../../utils/constants';
+import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
+import requestInAppReview from '../../utils/requestInAppReview';
 
 type ElectricitySchemaFields = InferType<typeof ElectricitySchema>;
 
 // Electricity Screen Component
 const Electricity = () => {
-  const [profile, updateProfile] = useAppStore(state => [
-    state?.profile,
-    state?.setProfile,
-  ]);
+  const profile = useAppStore(state => state?.profile);
   const [providerMenuVisible, setProviderMenuVisible] = useState(false);
   const [requestError, setRequestError] = useState('');
   const [paymentBottomSheetVisible, setPaymentBottomSheetVisible] =
@@ -66,7 +66,9 @@ const Electricity = () => {
   });
 
   /**
-   * Wrapper for electricity top-up API service
+   * Shareable wrapper for electricity top-up API service.
+   * This wrapper contains common side effects for wallet and flutterwave
+   * payment while allowing for extension via promise.
    */
   const topUpElectricity = React.useCallback(
     async (
@@ -118,9 +120,9 @@ const Electricity = () => {
       // fund is sufficient
       setPaymentBottomSheetVisible(false); // close payment bottom sheet
       setLoaderVisible(true); // show loader overlay
-      topUpElectricity(values).then(res => {
-        updateProfile?.({wallet_balance: `${+balance - values.amount}`}); // update wallet balance
-      });
+      topUpElectricity(values).then(res =>
+        reduceWalletBalanceBy(values.amount),
+      );
     } else {
       // fund insufficient
       setRequestError('Insufficient wallet funds');
@@ -132,10 +134,7 @@ const Electricity = () => {
     (data: RedirectParams) => {
       if (data.status === 'successful') {
         const values = cachedFormValues.current!;
-        topUpElectricity(
-          values,
-          `Payment was successful but top-up failed due to weak internet connection. Contact support to resolve the issue`,
-        );
+        topUpElectricity(values, constants.FAULTY_TX_MSG);
       } else {
         // payment failed
         cachedFormValues.current = null;
@@ -234,6 +233,7 @@ const Electricity = () => {
         onDismiss={() => {
           setSuccessMsg(undefined);
           form.reset();
+          requestInAppReview();
         }}
       />
     </>

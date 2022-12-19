@@ -13,10 +13,13 @@ interface AppHeaderProps {
 
 // AppHeader Component
 const AppHeader = ({subTitle, title}: AppHeaderProps) => {
-  const {goBack} = useNavigation();
+  const {goBack, canGoBack, navigate} = useNavigation();
   return (
     <View style={tw`p-1`}>
-      <BackButton onPress={goBack} />
+      <BackButton
+      // @ts-ignore
+        onPress={() => (canGoBack() ? goBack() : navigate('Landing'))}
+      />
       {title ? (
         <Text type="title" color="black" style={tw`mt-4`}>
           {title}

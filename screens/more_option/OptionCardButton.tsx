@@ -1,9 +1,9 @@
 //import libraries
 import React from 'react';
 import {View, TouchableOpacity, TouchableOpacityProps} from 'react-native';
-import Text from '../../components/Text';
+import Text from '~components/Text';
 import tw from '../../lib/tailwind';
-import AngleRightIcon from 'assets:images/angle_right.svg';
+import AngleRightIcon from '~images/angle_right.svg';
 
 interface OptionCardProps extends TouchableOpacityProps {
   /**

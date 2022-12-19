@@ -1,10 +1,10 @@
 //import libraries
 import React from 'react';
 import {View, TouchableOpacity, TouchableOpacityProps} from 'react-native';
-import Text from '../../components/Text';
+import Text from '~components/Text';
 import tw from '../../lib/tailwind';
-import DepositIcon from 'assets:images/deposit.svg';
-import WithdrawIcon from 'assets:images/withdraw.svg';
+import DepositIcon from '~images/deposit.svg';
+import WithdrawIcon from '~images/withdraw.svg';
 import {format} from 'timeago.js';
 import formatAmount from '../../utils/formatAmount';
 

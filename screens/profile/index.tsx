@@ -1,39 +1,44 @@
 //import libraries
 import React, {useState} from 'react';
 import {Image, View} from 'react-native';
-import Text from '../../components/Text';
+import Text from '~components/Text';
 import tw from '../../lib/tailwind';
-import SafeAreaScrollView from '../../components/SafeAreaScrollView';
+import SafeAreaScrollView from '~components/SafeAreaScrollView';
 import {TabScreen} from '../../navigation/screenParams';
 import useAppStore from '../../store';
-import Button from '../../components/Button';
-import InputField from '../../components/InputField';
+import Button from '~components/Button';
+import InputField from '~components/InputField';
 import {format} from 'timeago.js';
-import BackButton from '../../components/BackButton';
+import BackButton from '~components/BackButton';
 import {Asset, launchImageLibrary} from 'react-native-image-picker';
-import SnackBar from '../../components/SnackBar';
+import SnackBar from '~components/SnackBar';
 import getFirstError from '../../utils/getFirstError';
-import Loader from '../../components/Loader';
-import SuccessOverlay from '../../components/SuccessOverlay';
+import Loader from '~components/Loader';
+import SuccessOverlay from '~components/SuccessOverlay';
 import constants from '../../utils/constants';
 
 import {useQuery} from 'react-query';
 import _axios from '../../api/axios';
-import {ServerErrorObject, SuccessRes} from '../../api/api';
+import {ServerErrorObject} from '../../api/api';
 
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import profileSchema from './profile.schema';
 
-import UserIcon from 'assets:images/user.svg';
-import NigeriaFlag from 'assets:images/nigeria_flag.svg';
+import UserIcon from '~images/user.svg';
+import NigeriaFlag from '~images/nigeria_flag.svg';
 
 import type {ProfileUpdateInputs, UpdateProfileDetailsBody} from './profile';
+import requestInAppReview from '../../utils/requestInAppReview';
+import useInAppUpdate from '../../hooks/useInAppUpdate';
 
 // TODO: request to make auth token non-expiring
 
 // Profile Screen Component
 const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
+  // in-app update
+  useInAppUpdate();
+
   const profile = useAppStore(state => state.profile!);
   const [editingProfile, setEditingProfile] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<Asset | undefined>(
@@ -70,8 +75,6 @@ const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
     handleSubmit,
     clearErrors,
     setValue,
-    reset,
-    register,
     control: {_defaultValues: defaultValues},
     getValues,
     formState: {errors},
@@ -109,6 +112,7 @@ const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
       onSuccess(data) {
         setSuccessModalext('Profile updated successfully');
         updateProfile(data.data);
+        requestInAppReview();
       },
       enabled: false,
     },
@@ -148,6 +152,7 @@ const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
       onSuccess(data) {
         setSuccessModalext('Profile updated successfully');
         updateProfile(data.data);
+        requestInAppReview();
       },
       enabled: false,
     },
