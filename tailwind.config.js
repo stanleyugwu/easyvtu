@@ -10,11 +10,6 @@ const TwColors = {
   gray4: '#dfdfdf',
 };
 
-// TODO: reduce and unify font sizes. Also reduce font line-heights
-/**
- * We separate font sizes for different screen resoutions
- * sizes prefixed with `b` will be used for larger screen
- */
 const TwFontSize = {
   title: '24',
   subTitle: '20',

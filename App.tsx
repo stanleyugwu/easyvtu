@@ -35,7 +35,6 @@ import requestInAppReview from './utils/requestInAppReview';
 // TODO: add autocomplete prop to all text inputs
 // TODO: add autofocus, keyboardAvoidingView and onSubmitediting prop to all forms
 // TODO: install why did you render to monitor avoidable re-renders
-// TODO: remove orange cellular icon from splashscreen or redesign it
 
 /**
  * Create Stack navigator
