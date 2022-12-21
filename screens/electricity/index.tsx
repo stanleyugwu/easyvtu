@@ -1,6 +1,6 @@
 //import libraries
 import React, {useRef, useState} from 'react';
-import {View} from 'react-native';
+import {Keyboard, View} from 'react-native';
 import Text from '~components/Text';
 import tw from '../../lib/tailwind';
 import SafeAreaScrollView from '~components/SafeAreaScrollView';
@@ -98,6 +98,7 @@ const Electricity = () => {
    * Handles form submission
    */
   const handleBuyElectricity = form.handleSubmit(values => {
+    Keyboard.dismiss();
     setPaymentBottomSheetVisible(true);
   });
 
@@ -170,6 +171,7 @@ const Electricity = () => {
             placeholder="Enter your meter number"
             keyboardType="number-pad"
             onChangeText={text => form.setValue('meterNumber', text)}
+            autoFocus
           />
           <InputField
             label="Amount"
@@ -185,12 +187,15 @@ const Electricity = () => {
             placeholder={'Enter phone number'}
             onChangeText={text => form.setValue('phoneNumber', text)}
             defaultValue={profile?.phone}
+            autoComplete="tel"
           />
           <InputField
             label="Email Address"
             placeholder={'Enter email address'}
             onChangeText={text => form.setValue('emailAddress', text)}
             defaultValue={profile?.email}
+            autoComplete="email"
+            onSubmitEditing={handleBuyElectricity}
           />
 
           <Button

@@ -232,6 +232,7 @@ const Airtime = () => {
             value={formValues[0] ? `${formValues[0]}` : undefined}
             keyboardType="number-pad"
             onChangeText={value => setValue('amount', +value)}
+            autoFocus
           />
           <WalletBalance />
           <Button

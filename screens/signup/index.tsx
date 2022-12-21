@@ -106,6 +106,7 @@ const SignUp = ({navigation: {navigate}}: StackScreen<'SignUp'>) => {
             textContentType="telephoneNumber"
             keyboardType="number-pad"
             onChangeText={text => setValue('phoneNumber', text)}
+            autoComplete="tel"
             {...register('phoneNumber')}
           />
           <InputField
@@ -114,6 +115,7 @@ const SignUp = ({navigation: {navigate}}: StackScreen<'SignUp'>) => {
             keyboardType="email-address"
             textContentType="emailAddress"
             onChangeText={text => setValue('email', text)}
+            autoComplete="email"
             {...register('email')}
           />
           <InputField
@@ -143,6 +145,7 @@ const SignUp = ({navigation: {navigate}}: StackScreen<'SignUp'>) => {
             placeholder="Re-enter password"
             onChangeText={text => setValue('confirmPassword', text)}
             secureTextEntry={passwordMasked}
+            onSubmitEditing={handleSignup}
             {...register('confirmPassword')}
           />
           <Button

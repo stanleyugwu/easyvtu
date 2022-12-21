@@ -116,6 +116,7 @@ const SignIn = ({navigation: {navigate}}: StackScreen<'SignIn'>) => {
             textContentType='emailAddress'
             labelColor="gray5"
             onChangeText={text => setValue('email', text)}
+            autoComplete="email"
             {...register('email')}
           />
           <InputField
@@ -140,6 +141,7 @@ const SignIn = ({navigation: {navigate}}: StackScreen<'SignIn'>) => {
             textContentType="password"
             secureTextEntry={passwordMasked}
             onChangeText={text => setValue('password', text)}
+            onSubmitEditing={handleLogin}
             {...register('email')}
           />
 

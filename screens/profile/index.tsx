@@ -244,6 +244,7 @@ const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
           editable={editingProfile}
           onChangeText={v => setValue('phoneNumber', v)}
           defaultValue={defaultValues.phoneNumber}
+          autoComplete="tel"
         />
         <InputField
           label="Email address"
@@ -255,6 +256,7 @@ const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
           editable={editingProfile}
           onChangeText={v => setValue('email', v)}
           defaultValue={defaultValues.email}
+          autoComplete="email"
         />
         {!editingProfile ? (
           <InputField
@@ -263,6 +265,7 @@ const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
             focusable={false}
             editable={false}
             value={format(new Date(profile.created_at))}
+            autoComplete="off"
           />
         ) : (
           <InputField

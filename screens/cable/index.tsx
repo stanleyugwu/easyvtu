@@ -231,6 +231,7 @@ const Cable = ({}: StackScreen<'Cable'>) => {
             placeholder="Enter cable smart card / IUC number"
             keyboardType="number-pad"
             onChangeText={text => form.setValue('iucNumber', text)}
+            autoFocus
           />
           <WalletBalance />
         </View>
@@ -240,7 +241,6 @@ const Cable = ({}: StackScreen<'Cable'>) => {
           keyboardType="phone-pad"
           textContentType="telephoneNumber"
           autoComplete="tel"
-          autoCorrect
           onEndEditing={handleSubscribe}
           onChangeText={text => form.setValue('phoneNumber', text)}
           defaultValue={profile?.phone || ''}

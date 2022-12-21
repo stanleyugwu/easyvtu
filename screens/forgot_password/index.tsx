@@ -1,7 +1,6 @@
 //import libraries
 import React, {useState} from 'react';
-import {View} from 'react-native';
-import Text from '~components/Text';
+import {Keyboard, View} from 'react-native';
 import tw from '../../lib/tailwind';
 import SafeAreaScrollView from '~components/SafeAreaScrollView';
 import {StackScreen} from '../../navigation/screenParams';
@@ -11,7 +10,6 @@ import Button from '~components/Button';
 import _axios from '../../api/axios';
 import SnackBar from '~components/SnackBar';
 import SuccessOverlay from '~components/SuccessOverlay';
-import useAppStore from '../../store';
 import Loader from '~components/Loader';
 
 // ForgotPassword Screen Component
@@ -24,6 +22,7 @@ const ForgotPassword = ({
   const [loading, setLoading] = useState(false);
 
   const handleRecoverPassword = () => {
+    Keyboard.dismiss()
     setLoading(true);
     if (
       !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
@@ -68,6 +67,9 @@ const ForgotPassword = ({
           placeholder="Enter your e-mail address"
           value={email}
           onChangeText={text => setEmail(text)}
+          autoComplete="email"
+          autoFocus
+          onSubmitEditing={handleRecoverPassword}
         />
         <Button
           disabled={!email}
