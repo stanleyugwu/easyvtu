@@ -77,6 +77,7 @@ const ChangePassword = () => {
             onChangeText={text => form.setValue('password', text)}
             secureTextEntry={passwordMasked}
             rightElement={GetEyeIcon(passwordMasked, setPasswordMasked)}
+            autoFocus
           />
           <InputField
             label="Confirm new password"

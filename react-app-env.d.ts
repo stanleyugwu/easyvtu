@@ -55,4 +55,5 @@ declare module '@env' {
   // CHORE: When new env var are added in .env file,
   // export the key as const like below
   export const FLUTTERWAVE_MERCHANT_API_KEY: S;
+  export const ENCRYPTION_KEY: S;
 }
