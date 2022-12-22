@@ -32,10 +32,10 @@ import WalletBalance from '~components/WalletBalance';
 import balanceIsSufficient from '../../utils/balanceIsSufficient';
 import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
 import requestInAppReview from '../../utils/requestInAppReview';
+import FaultyTxModal from '~components/FaultyTxModal';
 
 // MobileData Screen Component
 const MobileData = (route: StackScreen<'Data'>) => {
-  
   const [requestError, setRequestError] = useState<string | undefined>(
     undefined,
   );
@@ -43,6 +43,7 @@ const MobileData = (route: StackScreen<'Data'>) => {
   const [plansSheetVisible, setPlansSheetVisible] = useState(false);
   const [loaderVisible, setLoaderVisible] = useState(false);
   const [successMsg, setSuccessMsg] = useState<string | undefined>();
+  const [faultyTxRef, setFaultyTxRef] = useState<string>();
   /**
    * We implement a security measure for top-up whereby we cache form values
    * before initialising payment with external payment gateway so when payment is
@@ -115,6 +116,13 @@ const MobileData = (route: StackScreen<'Data'>) => {
    */
   const formValues = useWatch({control, defaultValue: {carrier: Carrier.Mtn}});
 
+  // TX REF
+  const TX_REF = `service=data;amt=${formValues.amount};planId=${
+    formValues.planId
+  };phone=${formValues.phoneNumber};carrier=${
+    formValues.carrier
+  };dt=${Date.now()}`;
+
   const handleSelectDataPlan = () => {
     setPlansSheetVisible(true);
     const currentQuery = getCurrentCarrierQuery();
@@ -122,35 +130,7 @@ const MobileData = (route: StackScreen<'Data'>) => {
   };
 
   const handleBuyData = handleSubmit(d => {
-    // here we check if there's an incomplete top-up so that we
-    // complete it before initialising new transaction
-    if (incompleteTopUpCache.current) {
-      const values = incompleteTopUpCache.current;
-      setLoaderVisible(true);
-      return dataTopUp(
-        values.carrier as Carrier,
-        values.planId,
-        values.amount,
-        values.phoneNumber,
-      )
-        .then(res => {
-          // top-up completed. let's clear incomplete top up cache.
-          // DON'T REMOVE BELOW LINE
-          incompleteTopUpCache.current = undefined;
-          setSuccessMsg(
-            `Previous incomplete top-up of #${
-              values.amount + ' ' + values.carrier + ' data'
-            } to ${values.phoneNumber} completed successfully`,
-          );
-        })
-        .catch(error => {
-          // we'll show error but won't clear incomplete top-up cache
-          setRequestError(
-            'Error completing previous top-up transaction. Check your internet connection and try again',
-          );
-        })
-        .finally(() => setLoaderVisible(false));
-    } else setPaymentSheetVisible(true);
+    setPaymentSheetVisible(true);
   });
 
   // Handles redirection after flutterwave payment
@@ -172,13 +152,8 @@ const MobileData = (route: StackScreen<'Data'>) => {
             setSuccessMsg('Data top-up transaction successful'); // show success overlay
           })
           .catch(error => {
-            // Edge case. Error when hitting server. we need make sure top-up is
-            // completed cus user has completed payment. lets cache the top-up details
-            // for later and show error.
-            setRequestError(
-              `Payment was successful but top-up failed. Connect to internet now and press 'Buy Airtime' button to complete your transaction. Don't close the app, and stay on this screen until top-up completes`,
-            );
-            incompleteTopUpCache.current = {...values};
+            // handle faulty tx
+            setFaultyTxRef(data.tx_ref);
           })
           .finally(() => {
             setPaymentSheetVisible(false);
@@ -270,10 +245,10 @@ const MobileData = (route: StackScreen<'Data'>) => {
               setValue('phoneNumber', numberAndCarrier[0]);
               if (numberAndCarrier[1]) {
                 setValue('carrier', numberAndCarrier[1]);
-                if(formValues.carrier !== numberAndCarrier[1]){
+                if (formValues.carrier !== numberAndCarrier[1]) {
                   setSelectedPlanName('Select a data plan');
                   // @ts-ignore
-                  setValue("planId", undefined);
+                  setValue('planId', undefined);
                 }
               }
             }}
@@ -300,7 +275,8 @@ const MobileData = (route: StackScreen<'Data'>) => {
         visible={paymentSheetVisible}
         onDismiss={() => setPaymentSheetVisible(false)}
         handleFlutterwaveRedirect={handleFlutterwaveRedirect}
-        amount={formValues.amount || NaN}
+        amount={formValues.amount || 1000}
+        flutterwaveTxRef={TX_REF}
         service="data"
         handleFlutterwaveInitError={handleFlutterwaveInitError}
         handleWalletPayment={handleWalletPayment}
@@ -362,6 +338,10 @@ const MobileData = (route: StackScreen<'Data'>) => {
           reset();
           requestInAppReview();
         }}
+      />
+      <FaultyTxModal
+        txRef={faultyTxRef}
+        onDismiss={() => setFaultyTxRef(undefined)}
       />
     </>
   );

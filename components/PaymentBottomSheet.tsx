@@ -9,6 +9,7 @@ import PaymentMethodButton, {PAYMENT_METHODS} from './PaymentMethodButton';
 import {FlutterwaveInitOptions} from 'flutterwave-react-native/dist/FlutterwaveInit';
 import constants from '../utils/constants';
 import {AppServices} from '../global';
+import {decrypt, encrypt} from '../utils/crypto';
 
 interface PaymentBottomSheetProps {
   /**
@@ -25,6 +26,14 @@ interface PaymentBottomSheetProps {
    * The amount to charge
    */
   amount: number;
+
+  /**
+   * The unencrypted transaction ref to use for flutterwave.
+   * We delegate tx ref generation to housing component because
+   * we want tx ref to house all top-up details to aid in faulty tx handling.
+   * This component will handle encryption of tx_ref
+   */
+  flutterwaveTxRef: string;
 
   /**
    * Indicates the service being paid for
@@ -62,9 +71,13 @@ const PaymentBottomSheet = ({
   onFlutterwaveInit,
   service = 'airtime',
   visible = false,
+  flutterwaveTxRef,
 }: PaymentBottomSheetProps) => {
   const balance = useAppStore(state => state.profile?.wallet_balance);
   const profile = useAppStore(state => state.profile);
+  const txRef = useMemo(() => encrypt(
+    flutterwaveTxRef || `service=${service};amt=${amount};dt=${Date.now()}`,
+  ),[flutterwaveTxRef, amount]);
 
   // flutterwave options
   const flutterwaveOptions = useMemo<
@@ -73,9 +86,7 @@ const PaymentBottomSheet = ({
     () => ({
       ...constants.INCOMPLETE_STATIC_FLUTTERWAVE_PAYMENT_OPTIONS,
       amount: amount,
-      tx_ref: `${amount}-${service}-top-up-${
-        Date.now() + Math.floor(Math.random() * 100_000).toString(16)
-      }`,
+      tx_ref: txRef || `service=${service};amt=${amount};dt=${Date.now()}`,
       customer:
         profile?.email && profile?.username
           ? {
@@ -93,7 +104,7 @@ const PaymentBottomSheet = ({
         } Payment`,
       },
     }),
-    [amount, profile?.email, profile?.username],
+    [amount, profile?.email, profile?.username, txRef],
   );
 
   return (

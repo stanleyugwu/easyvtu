@@ -20,7 +20,6 @@ import PaymentBottomSheet from '~components/PaymentBottomSheet';
 import CableSelector, {CableNetwork} from './CableSelector';
 import CableNetworksBottomSheet from './CableNetworksBottomSheet';
 
-import constants from '../../utils/constants';
 import getFirstError from '../../utils/getFirstError';
 import balanceIsSufficient from '../../utils/balanceIsSufficient';
 import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
@@ -35,6 +34,7 @@ import useAppStore from '../../store';
 import CableSchema from './cable.schema';
 import type {CableFormFields} from './cable.d';
 import requestInAppReview from '../../utils/requestInAppReview';
+import FaultyTxModal from '~components/FaultyTxModal';
 
 // FIXME: resolve variation code amount error
 
@@ -47,6 +47,8 @@ const Cable = ({}: StackScreen<'Cable'>) => {
   const [loaderVisible, setLoaderVisible] = useState(false);
   const [paymentSheetVisible, setPaymentSheetVisible] = useState(false);
   const [successMsg, setSuccessMsg] = useState<string>();
+  const [faultyTxRef, setFaultyTxRef] = useState<string>();
+
   const profile = useAppStore(state => state?.profile);
 
   const cachedFormValues = useRef<CableFormFields>();
@@ -85,6 +87,14 @@ const Cable = ({}: StackScreen<'Cable'>) => {
     `Choose ${form.getValues('serviceID') || CableNetwork.Dstv} plan`,
   );
 
+  // TX REF
+  const formValues = form.getValues();
+  const TX_REF = `service=cable tv;amt=${formValues.amount};serviceId=${
+    formValues.serviceID
+  };iuc=${formValues.iucNumber};planId=${formValues.planId};phone=${
+    formValues.phoneNumber
+  };dt=${Date.now()}`;
+
   /**
    * Similar to the function with same name in data screen
    */
@@ -103,7 +113,7 @@ const Cable = ({}: StackScreen<'Cable'>) => {
    * payment while allowing for extension via promise.
    */
   const topUpCable = React.useCallback(
-    async (values: Parameters<typeof _topUpCable>['0'], errorMsg?: string) => {
+    async (values: Parameters<typeof _topUpCable>['0'], txRef?: string) => {
       // payment successful, let's hit server
       setLoaderVisible(true);
       try {
@@ -112,8 +122,14 @@ const Cable = ({}: StackScreen<'Cable'>) => {
         setSuccessMsg('Cable subscription successful'); // show success overlay
         return res;
       } catch (error: any) {
-        // Edge case. Error when hitting server to release service paid for.
-        setRequestError(errorMsg || error.message);
+        // if txRef was passed, then it's flutterwave payment
+        // else it's wallet, and we handle errors from both methods differently
+        if (txRef) {
+          // handle faulty tx
+          setFaultyTxRef(txRef);
+        } else {
+          setRequestError(error.message);
+        }
       } finally {
         setPaymentSheetVisible(false);
         cachedFormValues.current = undefined;
@@ -172,7 +188,7 @@ const Cable = ({}: StackScreen<'Cable'>) => {
     (data: RedirectParams) => {
       if (data.status === 'successful') {
         const values = cachedFormValues.current!;
-        topUpCable(values, constants.FAULTY_TX_MSG);
+        topUpCable(values, data.tx_ref);
       } else {
         // payment failed
         cachedFormValues.current = undefined;
@@ -287,9 +303,14 @@ const Cable = ({}: StackScreen<'Cable'>) => {
         handleFlutterwaveRedirect={handleFlutterwaveRedirect}
         amount={form.getValues('amount') || NaN}
         service="cable tv"
+        flutterwaveTxRef={TX_REF}
         handleFlutterwaveInitError={handleFlutterwaveInitError}
         handleWalletPayment={handleWalletPayment}
         onFlutterwaveInit={() => (cachedFormValues.current = form.getValues())}
+      />
+      <FaultyTxModal
+        txRef={faultyTxRef}
+        onDismiss={() => setFaultyTxRef(undefined)}
       />
     </>
   );

@@ -26,9 +26,9 @@ import Loader from '~components/Loader';
 import _topUpElectricity from '../../api/services/topUpElectricity';
 import SuccessOverlay from '~components/SuccessOverlay';
 import {RedirectParams} from 'flutterwave-react-native/dist/PayWithFlutterwave';
-import constants from '../../utils/constants';
 import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
 import requestInAppReview from '../../utils/requestInAppReview';
+import FaultyTxModal from '~components/FaultyTxModal';
 
 type ElectricitySchemaFields = InferType<typeof ElectricitySchema>;
 
@@ -41,6 +41,7 @@ const Electricity = () => {
     useState(false);
   const [loaderVisible, setLoaderVisible] = useState(false);
   const [successMsg, setSuccessMsg] = useState<string | undefined>(undefined);
+  const [faultyTxRef, setFaultyTxRef] = useState<string>();
 
   /**
    * Caches form values before flutterwave initialisation
@@ -65,6 +66,14 @@ const Electricity = () => {
     },
   });
 
+  // TX REF
+  const formValues = form.getValues();
+  const TX_REF = `service=electricity;provider=${formValues.provider};amt=${
+    formValues.amount
+  };phone=${formValues.phoneNumber};email=${formValues.emailAddress};meterNo=${
+    formValues.meterNumber
+  };dt=${Date.now()}`;
+
   /**
    * Shareable wrapper for electricity top-up API service.
    * This wrapper contains common side effects for wallet and flutterwave
@@ -73,7 +82,7 @@ const Electricity = () => {
   const topUpElectricity = React.useCallback(
     async (
       values: Parameters<typeof _topUpElectricity>['0'],
-      errorMsg?: string,
+      txRef?: string,
     ) => {
       // payment successful, let's hit server
       setLoaderVisible(true);
@@ -83,8 +92,14 @@ const Electricity = () => {
         setSuccessMsg('Electricity top-up transaction successful'); // show success overlay
         return res;
       } catch (error: any) {
-        // Edge case. Error when hitting server to release service paid for.
-        setRequestError(errorMsg || error.message);
+        // if txRef was passed, then it's flutterwave payment
+        // else it's wallet, and we handle errors from both methods differently
+        if (txRef) {
+          // handle faulty tx
+          setFaultyTxRef(txRef);
+        } else {
+          setRequestError(error.message);
+        }
       } finally {
         setPaymentBottomSheetVisible(false);
         cachedFormValues.current = null;
@@ -135,7 +150,7 @@ const Electricity = () => {
     (data: RedirectParams) => {
       if (data.status === 'successful') {
         const values = cachedFormValues.current!;
-        topUpElectricity(values, constants.FAULTY_TX_MSG);
+        topUpElectricity(values, data.tx_ref);
       } else {
         // payment failed
         cachedFormValues.current = null;
@@ -218,6 +233,7 @@ const Electricity = () => {
         visible={paymentBottomSheetVisible}
         amount={form.getValues('amount') || 0}
         handleFlutterwaveRedirect={handleFlutterwaveRedirect}
+        flutterwaveTxRef={TX_REF}
         handleWalletPayment={handleWalletPayment}
         handleFlutterwaveInitError={handleFlutterwaveInitError}
         onFlutterwaveInit={() => (cachedFormValues.current = form.getValues())}
@@ -240,6 +256,10 @@ const Electricity = () => {
           form.reset();
           requestInAppReview();
         }}
+      />
+      <FaultyTxModal
+        txRef={faultyTxRef}
+        onDismiss={() => setFaultyTxRef(undefined)}
       />
     </>
   );

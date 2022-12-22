@@ -7,7 +7,7 @@ const constants = Object.freeze({
   
   MINIMUM_AIRTIME_TOPUP_AMOUNT: 100,
   
-  FAULTY_TX_MSG: `Payment was successful but top-up failed due to weak internet connection. Contact support to resolve the issue`,
+  FAULTY_TX_MSG: '',
   
   INCOMPLETE_STATIC_FLUTTERWAVE_PAYMENT_OPTIONS: {
     authorization: FLUTTERWAVE_MERCHANT_API_KEY,

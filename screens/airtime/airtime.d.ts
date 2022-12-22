@@ -4,9 +4,3 @@ export enum Carrier {
   Glo = 'glo',
   Etisalat = 'etisalat',
 }
-
-export type IncompleteTopUp = {
-  phone: string;
-  amount: number;
-  carrier: Carrier;
-};
