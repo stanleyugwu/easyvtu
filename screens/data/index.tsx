@@ -32,12 +32,9 @@ import WalletBalance from '~components/WalletBalance';
 import balanceIsSufficient from '../../utils/balanceIsSufficient';
 import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
 import requestInAppReview from '../../utils/requestInAppReview';
-import useInAppUpdate from '../../hooks/useInAppUpdate';
 
 // MobileData Screen Component
 const MobileData = (route: StackScreen<'Data'>) => {
-  // in-app update
-  useInAppUpdate();
   
   const [requestError, setRequestError] = useState<string | undefined>(
     undefined,

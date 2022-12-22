@@ -10,7 +10,6 @@ import normalisePhoneNumber from './normalisePhoneNumber';
  * @return {Promise<string>} User selected phone number
  */
 const detectUserPhoneNumbers = async (): Promise<string | void> => {
-  // TODO: optimise function
   try {
     const {mobileNumber}: {mobileNumber: string} = await DeviceNumber.get();
     return normalisePhoneNumber(mobileNumber);

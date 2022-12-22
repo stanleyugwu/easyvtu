@@ -28,17 +28,17 @@ import profileSchema from './profile.schema';
 import UserIcon from '~images/user.svg';
 import NigeriaFlag from '~images/nigeria_flag.svg';
 
-import type {ProfileUpdateInputs, UpdateProfileDetailsBody} from './profile';
+import type {
+  ProfileUpdateInputs,
+  ProfileUpdateRes,
+  UpdateProfileDetailsBody,
+} from './profile';
 import requestInAppReview from '../../utils/requestInAppReview';
-import useInAppUpdate from '../../hooks/useInAppUpdate';
 
 // TODO: request to make auth token non-expiring
 
 // Profile Screen Component
 const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
-  // in-app update
-  useInAppUpdate();
-
   const profile = useAppStore(state => state.profile!);
   const [editingProfile, setEditingProfile] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<Asset | undefined>(
@@ -92,15 +92,14 @@ const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
   const profileUpdateQuery = useQuery(
     'update_profile',
     () =>
-      _axios.post<
-        UpdateProfileDetailsBody,
-        // TODO: move request return type to type variable
-        Parameters<typeof updateProfile>[0]
-      >('/update_profile', {
-        email: getValues('email'),
-        phone: getValues('phoneNumber'),
-        username: getValues('username'),
-      }),
+      _axios.post<UpdateProfileDetailsBody, ProfileUpdateRes>(
+        '/update_profile',
+        {
+          email: getValues('email'),
+          phone: getValues('phoneNumber'),
+          username: getValues('username'),
+        },
+      ),
     {
       onError(err: ServerErrorObject) {
         // we're adding this listener to be able to extract the error
@@ -133,7 +132,7 @@ const Profile = ({navigation: {navigate, goBack}}: TabScreen<'Profile'>) => {
         uri: uploadedImage?.uri,
       });
 
-      return _axios.post<FormData, Parameters<typeof updateProfile>[0]>(
+      return _axios.post<FormData, ProfileUpdateRes>(
         '/change_picture',
         formData,
         {

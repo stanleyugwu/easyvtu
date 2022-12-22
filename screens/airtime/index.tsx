@@ -1,6 +1,6 @@
 //import libraries
 import React, {useRef, useState} from 'react';
-import {View} from 'react-native';
+import {Keyboard, View} from 'react-native';
 import tw from '../../lib/tailwind';
 import SafeAreaScrollView from '~components/SafeAreaScrollView';
 import AppHeader from '~components/AppHeader';
@@ -24,13 +24,9 @@ import WalletBalance from '~components/WalletBalance';
 import reduceWalletBalanceBy from '../../utils/reduceWalletBalance';
 import balanceIsSufficient from '../../utils/balanceIsSufficient';
 import requestInAppReview from '../../utils/requestInAppReview';
-import useInAppUpdate from '../../hooks/useInAppUpdate';
 
 // Airtime Screen Component
 const Airtime = () => {
-   // in-app update
-   useInAppUpdate();
-
   /**
    * Form and validation logics and handles
    */
@@ -59,6 +55,7 @@ const Airtime = () => {
 
   // handles submission after form-level validation
   const handleBuyAirtime = handleSubmit(data => {
+    Keyboard.dismiss();
     // TODO: create a proper method of checking user login state instead of
     // by checking the value of profile balance
 
@@ -166,7 +163,8 @@ const Airtime = () => {
     async (data: RedirectParams) => {
       if (data.status === 'successful') {
         const values = cachedFormValues.current!;
-
+        console.log(data);
+        
         // payment successful, let's hit server
         setLoaderVisible(true);
         airtimeTopUp(
@@ -179,7 +177,25 @@ const Airtime = () => {
             setSuccessMsg(res.message); // show success overlay
           })
           .catch(error => {
-            // TODO: find a better way to prevent faulty transaction or incomplete top-up
+            // TODO: Implement first approach to handling faulty tx
+            /**
+             * The most secured approach to faulty tx:
+             * when tx is faulty, try and encrypt and store tx_ref & top-up details in storage.
+             * if storage failed, show the user the tx_ref so to resolve the issue with customer care.
+             * customer care would verify tx_ref, release top-up to user, then store tx_ref in resolved tx db
+             * if storage succeeds, an error is shown to user and a 'retry-previous-tx' button appears on the 
+             * service screen e.g airtime screen. The visibilty of the btn depends on the existence of the faulty tx
+             * storage in device. When btn is pressed, app retrieves and decrypts stored faulty tx details, verifies tx_ref,
+             * retrieves top-up amount from verified tx, releases top-up value, stores the tx_ref in resolved tx db, and 
+             * deletes the faulty tx from storage.
+             * 
+             * Another approach would be to embed every top-up detail e.g amount, service, even tx_id into the tx_ref and encode/encrypt it.
+             * The user can present the encrypted/encoded text to customer care and customer care will know the details of the
+             * tx and be able to confirm it. Or the app can take the encrypted/emcoded tx_ref, decode it and know what value to release
+             * to user 
+             * 
+             * However, the feasible approach now is to resolve issue using tx_ref through customer care
+            */
 
             // Edge case. Error when hitting server. we need make sure top-up is
             // completed cus user has completed payment. lets cache the top-up details
@@ -232,7 +248,7 @@ const Airtime = () => {
             value={formValues[0] ? `${formValues[0]}` : undefined}
             keyboardType="number-pad"
             onChangeText={value => setValue('amount', +value)}
-            autoFocus
+            onSubmitEditing={handleBuyAirtime}
           />
           <WalletBalance />
           <Button

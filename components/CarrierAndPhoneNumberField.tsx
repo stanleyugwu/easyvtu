@@ -70,6 +70,7 @@ const CarrierAndPhoneNumberField = ({
         value={phoneNumber}
         onChangeText={value => setPhoneNumber(value)}
         autoComplete={"tel"}
+        autoFocus
       />
       <View style={tw`mt-6 mb-4`}>
         <CarrierSelector selected={carrier} />

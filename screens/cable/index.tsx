@@ -241,7 +241,7 @@ const Cable = ({}: StackScreen<'Cable'>) => {
           keyboardType="phone-pad"
           textContentType="telephoneNumber"
           autoComplete="tel"
-          onEndEditing={handleSubscribe}
+          onSubmitEditing={handleSubscribe}
           onChangeText={text => form.setValue('phoneNumber', text)}
           defaultValue={profile?.phone || ''}
         />
